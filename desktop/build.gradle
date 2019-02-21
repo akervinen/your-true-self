@@ -1,0 +1,45 @@
+apply plugin: 'application'
+
+sourceSets.main.resources.srcDirs += [rootProject.file('assets').absolutePath]
+mainClassName = 'fi.tamk.yourtrueself.desktop.DesktopLauncher'
+eclipse.project.name = appName + '-desktop'
+sourceCompatibility = 1.7
+
+dependencies {
+    implementation project(':core')
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+}
+
+jar {
+    archiveName "${appName}-${version}.jar"
+
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+}
+
+task fatJar(type: Jar) {
+    group = "build"
+    description = "Create a standalone .jar"
+
+    archiveName "${appName}-fat-${version}.jar"
+
+    from sourceSets.main.output
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+}
+
+run {
+    ignoreExitValue = true
+}
