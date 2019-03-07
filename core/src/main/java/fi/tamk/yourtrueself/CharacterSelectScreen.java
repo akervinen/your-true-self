@@ -6,24 +6,27 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
-/**
- * First screen of the application. Displayed after the application is created.
- */
-public class MainScreen implements Screen {
+final class CharacterSelectScreen implements Screen {
+    private static final String[] CHARACTERS = {
+            "couchpotato",
+            "couchpotato",
+            "couchpotato"
+    };
+
     private YTSGame game;
     private AssetManager assetManager;
 
     private Skin uiSkin;
-
     private Stage stage;
 
-    public MainScreen(YTSGame game) {
+    CharacterSelectScreen(YTSGame game) {
         this.game = game;
         this.assetManager = game.getAssetManager();
 
@@ -33,16 +36,18 @@ public class MainScreen implements Screen {
         stage = new Stage(new ScreenViewport());
 
         Table table = new Table();
-        table.add(new CharacterDetails("couchpotato", uiSkin));
-        table.left();
+        for (String chr : CHARACTERS) {
+            table.add(new CharacterDetails(chr, uiSkin));
+        }
 
         table.setDebug(true);
 
         table.setFillParent(true);
-        stage.addActor(table);
-    }
 
-    static void loadAssets(AssetManager assets) {
+        ScrollPane scroller = new ScrollPane(table);
+        scroller.setFillParent(true);
+        scroller.setOverscroll(false, false);
+        stage.addActor(scroller);
     }
 
     @Override
@@ -67,12 +72,12 @@ public class MainScreen implements Screen {
 
     @Override
     public void pause() {
-        // Invoked when your application is paused.
+
     }
 
     @Override
     public void resume() {
-        // Invoked when your application is resumed after pause.
+
     }
 
     @Override

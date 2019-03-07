@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class YTSGame extends Game {
     private AssetManager assetManager = new AssetManager();
 
+    private MainScreen mainScreen;
+    private CharacterSelectScreen selectScreen;
+
     private void loadAssets() {
         assetManager.load("ui/skin.json", Skin.class);
         assetManager.load("characters/couchpotato.png", Texture.class);
@@ -28,7 +31,10 @@ public class YTSGame extends Game {
     public void create() {
         loadAssets();
 
-        setScreen(new MainScreen(this));
+        mainScreen = new MainScreen(this);
+        selectScreen = new CharacterSelectScreen(this);
+
+        setScreen(selectScreen);
     }
 
     @Override

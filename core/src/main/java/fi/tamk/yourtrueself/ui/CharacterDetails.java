@@ -8,6 +8,6 @@ public final class CharacterDetails extends VerticalGroup {
         super();
 
         this.addActor(new CharacterDisplay(character, skin));
-        this.addActor(new Stats(skin));
+        this.addActor(new StatsDisplay(skin));
     }
 }
