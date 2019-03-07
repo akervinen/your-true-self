@@ -26,7 +26,7 @@ public class MainScreen implements Screen {
         this.game = game;
         this.assetManager = game.getAssetManager();
 
-        uiSkin = assetManager.get("ui/skin.json", Skin.class);
+        uiSkin = assetManager.get(YTSGame.SKIN_PATH, Skin.class);
         uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
 
         stage = new Stage(game.getUiViewport());
@@ -35,7 +35,7 @@ public class MainScreen implements Screen {
         table.add(new CharacterDetails("couchpotato", uiSkin));
         table.left();
 
-        table.setDebug(true);
+        //table.setDebug(true);
 
         table.setFillParent(true);
         stage.addActor(table);

@@ -17,7 +17,7 @@ public final class StatsDisplay extends Table {
     public StatsDisplay(Skin skin) {
         super(skin);
 
-        this.defaults().grow();
+        this.defaults().fill();
 
         for (int i = 0; i < 5; i++) {
             this.add(new Label(STAT_NAMES[i] + ": ", skin)).right();
@@ -26,6 +26,6 @@ public final class StatsDisplay extends Table {
             this.add(bar);
             this.row();
         }
-        this.setDebug(true);
+        //this.setDebug(true);
     }
 }

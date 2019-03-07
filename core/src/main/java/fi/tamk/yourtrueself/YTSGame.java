@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class YTSGame extends Game {
+    public static final String SKIN_PATH = "ui/orange/skin.json";
     private AssetManager assetManager = new AssetManager();
 
     private Viewport uiViewport;
@@ -20,7 +21,7 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
 
     private void loadAssets() {
-        assetManager.load("ui/skin.json", Skin.class);
+        assetManager.load(SKIN_PATH, Skin.class);
         assetManager.load("characters/couchpotato.png", Texture.class);
 
         MainScreen.loadAssets(assetManager);

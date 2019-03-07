@@ -31,32 +31,35 @@ final class CharacterSelectScreen implements Screen {
         this.game = game;
         this.assetManager = game.getAssetManager();
 
-        uiSkin = assetManager.get("ui/skin.json", Skin.class);
+        uiSkin = assetManager.get(YTSGame.SKIN_PATH, Skin.class);
         uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
 
         stage = new Stage(game.getUiViewport());
 
         Table main = new Table();
-        main.defaults().pad(40);
+        main.defaults().pad(10);
 
-        main.add(new Label("Choose Your True Self", uiSkin)).row();
+        Label title = new Label("Choose Your True Self", uiSkin, "title-white-bg");
+
+        main.add(title).maxHeight(Value.percentHeight(.20f, main)).row();
 
         Table characters = new Table();
-        characters.defaults().pad(10).maxWidth(Value.percentWidth(.20f)).uniform();
+        characters.defaults().pad(10).uniform();
 
         for (String chr : CHARACTERS) {
             CharacterDetails det = new CharacterDetails(chr, uiSkin);
             characters.add(det);
         }
 
-        characters.setDebug(true);
+        //characters.setDebug(true);
 
         ScrollPane scroller = new ScrollPane(characters);
         scroller.setOverscroll(false, false);
+        scroller.setScrollingDisabled(false, true);
 
         main.setFillParent(true);
         main.add(scroller);
-
+        //main.setDebug(true);
         stage.addActor(main);
     }
 
@@ -67,6 +70,7 @@ final class CharacterSelectScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);

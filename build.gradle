@@ -50,8 +50,8 @@ task pack {
         // TexturePacker.process invocation and change paths to generate
         // additional atlases with this task.
         TexturePacker.process(
-                'raw/ui',           // Raw assets path.
-                'assets/ui',        // Output directory.
+                'raw/ui/orange',           // Raw assets path.
+                'assets/ui/orange',        // Output directory.
                 'skin'              // Name of the generated atlas (without extension).
         )
     }
