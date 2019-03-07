@@ -20,7 +20,7 @@ public final class Stats extends Table {
         super(skin);
         //table = new Table();
         for (int i = 0; i < 5; i++) {
-            this.add(new Label(statNames[i] + ": ", skin));
+            this.add(new Label(statNames[i] + ": ", skin)).right();
             ProgressBar bar = new ProgressBar(0, 100, 1f, false, skin);
             bar.setValue(i * 20);
             this.add(bar);
