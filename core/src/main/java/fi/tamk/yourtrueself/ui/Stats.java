@@ -6,8 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public final class Stats extends Table {
-    //private Table table;
-
     private static final String[] statNames = {
             "Strength",
             "Endurance",
@@ -18,7 +16,6 @@ public final class Stats extends Table {
 
     public Stats(Skin skin) {
         super(skin);
-        //table = new Table();
         for (int i = 0; i < 5; i++) {
             this.add(new Label(statNames[i] + ": ", skin)).right();
             ProgressBar bar = new ProgressBar(0, 100, 1f, false, skin);
@@ -28,11 +25,4 @@ public final class Stats extends Table {
         }
         this.setDebug(true);
     }
-
-//    @Override
-//    public void draw(Batch batch, float parentAlpha) {
-//        super.draw(batch, parentAlpha);
-//
-//        table.draw(batch, parentAlpha);
-//    }
 }

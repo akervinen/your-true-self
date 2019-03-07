@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import fi.tamk.yourtrueself.ui.*;
+
+import fi.tamk.yourtrueself.ui.CharacterDisplay;
+import fi.tamk.yourtrueself.ui.Stats;
 
 /**
  * First screen of the application. Displayed after the application is created.
@@ -23,25 +24,28 @@ public class MainScreen implements Screen {
 
     private Stage stage;
 
-    static void loadAssets(AssetManager assets) {
-    }
-
     public MainScreen(YTSGame game) {
         this.game = game;
         this.assetManager = game.getAssetManager();
 
         uiSkin = assetManager.get("ui/skin.json", Skin.class);
+        uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
 
         stage = new Stage(new ScreenViewport());
 
         Table table = new Table();
-        table.add(new Stats(uiSkin)).width(250).height(250);
+        table.add(new CharacterDisplay(uiSkin)).center().fill();
         table.row();
+        table.add(new Stats(uiSkin)).fill();
+        table.left();
 
         table.setDebug(true);
 
         table.setFillParent(true);
         stage.addActor(table);
+    }
+
+    static void loadAssets(AssetManager assets) {
     }
 
     @Override
@@ -61,7 +65,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

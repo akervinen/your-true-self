@@ -2,6 +2,7 @@ package fi.tamk.yourtrueself;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
@@ -12,6 +13,7 @@ public class YTSGame extends Game {
 
     private void loadAssets() {
         assetManager.load("ui/skin.json", Skin.class);
+        assetManager.load("characters/couchpotato.png", Texture.class);
 
         MainScreen.loadAssets(assetManager);
 
