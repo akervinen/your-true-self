@@ -4,12 +4,17 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class YTSGame extends Game {
     private AssetManager assetManager = new AssetManager();
+
+    private Viewport uiViewport;
 
     private MainScreen mainScreen;
     private CharacterSelectScreen selectScreen;
@@ -27,9 +32,19 @@ public class YTSGame extends Game {
         return assetManager;
     }
 
+    Viewport getUiViewport() {
+        return uiViewport;
+    }
+
+    public void goToMainScreen() {
+        setScreen(mainScreen);
+    }
+
     @Override
     public void create() {
         loadAssets();
+
+        uiViewport = new ScreenViewport();
 
         mainScreen = new MainScreen(this);
         selectScreen = new CharacterSelectScreen(this);

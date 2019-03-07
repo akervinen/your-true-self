@@ -6,10 +6,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
@@ -20,7 +21,7 @@ final class CharacterSelectScreen implements Screen {
             "couchpotato"
     };
 
-    private YTSGame game;
+    private final YTSGame game;
     private AssetManager assetManager;
 
     private Skin uiSkin;
@@ -33,21 +34,30 @@ final class CharacterSelectScreen implements Screen {
         uiSkin = assetManager.get("ui/skin.json", Skin.class);
         uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
 
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(game.getUiViewport());
 
-        Table table = new Table();
+        Table main = new Table();
+        main.defaults().pad(40);
+
+        main.add(new Label("Choose Your True Self", uiSkin)).row();
+
+        Table characters = new Table();
+        characters.defaults().pad(10).maxWidth(Value.percentWidth(.20f)).uniform();
+
         for (String chr : CHARACTERS) {
-            table.add(new CharacterDetails(chr, uiSkin));
+            CharacterDetails det = new CharacterDetails(chr, uiSkin);
+            characters.add(det);
         }
 
-        table.setDebug(true);
+        characters.setDebug(true);
 
-        table.setFillParent(true);
-
-        ScrollPane scroller = new ScrollPane(table);
-        scroller.setFillParent(true);
+        ScrollPane scroller = new ScrollPane(characters);
         scroller.setOverscroll(false, false);
-        stage.addActor(scroller);
+
+        main.setFillParent(true);
+        main.add(scroller);
+
+        stage.addActor(main);
     }
 
     @Override
@@ -58,8 +68,6 @@ final class CharacterSelectScreen implements Screen {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.getViewport().apply();
 
         stage.act(delta);
         stage.draw();

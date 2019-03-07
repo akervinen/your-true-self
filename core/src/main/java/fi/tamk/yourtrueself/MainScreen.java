@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
@@ -30,7 +29,7 @@ public class MainScreen implements Screen {
         uiSkin = assetManager.get("ui/skin.json", Skin.class);
         uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
 
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(game.getUiViewport());
 
         Table table = new Table();
         table.add(new CharacterDetails("couchpotato", uiSkin));

@@ -16,6 +16,9 @@ public final class StatsDisplay extends Table {
 
     public StatsDisplay(Skin skin) {
         super(skin);
+
+        this.defaults().grow();
+
         for (int i = 0; i < 5; i++) {
             this.add(new Label(STAT_NAMES[i] + ": ", skin)).right();
             ProgressBar bar = new ProgressBar(0, 100, 1f, false, skin);
