@@ -4,7 +4,7 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import fi.tamk.yourtrueself.YourTrueSelf;
+import fi.tamk.yourtrueself.YTSGame;
 
 /**
  * Launches the desktop (LWJGL) application.
@@ -15,7 +15,7 @@ public class DesktopLauncher {
     }
 
     private static LwjglApplication createApplication() {
-        return new LwjglApplication(new YourTrueSelf(), getDefaultConfiguration());
+        return new LwjglApplication(new YTSGame(), getDefaultConfiguration());
     }
 
     private static LwjglApplicationConfiguration getDefaultConfiguration() {
