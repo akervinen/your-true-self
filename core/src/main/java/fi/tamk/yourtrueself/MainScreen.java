@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import fi.tamk.yourtrueself.ui.CharacterDetails;
 import fi.tamk.yourtrueself.ui.CharacterDisplay;
 import fi.tamk.yourtrueself.ui.Stats;
 
@@ -34,9 +35,10 @@ public class MainScreen implements Screen {
         stage = new Stage(new ScreenViewport());
 
         Table table = new Table();
-        table.add(new CharacterDisplay(uiSkin)).center().fill();
-        table.row();
-        table.add(new Stats(uiSkin)).fill();
+        //table.add(new CharacterDisplay("couchpotato", uiSkin)).center().fill();
+        //table.row();
+        //table.add(new Stats(uiSkin)).fill();
+        table.add(new CharacterDetails("couchpotato", uiSkin));
         table.left();
 
         table.setDebug(true);
