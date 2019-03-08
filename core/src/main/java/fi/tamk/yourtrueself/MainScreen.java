@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -26,8 +25,7 @@ public class MainScreen implements Screen {
         this.game = game;
         this.assetManager = game.getAssetManager();
 
-        uiSkin = assetManager.get(YTSGame.SKIN_PATH, Skin.class);
-        uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
+        uiSkin = game.getSkin();
 
         stage = new Stage(game.getUiViewport());
 

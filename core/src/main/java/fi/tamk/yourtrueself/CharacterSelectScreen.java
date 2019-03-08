@@ -4,13 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
+import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
@@ -31,27 +30,27 @@ final class CharacterSelectScreen implements Screen {
         this.game = game;
         this.assetManager = game.getAssetManager();
 
-        uiSkin = assetManager.get(YTSGame.SKIN_PATH, Skin.class);
-        uiSkin.add("char-couchpotato", assetManager.get("characters/couchpotato.png", Texture.class));
+        uiSkin = game.getSkin();
 
         stage = new Stage(game.getUiViewport());
 
         Table main = new Table();
-        main.defaults().pad(10);
+        main.defaults().pad(10).grow();
 
         Label title = new Label("Choose Your True Self", uiSkin, "title-white-bg");
+        title.setAlignment(Align.center);
 
-        main.add(title).maxHeight(Value.percentHeight(.20f, main)).row();
+        float ppiY = Gdx.graphics.getPpiY();
+
+        main.add(title).height(ppiY * 1).row();
 
         Table characters = new Table();
-        characters.defaults().pad(10).uniform();
+        characters.defaults().pad(10);
 
         for (String chr : CHARACTERS) {
             CharacterDetails det = new CharacterDetails(chr, uiSkin);
             characters.add(det);
         }
-
-        //characters.setDebug(true);
 
         ScrollPane scroller = new ScrollPane(characters);
         scroller.setOverscroll(false, false);
@@ -59,7 +58,6 @@ final class CharacterSelectScreen implements Screen {
 
         main.setFillParent(true);
         main.add(scroller);
-        //main.setDebug(true);
         stage.addActor(main);
     }
 

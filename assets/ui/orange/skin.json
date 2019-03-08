@@ -7,8 +7,6 @@ com.badlogic.gdx.graphics.Color: {
 	bleached_peach: { r: 0.9372549, g: 0.8980392, b: 0.8627451, a: 1 }
 },
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	font: { file: font-export.fnt },
-	font-title: { file: font-title-export.fnt }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: {
@@ -300,6 +298,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	white: {
 		font: font,
 		fontColor: { a: 1, b: 1, g: 1, r: 1 }
+	},
+	white-bg: {
+		font: font,
+		fontColor: { a: 1, b: 1, g: 1, r: 1 },
+		background: button-orange
 	},
 	peach: {
 		font: font,
