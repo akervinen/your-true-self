@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
@@ -26,13 +28,13 @@ final class CharacterSelectScreen implements Screen {
     private Skin uiSkin;
     private Stage stage;
 
-    CharacterSelectScreen(YTSGame game) {
-        this.game = game;
-        this.assetManager = game.getAssetManager();
+    CharacterSelectScreen(YTSGame yts) {
+        this.game = yts;
+        this.assetManager = yts.getAssetManager();
 
-        uiSkin = game.getSkin();
+        uiSkin = yts.getSkin();
 
-        stage = new Stage(game.getUiViewport());
+        stage = new Stage(yts.getUiViewport());
 
         Table main = new Table();
         main.defaults().pad(10).grow();
@@ -47,9 +49,16 @@ final class CharacterSelectScreen implements Screen {
         Table characters = new Table();
         characters.defaults().pad(10);
 
-        for (String chr : CHARACTERS) {
+        for (final String chr : CHARACTERS) {
             CharacterDetails det = new CharacterDetails(chr, uiSkin);
             characters.add(det);
+            det.addButtonListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    game.chooseCharacter(chr);
+                    game.goToMainScreen();
+                }
+            });
         }
 
         ScrollPane scroller = new ScrollPane(characters);

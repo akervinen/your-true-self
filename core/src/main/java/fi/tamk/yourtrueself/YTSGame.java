@@ -29,6 +29,8 @@ public class YTSGame extends Game {
     private MainScreen mainScreen;
     private CharacterSelectScreen selectScreen;
 
+    private String currentCharacter = "couchpotato";
+
     private int getPointInPixels(float pt) {
         return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
     }
@@ -83,13 +85,15 @@ public class YTSGame extends Game {
         setScreen(mainScreen);
     }
 
+    public void chooseCharacter(String chr) {
+        currentCharacter = chr;
+    }
+
     @Override
     public void create() {
         loadAssets();
         loadSkin();
 
-
-        //uiViewport = new ExtendViewport(720, 1280);
         uiViewport = new ScreenViewport();
 
         mainScreen = new MainScreen(this);

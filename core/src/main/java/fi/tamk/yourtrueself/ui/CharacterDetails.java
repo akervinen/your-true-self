@@ -1,12 +1,17 @@
 package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 
 public final class CharacterDetails extends Table {
+    private TextButton chooseBtn;
+
     public CharacterDetails(String character, Skin skin) {
         super();
 
@@ -18,12 +23,16 @@ public final class CharacterDetails extends Table {
         name.setAlignment(Align.center);
         CharacterDisplay disp = new CharacterDisplay(character, skin);
         StatsDisplay stats = new StatsDisplay(skin);
+        chooseBtn = new TextButton("Choose", skin);
 
-        this.add(name).top().height(Gdx.graphics.getPpiY() * 0.25f);
+        //this.add(name).top().height(Gdx.graphics.getPpiY() * 0.25f);
+        this.add(name).top().height(Value.percentHeight(.05f, this));
         this.row();
-        this.add(disp);
+        this.add(disp).height(Value.percentHeight(.5f, this));
         this.row();
-        this.add(stats);
+        this.add(stats).height(Value.percentHeight(.3f, this));
+        this.row();
+        this.add(chooseBtn).height(Value.percentHeight(.1f, this));
     }
 
     @Override
@@ -34,5 +43,9 @@ public final class CharacterDetails extends Table {
     @Override
     public float getPrefHeight() {
         return Gdx.graphics.getPpiY() * 4;
+    }
+
+    public boolean addButtonListener(EventListener eventListener) {
+        return this.chooseBtn.addListener(eventListener);
     }
 }
