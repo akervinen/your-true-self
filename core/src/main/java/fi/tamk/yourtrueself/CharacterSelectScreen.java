@@ -24,14 +24,12 @@ final class CharacterSelectScreen implements Screen {
     };
 
     private final YTSGame game;
-    private AssetManager assetManager;
 
     private Skin uiSkin;
     private Stage stage;
 
     CharacterSelectScreen(YTSGame yts) {
         this.game = yts;
-        this.assetManager = yts.getAssetManager();
 
         uiSkin = yts.getSkin();
 

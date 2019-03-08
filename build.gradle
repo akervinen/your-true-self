@@ -54,5 +54,10 @@ task pack {
                 'assets/ui/orange',        // Output directory.
                 'skin'              // Name of the generated atlas (without extension).
         )
+        TexturePacker.process(
+                'raw/characters',           // Raw assets path.
+                'assets',        // Output directory.
+                'characters'              // Name of the generated atlas (without extension).
+        )
     }
 }

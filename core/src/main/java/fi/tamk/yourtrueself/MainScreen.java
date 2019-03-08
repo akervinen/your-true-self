@@ -18,7 +18,6 @@ import fi.tamk.yourtrueself.ui.CharacterDetails;
  */
 public class MainScreen implements Screen {
     private YTSGame game;
-    private AssetManager assetManager;
 
     private Skin uiSkin;
 
@@ -26,7 +25,6 @@ public class MainScreen implements Screen {
 
     public MainScreen(YTSGame ytsGame) {
         this.game = ytsGame;
-        this.assetManager = ytsGame.getAssetManager();
 
         uiSkin = ytsGame.getSkin();
 
@@ -48,9 +46,6 @@ public class MainScreen implements Screen {
 
         table.setFillParent(true);
         stage.addActor(table);
-    }
-
-    static void loadAssets(AssetManager assets) {
     }
 
     @Override
