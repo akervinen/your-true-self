@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
@@ -21,19 +24,27 @@ public class MainScreen implements Screen {
 
     private Stage stage;
 
-    public MainScreen(YTSGame game) {
-        this.game = game;
-        this.assetManager = game.getAssetManager();
+    public MainScreen(YTSGame ytsGame) {
+        this.game = ytsGame;
+        this.assetManager = ytsGame.getAssetManager();
 
-        uiSkin = game.getSkin();
+        uiSkin = ytsGame.getSkin();
 
-        stage = new Stage(game.getUiViewport());
+        stage = new Stage(ytsGame.getUiViewport());
 
         Table table = new Table();
-        table.add(new CharacterDetails("couchpotato", uiSkin));
         table.left();
 
-        //table.setDebug(true);
+        TextButton chooseBtn = new TextButton("Select Character", uiSkin);
+        chooseBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.goToCharacterSelect();
+            }
+        });
+
+        table.add(chooseBtn).top().left().row();
+        table.add(new CharacterDetails("couchpotato", uiSkin)).center().left();
 
         table.setFillParent(true);
         stage.addActor(table);

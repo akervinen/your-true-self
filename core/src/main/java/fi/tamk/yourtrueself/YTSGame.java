@@ -85,6 +85,10 @@ public class YTSGame extends Game {
         setScreen(mainScreen);
     }
 
+    public void goToCharacterSelect() {
+        setScreen(selectScreen);
+    }
+
     public void chooseCharacter(String chr) {
         currentCharacter = chr;
     }
