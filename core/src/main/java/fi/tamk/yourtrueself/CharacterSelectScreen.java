@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
@@ -44,7 +45,7 @@ final class CharacterSelectScreen implements Screen {
 
         float ppiY = Gdx.graphics.getPpiY();
 
-        main.add(title).height(ppiY * 1).row();
+        main.add(title).height(Value.percentHeight(.1f, main)).row();
 
         Table characters = new Table();
         characters.defaults().pad(10);
@@ -66,7 +67,7 @@ final class CharacterSelectScreen implements Screen {
         scroller.setScrollingDisabled(false, true);
 
         main.setFillParent(true);
-        main.add(scroller);
+        main.add(scroller).height(Value.percentHeight(.85f, main));
         stage.addActor(main);
     }
 
