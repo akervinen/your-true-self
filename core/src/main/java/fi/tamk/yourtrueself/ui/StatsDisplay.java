@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 public final class StatsDisplay extends Table {
     private static final String[] STAT_NAMES = {
             "statStrength",
-            "statEndurance",
+            "statStamina",
             "statAgility",
             "statFlexibility",
             "statBalance"
