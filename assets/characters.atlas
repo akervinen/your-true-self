@@ -11,3 +11,38 @@ char-couchpotato
   orig: 128, 128
   offset: 24, 0
   index: -1
+char-enlightened
+  rotate: false
+  xy: 1, 1
+  size: 92, 124
+  orig: 128, 128
+  offset: 24, 0
+  index: -1
+char-graceful
+  rotate: false
+  xy: 1, 1
+  size: 92, 124
+  orig: 128, 128
+  offset: 24, 0
+  index: -1
+char-marathon
+  rotate: false
+  xy: 1, 1
+  size: 92, 124
+  orig: 128, 128
+  offset: 24, 0
+  index: -1
+char-stronkman
+  rotate: false
+  xy: 1, 1
+  size: 92, 124
+  orig: 128, 128
+  offset: 24, 0
+  index: -1
+char-thespider
+  rotate: false
+  xy: 1, 1
+  size: 92, 124
+  orig: 128, 128
+  offset: 24, 0
+  index: -1

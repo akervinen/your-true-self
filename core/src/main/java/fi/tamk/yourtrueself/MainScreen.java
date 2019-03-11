@@ -24,10 +24,13 @@ public class MainScreen implements Screen {
 
     public MainScreen(YTSGame ytsGame) {
         this.game = ytsGame;
+    }
 
-        uiSkin = ytsGame.getSkin();
+    @Override
+    public void show() {
+        uiSkin = game.getSkin();
 
-        stage = new Stage(ytsGame.getUiViewport());
+        stage = new Stage(game.getUiViewport());
 
         Table table = new Table();
         table.left();
@@ -41,14 +44,11 @@ public class MainScreen implements Screen {
         });
 
         table.add(chooseBtn).top().left().row();
-        table.add(new CharacterDetails(game.getCharacter(), uiSkin)).center().left();
+        table.add(new CharacterDetails(game.getCharacter().getId(), uiSkin)).center().left();
 
         table.setFillParent(true);
         stage.addActor(table);
-    }
 
-    @Override
-    public void show() {
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -80,6 +80,8 @@ public class MainScreen implements Screen {
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+
+        stage.clear();
     }
 
     @Override

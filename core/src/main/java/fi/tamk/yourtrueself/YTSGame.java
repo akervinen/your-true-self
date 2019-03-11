@@ -17,6 +17,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+import fi.tamk.yourtrueself.characters.Character;
+import fi.tamk.yourtrueself.characters.CouchPotato;
+import fi.tamk.yourtrueself.characters.Enlightened;
+import fi.tamk.yourtrueself.characters.Graceful;
+import fi.tamk.yourtrueself.characters.MaraThon;
+import fi.tamk.yourtrueself.characters.StronkMan;
+import fi.tamk.yourtrueself.characters.TheSpider;
+
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
@@ -42,7 +50,16 @@ public class YTSGame extends Game {
     private MainScreen mainScreen;
     private CharacterSelectScreen selectScreen;
 
-    private String currentCharacter = "couchpotato";
+    private Character[] characters = {
+            new CouchPotato(),
+            new StronkMan(),
+            new Enlightened(),
+            new TheSpider(),
+            new MaraThon(),
+            new Graceful()
+    };
+
+    private Character currentCharacter = characters[0];
 
     private int getPointInPixels(float pt) {
         return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
@@ -93,11 +110,23 @@ public class YTSGame extends Game {
         return uiSkin;
     }
 
-    public String getCharacter() {
+    public Character[] getCharacters() {
+        return characters;
+    }
+
+    public Character getCharacter() {
         return currentCharacter;
     }
 
     public void setCharacter(String chr) {
+        for (Character c : characters) {
+            if (chr.equals(c.getId())) {
+                currentCharacter = c;
+            }
+        }
+    }
+
+    public void setCharacter(Character chr) {
         currentCharacter = chr;
     }
 

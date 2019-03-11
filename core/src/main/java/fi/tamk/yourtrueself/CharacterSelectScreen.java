@@ -13,15 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
+import fi.tamk.yourtrueself.characters.Character;
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
 final class CharacterSelectScreen implements Screen {
-    private static final String[] CHARACTERS = {
-            "couchpotato",
-            "couchpotato",
-            "couchpotato"
-    };
-
     private final YTSGame game;
 
     private Skin uiSkin;
@@ -47,8 +42,8 @@ final class CharacterSelectScreen implements Screen {
         Table characters = new Table();
         characters.defaults().pad(10);
 
-        for (final String chr : CHARACTERS) {
-            CharacterDetails det = new CharacterDetails(chr, uiSkin);
+        for (final Character chr : game.getCharacters()) {
+            CharacterDetails det = new CharacterDetails(chr.getId(), uiSkin);
             characters.add(det);
             det.addButtonListener(new ChangeListener() {
                 @Override

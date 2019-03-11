@@ -2,7 +2,7 @@ package fi.tamk.yourtrueself.characters;
 
 public class MaraThon extends Character {
 
-    MaraThon() {
+    public MaraThon() {
         setId("marathon");
         setMainStat(Stat.STAMINA);
     }

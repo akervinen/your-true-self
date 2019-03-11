@@ -2,7 +2,7 @@ package fi.tamk.yourtrueself.characters;
 
 public class StronkMan extends Character {
 
-    StronkMan() {
+    public StronkMan() {
         setId("stronkman");
         setMainStat(Stat.STRENGTH);
     }

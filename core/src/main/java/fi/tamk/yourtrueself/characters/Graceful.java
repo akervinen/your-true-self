@@ -2,7 +2,7 @@ package fi.tamk.yourtrueself.characters;
 
 public class Graceful extends Character {
 
-    Graceful() {
+    public Graceful() {
         setId("graceful");
         setMainStat(Stat.BALANCE);
     }

@@ -2,7 +2,7 @@ package fi.tamk.yourtrueself.characters;
 
 public class Enlightened extends Character {
 
-    Enlightened() {
+    public Enlightened() {
         setId("enlightened");
         setMainStat(Stat.FLEXIBILITY);
     }
