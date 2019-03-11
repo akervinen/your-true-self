@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import fi.tamk.yourtrueself.ui.CharacterDetails;
+import fi.tamk.yourtrueself.ui.StatsDisplay;
 
 /**
  * First screen of the application. Displayed after the application is created.
@@ -24,15 +25,18 @@ public class MainScreen implements Screen {
 
     public MainScreen(YTSGame ytsGame) {
         this.game = ytsGame;
+
+        stage = new Stage(game.getUiViewport());
     }
 
     @Override
     public void show() {
         uiSkin = game.getSkin();
 
-        stage = new Stage(game.getUiViewport());
+        Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
+        table.defaults().pad(20);
         table.left();
 
         TextButton chooseBtn = new TextButton(game.getBundle().get("changeCharacter"), uiSkin);
@@ -42,21 +46,30 @@ public class MainScreen implements Screen {
                 game.goToCharacterSelect();
             }
         });
+        TextButton trainBtn = new TextButton(game.getBundle().get("train"), uiSkin);
+        trainBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.train();
+            }
+        });
 
-        table.add(chooseBtn).top().left().row();
-        table.add(new CharacterDetails(game.getCharacter().getId(), uiSkin)).center().left();
+        table.add(chooseBtn).top().left();
+        table.add(trainBtn).top().right().row();
+
+        if (game.getCharacter() != null) {
+            table.add(new CharacterDetails(game.getCharacter().getId(), uiSkin)).center().left();
+        }
+        table.add(new StatsDisplay(game.getCurrentStats(), uiSkin));
 
         table.setFillParent(true);
         stage.addActor(table);
-
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.getViewport().apply();
 
         stage.act(delta);
         stage.draw();

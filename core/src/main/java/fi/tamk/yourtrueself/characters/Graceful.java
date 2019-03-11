@@ -1,10 +1,12 @@
 package fi.tamk.yourtrueself.characters;
 
+import fi.tamk.yourtrueself.Stats;
+
 public class Graceful extends Character {
 
     public Graceful() {
         setId("graceful");
-        setMainStat(Stat.BALANCE);
+        setMainStat(Stats.Stat.BALANCE);
     }
 
 }

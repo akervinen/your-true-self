@@ -1,10 +1,12 @@
 package fi.tamk.yourtrueself.characters;
 
+import fi.tamk.yourtrueself.Stats;
+
 public class Enlightened extends Character {
 
     public Enlightened() {
         setId("enlightened");
-        setMainStat(Stat.FLEXIBILITY);
+        setMainStat(Stats.Stat.FLEXIBILITY);
     }
 
 }

@@ -59,7 +59,8 @@ public class YTSGame extends Game {
             new Graceful()
     };
 
-    private Character currentCharacter = characters[0];
+    private Character currentCharacter = null;
+    private Stats currentStats = new Stats(0, 20, 40, 60, 80);
 
     private int getPointInPixels(float pt) {
         return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
@@ -118,6 +119,10 @@ public class YTSGame extends Game {
         return currentCharacter;
     }
 
+    public void setCharacter(Character chr) {
+        currentCharacter = chr;
+    }
+
     public void setCharacter(String chr) {
         for (Character c : characters) {
             if (chr.equals(c.getId())) {
@@ -126,8 +131,24 @@ public class YTSGame extends Game {
         }
     }
 
-    public void setCharacter(Character chr) {
-        currentCharacter = chr;
+    public Stats getCurrentStats() {
+        return currentStats;
+    }
+
+    public void train() {
+        if (currentCharacter == null) {
+            return;
+        }
+
+        Stats.Stat mainStat = currentCharacter.getMainStat();
+
+        if (mainStat == Stats.Stat.NONE) {
+            for (Stats.Stat stat : Stats.STAT_ENUMS) {
+                currentStats.setByEnum(stat, currentStats.getByEnum(stat) + .5f);
+            }
+        } else {
+            currentStats.setByEnum(mainStat, currentStats.getByEnum(mainStat) + 2);
+        }
     }
 
     public void goToMainScreen() {
@@ -147,7 +168,11 @@ public class YTSGame extends Game {
         mainScreen = new MainScreen(this);
         selectScreen = new CharacterSelectScreen(this);
 
-        setScreen(selectScreen);
+        if (getCharacter() == null) {
+            setScreen(selectScreen);
+        } else {
+            setScreen(mainScreen);
+        }
     }
 
     @Override
