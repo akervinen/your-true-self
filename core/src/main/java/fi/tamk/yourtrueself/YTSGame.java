@@ -4,25 +4,37 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.Locale;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class YTSGame extends Game {
-    public static final String SKIN_PATH = "ui/orange/skin.json";
+    private static final String SKIN_PATH = "ui/orange/skin.json";
 
     private static final AssetDescriptor<TextureAtlas> characterAtlasAsset =
             new AssetDescriptor<TextureAtlas>("characters.atlas", TextureAtlas.class);
 
+
+    private static final AssetDescriptor<I18NBundle> bundleAsset =
+            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class);
+
+    private static final AssetDescriptor<I18NBundle> bundleAssetFI =
+            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(new Locale("fi", "FI")));
+
     private AssetManager assetManager = new AssetManager();
+    private I18NBundle bundle;
 
     private Viewport uiViewport;
     private Skin uiSkin;
@@ -36,7 +48,7 @@ public class YTSGame extends Game {
         return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
     }
 
-    private void loadSkin() {
+    private void loadAssets() {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter;
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ui/Roboto-Regular.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -54,13 +66,23 @@ public class YTSGame extends Game {
 
         SkinLoader.SkinParameter skinParam = new SkinLoader.SkinParameter(fontMap);
 
+        assetManager.load(bundleAsset);
+//        assetManager.load(bundleAssetFI);
         assetManager.load(characterAtlasAsset);
         assetManager.load(SKIN_PATH, Skin.class, skinParam);
 
         assetManager.finishLoading();
 
+        bundle = assetManager.get(bundleAsset);
+
         uiSkin = assetManager.get(SKIN_PATH);
         uiSkin.addRegions(assetManager.get(characterAtlasAsset));
+
+        uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
+    }
+
+    I18NBundle getBundle() {
+        return bundle;
     }
 
     Viewport getUiViewport() {
@@ -71,6 +93,14 @@ public class YTSGame extends Game {
         return uiSkin;
     }
 
+    public String getCharacter() {
+        return currentCharacter;
+    }
+
+    public void setCharacter(String chr) {
+        currentCharacter = chr;
+    }
+
     public void goToMainScreen() {
         setScreen(mainScreen);
     }
@@ -79,13 +109,9 @@ public class YTSGame extends Game {
         setScreen(selectScreen);
     }
 
-    public void chooseCharacter(String chr) {
-        currentCharacter = chr;
-    }
-
     @Override
     public void create() {
-        loadSkin();
+        loadAssets();
 
         uiViewport = new ScreenViewport();
 

@@ -32,7 +32,7 @@ public class MainScreen implements Screen {
         Table table = new Table();
         table.left();
 
-        TextButton chooseBtn = new TextButton("Select Character", uiSkin);
+        TextButton chooseBtn = new TextButton(game.getBundle().get("changeCharacter"), uiSkin);
         chooseBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

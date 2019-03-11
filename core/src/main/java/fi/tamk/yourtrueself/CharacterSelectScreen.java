@@ -37,7 +37,7 @@ final class CharacterSelectScreen implements Screen {
         Table main = new Table();
         main.defaults().pad(10).grow();
 
-        Label title = new Label("Choose Your True Self", uiSkin, "title-white-bg");
+        Label title = new Label(game.getBundle().get("chooseYourTrueSelf"), uiSkin, "title-white-bg");
         title.setAlignment(Align.center);
 
         float ppiY = Gdx.graphics.getPpiY();
@@ -53,7 +53,7 @@ final class CharacterSelectScreen implements Screen {
             det.addButtonListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    game.chooseCharacter(chr);
+                    game.setCharacter(chr);
                     game.goToMainScreen();
                 }
             });
