@@ -41,7 +41,7 @@ public class MainScreen implements Screen {
         });
 
         table.add(chooseBtn).top().left().row();
-        table.add(new CharacterDetails("couchpotato", uiSkin)).center().left();
+        table.add(new CharacterDetails(game.getCharacter(), uiSkin)).center().left();
 
         table.setFillParent(true);
         stage.addActor(table);

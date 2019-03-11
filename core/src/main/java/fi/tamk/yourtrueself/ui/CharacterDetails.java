@@ -25,14 +25,17 @@ public final class CharacterDetails extends Table {
         Label name = new Label(bundle.get(character), skin, "white-bg");
         name.setAlignment(Align.center);
         CharacterDisplay disp = new CharacterDisplay(character, skin);
-        StatsDisplay stats = new StatsDisplay(skin);
+//        StatsDisplay stats = new StatsDisplay(skin);
+        Label desc = new Label(bundle.get(character + "Story"), skin);
+        desc.setWrap(true);
         chooseBtn = new TextButton(bundle.get("choose"), skin);
 
         this.add(name).top().height(Value.percentHeight(.05f, this));
         this.row();
         this.add(disp).height(Value.percentHeight(.5f, this));
         this.row();
-        this.add(stats).height(Value.percentHeight(.3f, this));
+//        this.add(stats).height(Value.percentHeight(.3f, this));
+        this.add(desc).height(Value.percentHeight(.3f, this));
         this.row();
         this.add(chooseBtn).height(Value.percentHeight(.1f, this));
     }

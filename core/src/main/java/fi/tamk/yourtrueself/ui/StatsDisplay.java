@@ -24,7 +24,6 @@ public final class StatsDisplay extends Table {
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         for (int i = 0; i < 5; i++) {
-            System.out.println(bundle.get(STAT_NAMES[i]));
             this.add(new Label(bundle.get(STAT_NAMES[i]), skin)).left().padRight(2);
             ProgressBar bar = new ProgressBar(0, 100, 1f, false, skin);
             bar.setValue(i * 20);
