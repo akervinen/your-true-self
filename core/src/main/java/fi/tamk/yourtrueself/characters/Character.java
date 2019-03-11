@@ -1,4 +1,4 @@
-package fi.tamk.yourtrueself;
+package fi.tamk.yourtrueself.characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,8 +15,7 @@ public class Character {
     private float stamina;
     private float balance;
     private Stat mainStat;
-    private Texture texture;
-
+    private String id;
     Character() {
         setStrength(0);
         setFlexibility(0);
@@ -41,8 +40,8 @@ public class Character {
     public Stat getMainStat() {
         return mainStat;
     }
-    public Texture getTexture() {
-        return texture;
+    public String getId() {
+        return id;
     }
 
     public void setStrength(float strength) {
@@ -70,8 +69,8 @@ public class Character {
             this.balance = balance;
         }
     }
-    public void setTexture(String path) {
-        this.texture = new Texture(Gdx.files.internal(path));
+    public void setId(String id) {
+        this.id = id;
     }
     public void setMainStat(Stat mainStat) {
         this.mainStat = mainStat;
