@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
-import fi.tamk.yourtrueself.ui.CharacterDetails;
+import fi.tamk.yourtrueself.ui.CharacterSelectPanel;
 
 public final class CharacterSelectScreen implements Screen {
     private final YTSGame game;
@@ -44,7 +44,7 @@ public final class CharacterSelectScreen implements Screen {
         characters.defaults().pad(10);
 
         for (final Character chr : YTSGame.CHARACTERS) {
-            CharacterDetails det = new CharacterDetails(chr.getId(), uiSkin);
+            CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), uiSkin);
             characters.add(det);
             det.addButtonListener(new ChangeListener() {
                 @Override

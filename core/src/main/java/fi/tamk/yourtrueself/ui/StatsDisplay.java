@@ -1,7 +1,6 @@
 package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,7 +14,7 @@ public final class StatsDisplay extends Table {
 
     private ProgressBar[] bars = new ProgressBar[Player.STAT_ENUMS.length];
 
-    public StatsDisplay(Player player, Skin skin) {
+    public StatsDisplay(Player player, boolean background, Skin skin) {
         super(skin);
 
         this.defaults();
@@ -23,6 +22,10 @@ public final class StatsDisplay extends Table {
         this.player = player;
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
+
+        if (background) {
+            this.background(skin.getDrawable("panel-orange"));
+        }
 
         for (int i = 0; i < Player.STAT_ENUMS.length; i++) {
             this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left().padRight(2);
@@ -34,12 +37,6 @@ public final class StatsDisplay extends Table {
             this.add(bar).grow();
             this.row();
         }
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        updateStats();
-        super.draw(batch, parentAlpha);
     }
 
     public void updateStats() {

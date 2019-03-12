@@ -8,11 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
-import fi.tamk.yourtrueself.ui.CharacterDetails;
+import fi.tamk.yourtrueself.ui.CharacterMainPanel;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
 
 /**
@@ -24,6 +25,8 @@ public class MainScreen implements Screen {
     private Skin uiSkin;
 
     private Stage stage;
+
+    private StatsDisplay statsDisplay;
 
     public MainScreen(YTSGame ytsGame) {
         this.game = ytsGame;
@@ -38,8 +41,13 @@ public class MainScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
-        table.defaults().pad(20);
+        table.setFillParent(true);
+//        table.debug();
+
+        table.defaults().pad(20).width(Value.percentWidth(.45f, table));
         table.left();
+
+        Character plyCharacter = game.getPlayer().getCurrentCharacter();
 
         TextButton chooseBtn = new TextButton(game.getBundle().get("changeCharacter"), uiSkin);
         chooseBtn.addListener(new ChangeListener() {
@@ -48,25 +56,28 @@ public class MainScreen implements Screen {
                 game.goToCharacterSelect();
             }
         });
+
+
         TextButton trainBtn = new TextButton(game.getBundle().get("train"), uiSkin);
         trainBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.getPlayer().train();
+                statsDisplay.updateStats();
             }
         });
 
-        table.add(chooseBtn).top().left();
-        table.add(trainBtn).top().right().row();
+        table.add(chooseBtn).top().left().height(Value.percentHeight(.1f, table));
 
-        Character plyCharacter = game.getPlayer().getCurrentCharacter();
+        table.add(trainBtn).top().right().height(Value.percentHeight(.1f, table)).row();
 
         if (plyCharacter != null) {
-            table.add(new CharacterDetails(plyCharacter.getId(), uiSkin)).center().left();
+            //table.add(new CharacterImage(plyCharacter.getId(), uiSkin)).left().grow().row();
+            table.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin)).left().grow().row();
         }
-        table.add(new StatsDisplay(game.getPlayer(), uiSkin));
 
-        table.setFillParent(true);
+        statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
+        table.add(statsDisplay).left();
         stage.addActor(table);
     }
 

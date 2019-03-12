@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 
-public final class CharacterDetails extends Table {
+public final class CharacterSelectPanel extends Table {
     private TextButton chooseBtn;
 
-    public CharacterDetails(String character, Skin skin) {
+    public CharacterSelectPanel(String character, Skin skin) {
         super();
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
@@ -24,8 +24,8 @@ public final class CharacterDetails extends Table {
 
         Label name = new Label(bundle.get(character), skin, "white-bg");
         name.setAlignment(Align.center);
-        CharacterDisplay disp = new CharacterDisplay(character, skin);
-//        StatsDisplay stats = new StatsDisplay(skin);
+        CharacterImage disp = new CharacterImage(character, skin);
+
         Label desc = new Label(bundle.get(character + "Story"), skin);
         desc.setWrap(true);
         chooseBtn = new TextButton(bundle.get("choose"), skin);
@@ -34,7 +34,6 @@ public final class CharacterDetails extends Table {
         this.row();
         this.add(disp).height(Value.percentHeight(.5f, this));
         this.row();
-//        this.add(stats).height(Value.percentHeight(.3f, this));
         this.add(desc).height(Value.percentHeight(.3f, this));
         this.row();
         this.add(chooseBtn).height(Value.percentHeight(.1f, this));

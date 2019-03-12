@@ -123,7 +123,7 @@ public class YTSGame extends Game {
         player.setCurrentCharacter(chr);
     }
 
-    public void setCharacter(String chr) {
+    public void setPlayerCharacter(String chr) {
         for (Character c : CHARACTERS) {
             if (chr.equals(c.getId())) {
                 setPlayerCharacter(c);
