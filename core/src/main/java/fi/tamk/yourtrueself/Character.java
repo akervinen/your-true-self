@@ -1,11 +1,14 @@
-package fi.tamk.yourtrueself.characters;
+package fi.tamk.yourtrueself;
 
-import fi.tamk.yourtrueself.Stats;
-
-public abstract class Character {
+public class Character {
 
     private Stats.Stat mainStat = Stats.Stat.NONE;
     private String id;
+
+    public Character(String id, Stats.Stat mainStat) {
+        this.id = id;
+        this.mainStat = mainStat;
+    }
 
     public Stats.Stat getMainStat() {
         return mainStat;

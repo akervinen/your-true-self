@@ -1,4 +1,4 @@
-package fi.tamk.yourtrueself;
+package fi.tamk.yourtrueself.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
 

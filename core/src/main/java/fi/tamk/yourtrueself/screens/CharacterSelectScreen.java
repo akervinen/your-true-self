@@ -1,4 +1,4 @@
-package fi.tamk.yourtrueself;
+package fi.tamk.yourtrueself.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -13,16 +13,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
-import fi.tamk.yourtrueself.characters.Character;
+import fi.tamk.yourtrueself.Character;
+import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 
-final class CharacterSelectScreen implements Screen {
+public final class CharacterSelectScreen implements Screen {
     private final YTSGame game;
 
     private Skin uiSkin;
     private Stage stage;
 
-    CharacterSelectScreen(YTSGame yts) {
+    public CharacterSelectScreen(YTSGame yts) {
         this.game = yts;
 
         uiSkin = yts.getSkin();

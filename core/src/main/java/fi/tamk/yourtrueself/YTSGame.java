@@ -17,13 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
-import fi.tamk.yourtrueself.characters.Character;
-import fi.tamk.yourtrueself.characters.CouchPotato;
-import fi.tamk.yourtrueself.characters.Enlightened;
-import fi.tamk.yourtrueself.characters.Graceful;
-import fi.tamk.yourtrueself.characters.MaraThon;
-import fi.tamk.yourtrueself.characters.StronkMan;
-import fi.tamk.yourtrueself.characters.TheSpider;
+import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
+import fi.tamk.yourtrueself.screens.MainScreen;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
@@ -51,12 +46,12 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
 
     private Character[] characters = {
-            new CouchPotato(),
-            new StronkMan(),
-            new Enlightened(),
-            new TheSpider(),
-            new MaraThon(),
-            new Graceful()
+            new Character("couchpotato", Stats.Stat.NONE),
+            new Character("stronkman", Stats.Stat.STRENGTH),
+            new Character("enlightened", Stats.Stat.FLEXIBILITY),
+            new Character("thespider", Stats.Stat.AGILITY),
+            new Character("marathon", Stats.Stat.STAMINA),
+            new Character("graceful", Stats.Stat.BALANCE)
     };
 
     private Character currentCharacter = null;
@@ -99,15 +94,15 @@ public class YTSGame extends Game {
         uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
     }
 
-    I18NBundle getBundle() {
+    public I18NBundle getBundle() {
         return bundle;
     }
 
-    Viewport getUiViewport() {
+    public Viewport getUiViewport() {
         return uiViewport;
     }
 
-    Skin getSkin() {
+    public Skin getSkin() {
         return uiSkin;
     }
 
