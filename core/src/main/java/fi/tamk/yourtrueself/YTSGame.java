@@ -24,28 +24,7 @@ import fi.tamk.yourtrueself.screens.MainScreen;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class YTSGame extends Game {
-    private static final String SKIN_PATH = "ui/orange/skin.json";
-
-    private static final AssetDescriptor<TextureAtlas> characterAtlasAsset =
-            new AssetDescriptor<TextureAtlas>("characters.atlas", TextureAtlas.class);
-
-
-    private static final AssetDescriptor<I18NBundle> bundleAsset =
-            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class);
-
-    private static final AssetDescriptor<I18NBundle> bundleAssetFI =
-            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(new Locale("fi", "FI")));
-
-    private AssetManager assetManager = new AssetManager();
-    private I18NBundle bundle;
-
-    private Viewport uiViewport;
-    private Skin uiSkin;
-
-    private MainScreen mainScreen;
-    private CharacterSelectScreen selectScreen;
-
-    private Character[] characters = {
+    public static final Character[] CHARACTERS = {
             new Character("couchpotato", Player.Stat.NONE),
             new Character("stronkman", Player.Stat.STRENGTH),
             new Character("enlightened", Player.Stat.FLEXIBILITY),
@@ -54,7 +33,26 @@ public class YTSGame extends Game {
             new Character("graceful", Player.Stat.BALANCE)
     };
 
+    private static final String SKIN_PATH = "ui/orange/skin.json";
+
+    private static final AssetDescriptor<TextureAtlas> characterAtlasAsset =
+            new AssetDescriptor<TextureAtlas>("characters.atlas", TextureAtlas.class);
+    private static final AssetDescriptor<I18NBundle> bundleAsset =
+            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class);
+    private static final AssetDescriptor<I18NBundle> bundleAssetFI =
+            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(new Locale("fi", "FI")));
+
+    private AssetManager assetManager = new AssetManager();
+    private I18NBundle bundle;
+    private Viewport uiViewport;
+    private Skin uiSkin;
+    private MainScreen mainScreen;
+    private CharacterSelectScreen selectScreen;
     private Player player = new Player();
+
+    /*
+        UI Stuff
+     */
 
     private int getPointInPixels(float pt) {
         return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
@@ -105,8 +103,16 @@ public class YTSGame extends Game {
         return uiSkin;
     }
 
-    public Character[] getCharacters() {
-        return characters;
+    public void goToMainScreen() {
+        setScreen(mainScreen);
+    }
+
+    /*
+        Gameplay Stuff
+     */
+
+    public void goToCharacterSelect() {
+        setScreen(selectScreen);
     }
 
     public Player getPlayer() {
@@ -118,35 +124,11 @@ public class YTSGame extends Game {
     }
 
     public void setCharacter(String chr) {
-        for (Character c : characters) {
+        for (Character c : CHARACTERS) {
             if (chr.equals(c.getId())) {
                 setPlayerCharacter(c);
             }
         }
-    }
-
-    public void train() {
-        if (player.getCurrentCharacter() == null) {
-            return;
-        }
-
-        Player.Stat mainStat = player.getCurrentCharacter().getMainStat();
-
-        if (mainStat == Player.Stat.NONE) {
-            for (Player.Stat stat : Player.STAT_ENUMS) {
-                player.setByEnum(stat, player.getByEnum(stat) + .5f);
-            }
-        } else {
-            player.setByEnum(mainStat, player.getByEnum(mainStat) + 2);
-        }
-    }
-
-    public void goToMainScreen() {
-        setScreen(mainScreen);
-    }
-
-    public void goToCharacterSelect() {
-        setScreen(selectScreen);
     }
 
     @Override

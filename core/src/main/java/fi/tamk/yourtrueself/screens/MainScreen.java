@@ -52,7 +52,7 @@ public class MainScreen implements Screen {
         trainBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.train();
+                game.getPlayer().train();
             }
         });
 

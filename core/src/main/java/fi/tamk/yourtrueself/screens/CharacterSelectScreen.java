@@ -43,7 +43,7 @@ public final class CharacterSelectScreen implements Screen {
         Table characters = new Table();
         characters.defaults().pad(10);
 
-        for (final Character chr : game.getCharacters()) {
+        for (final Character chr : YTSGame.CHARACTERS) {
             CharacterDetails det = new CharacterDetails(chr.getId(), uiSkin);
             characters.add(det);
             det.addButtonListener(new ChangeListener() {

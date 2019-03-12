@@ -43,6 +43,22 @@ public final class Player {
         this.balance = balance;
     }
 
+    public void train() {
+        if (getCurrentCharacter() == null) {
+            return;
+        }
+
+        Player.Stat mainStat = getCurrentCharacter().getMainStat();
+
+        if (mainStat == Player.Stat.NONE) {
+            for (Player.Stat stat : Player.STAT_ENUMS) {
+                setByEnum(stat, getByEnum(stat) + .5f);
+            }
+        } else {
+            setByEnum(mainStat, getByEnum(mainStat) + 2);
+        }
+    }
+
     public Character getCurrentCharacter() {
         return currentCharacter;
     }
