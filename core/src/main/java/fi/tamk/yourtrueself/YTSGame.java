@@ -2,9 +2,7 @@ package fi.tamk.yourtrueself;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -14,8 +12,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.Locale;
 
 import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
@@ -34,13 +30,6 @@ public class YTSGame extends Game {
     };
 
     private static final String SKIN_PATH = "ui/orange/skin.json";
-
-    private static final AssetDescriptor<TextureAtlas> characterAtlasAsset =
-            new AssetDescriptor<TextureAtlas>("characters.atlas", TextureAtlas.class);
-    private static final AssetDescriptor<I18NBundle> bundleAsset =
-            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class);
-    private static final AssetDescriptor<I18NBundle> bundleAssetFI =
-            new AssetDescriptor<I18NBundle>("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(new Locale("fi", "FI")));
 
     private AssetManager assetManager = new AssetManager();
     private I18NBundle bundle;
@@ -70,23 +59,28 @@ public class YTSGame extends Game {
         BitmapFont fontTitle = generator.generateFont(parameter);
         generator.dispose();
 
+        // Add generated fonts here, so that the skin can use them
         ObjectMap<String, Object> fontMap = new ObjectMap<String, Object>();
         fontMap.put("font", fontSmall);
         fontMap.put("font-title", fontTitle);
 
         SkinLoader.SkinParameter skinParam = new SkinLoader.SkinParameter(fontMap);
 
-        assetManager.load(bundleAsset);
-//        assetManager.load(bundleAssetFI);
-        assetManager.load(characterAtlasAsset);
+        // Add assets to load
+
+        assetManager.load("i18n/YourTrueSelf", I18NBundle.class);
+//        assetManager.load("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(new Locale("fi", "FI")));
+        assetManager.load("characters.atlas", TextureAtlas.class);
         assetManager.load(SKIN_PATH, Skin.class, skinParam);
 
+        // Actually load assets
+        // This can be split up if we need a loading screen
         assetManager.finishLoading();
 
-        bundle = assetManager.get(bundleAsset);
+        bundle = assetManager.get("i18n/YourTrueSelf", I18NBundle.class);
 
         uiSkin = assetManager.get(SKIN_PATH);
-        uiSkin.addRegions(assetManager.get(characterAtlasAsset));
+        uiSkin.addRegions(assetManager.get("characters.atlas", TextureAtlas.class));
 
         uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
     }
