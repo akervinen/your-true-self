@@ -2,29 +2,20 @@ package fi.tamk.yourtrueself;
 
 public class Character {
 
-    private Stats.Stat mainStat = Stats.Stat.NONE;
+    private Player.Stat mainStat;
     private String id;
 
-    public Character(String id, Stats.Stat mainStat) {
+    public Character(String id, Player.Stat mainStat) {
         this.id = id;
         this.mainStat = mainStat;
     }
 
-    public Stats.Stat getMainStat() {
+    public Player.Stat getMainStat() {
         return mainStat;
-    }
-
-    public void setMainStat(Stats.Stat mainStat) {
-        this.mainStat = mainStat;
     }
 
     public String getId() {
         return id;
     }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
 }

@@ -46,16 +46,15 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
 
     private Character[] characters = {
-            new Character("couchpotato", Stats.Stat.NONE),
-            new Character("stronkman", Stats.Stat.STRENGTH),
-            new Character("enlightened", Stats.Stat.FLEXIBILITY),
-            new Character("thespider", Stats.Stat.AGILITY),
-            new Character("marathon", Stats.Stat.STAMINA),
-            new Character("graceful", Stats.Stat.BALANCE)
+            new Character("couchpotato", Player.Stat.NONE),
+            new Character("stronkman", Player.Stat.STRENGTH),
+            new Character("enlightened", Player.Stat.FLEXIBILITY),
+            new Character("thespider", Player.Stat.AGILITY),
+            new Character("marathon", Player.Stat.STAMINA),
+            new Character("graceful", Player.Stat.BALANCE)
     };
 
-    private Character currentCharacter = null;
-    private Stats currentStats = new Stats(0, 20, 40, 60, 80);
+    private Player player = new Player();
 
     private int getPointInPixels(float pt) {
         return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
@@ -110,39 +109,35 @@ public class YTSGame extends Game {
         return characters;
     }
 
-    public Character getCharacter() {
-        return currentCharacter;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setCharacter(Character chr) {
-        currentCharacter = chr;
+    public void setPlayerCharacter(Character chr) {
+        player.setCurrentCharacter(chr);
     }
 
     public void setCharacter(String chr) {
         for (Character c : characters) {
             if (chr.equals(c.getId())) {
-                currentCharacter = c;
+                setPlayerCharacter(c);
             }
         }
-    }
-
-    public Stats getCurrentStats() {
-        return currentStats;
     }
 
     public void train() {
-        if (currentCharacter == null) {
+        if (player.getCurrentCharacter() == null) {
             return;
         }
 
-        Stats.Stat mainStat = currentCharacter.getMainStat();
+        Player.Stat mainStat = player.getCurrentCharacter().getMainStat();
 
-        if (mainStat == Stats.Stat.NONE) {
-            for (Stats.Stat stat : Stats.STAT_ENUMS) {
-                currentStats.setByEnum(stat, currentStats.getByEnum(stat) + .5f);
+        if (mainStat == Player.Stat.NONE) {
+            for (Player.Stat stat : Player.STAT_ENUMS) {
+                player.setByEnum(stat, player.getByEnum(stat) + .5f);
             }
         } else {
-            currentStats.setByEnum(mainStat, currentStats.getByEnum(mainStat) + 2);
+            player.setByEnum(mainStat, player.getByEnum(mainStat) + 2);
         }
     }
 
@@ -163,7 +158,7 @@ public class YTSGame extends Game {
         mainScreen = new MainScreen(this);
         selectScreen = new CharacterSelectScreen(this);
 
-        if (getCharacter() == null) {
+        if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);
         } else {
             setScreen(mainScreen);

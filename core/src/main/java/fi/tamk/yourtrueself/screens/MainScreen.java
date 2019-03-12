@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterDetails;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
@@ -58,10 +59,12 @@ public class MainScreen implements Screen {
         table.add(chooseBtn).top().left();
         table.add(trainBtn).top().right().row();
 
-        if (game.getCharacter() != null) {
-            table.add(new CharacterDetails(game.getCharacter().getId(), uiSkin)).center().left();
+        Character plyCharacter = game.getPlayer().getCurrentCharacter();
+
+        if (plyCharacter != null) {
+            table.add(new CharacterDetails(plyCharacter.getId(), uiSkin)).center().left();
         }
-        table.add(new StatsDisplay(game.getCurrentStats(), uiSkin));
+        table.add(new StatsDisplay(game.getPlayer(), uiSkin));
 
         table.setFillParent(true);
         stage.addActor(table);

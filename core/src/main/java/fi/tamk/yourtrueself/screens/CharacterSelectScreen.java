@@ -49,7 +49,7 @@ public final class CharacterSelectScreen implements Screen {
             det.addButtonListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    game.setCharacter(chr);
+                    game.setPlayerCharacter(chr);
                     game.goToMainScreen();
                 }
             });

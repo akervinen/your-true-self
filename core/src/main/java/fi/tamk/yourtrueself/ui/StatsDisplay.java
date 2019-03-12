@@ -8,26 +8,26 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.I18NBundle;
 
-import fi.tamk.yourtrueself.Stats;
+import fi.tamk.yourtrueself.Player;
 
 public final class StatsDisplay extends Table {
-    private Stats stats;
+    private Player player;
 
-    private ProgressBar[] bars = new ProgressBar[Stats.STAT_ENUMS.length];
+    private ProgressBar[] bars = new ProgressBar[Player.STAT_ENUMS.length];
 
-    public StatsDisplay(Stats stats, Skin skin) {
+    public StatsDisplay(Player player, Skin skin) {
         super(skin);
 
         this.defaults();
 
-        this.stats = stats;
+        this.player = player;
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
-        for (int i = 0; i < Stats.STAT_ENUMS.length; i++) {
-            this.add(new Label(bundle.get(Stats.STAT_NAMES[i]), skin)).left().padRight(2);
+        for (int i = 0; i < Player.STAT_ENUMS.length; i++) {
+            this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left().padRight(2);
             ProgressBar bar = new ProgressBar(0, 100, 1f, false, skin);
-            bar.setValue(stats.getByEnum(Stats.STAT_ENUMS[i]));
+            bar.setValue(player.getByEnum(Player.STAT_ENUMS[i]));
             bar.getStyle().knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
             bar.getStyle().background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
             bars[i] = bar;
@@ -44,7 +44,7 @@ public final class StatsDisplay extends Table {
 
     public void updateStats() {
         for (int i = 0; i < bars.length; i++) {
-            bars[i].setValue(stats.getByEnum(Stats.STAT_ENUMS[i]));
+            bars[i].setValue(player.getByEnum(Player.STAT_ENUMS[i]));
         }
     }
 

@@ -2,7 +2,7 @@ package fi.tamk.yourtrueself;
 
 import com.badlogic.gdx.math.MathUtils;
 
-public final class Stats {
+public final class Player {
     public static final String[] STAT_NAMES = {
             "statStrength",
             "statFlexibility",
@@ -19,21 +19,36 @@ public final class Stats {
             Stat.BALANCE
     };
 
+    private Character currentCharacter = null;
+
     private float strength;
     private float flexibility;
     private float agility;
     private float stamina;
     private float balance;
 
-    public Stats() {
+    public Player() {
     }
 
-    public Stats(float strength, float flexibility, float agility, float stamina, float balance) {
+    public Player(Character chr) {
+        currentCharacter = chr;
+    }
+
+    public Player(Character chr, float strength, float flexibility, float agility, float stamina, float balance) {
+        currentCharacter = chr;
         this.strength = strength;
         this.flexibility = flexibility;
         this.agility = agility;
         this.stamina = stamina;
         this.balance = balance;
+    }
+
+    public Character getCurrentCharacter() {
+        return currentCharacter;
+    }
+
+    public void setCurrentCharacter(Character currentCharacter) {
+        this.currentCharacter = currentCharacter;
     }
 
     public float getByEnum(Stat stat) {
