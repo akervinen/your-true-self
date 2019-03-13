@@ -26,7 +26,8 @@ public class MainScreen implements Screen {
     private Skin uiSkin;
 
     private Stage stage;
-
+    private Table table;
+    private PrefsDisplay prefsDisplay;
     private StatsDisplay statsDisplay;
 
     public MainScreen(YTSGame ytsGame) {
@@ -41,12 +42,12 @@ public class MainScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        Table table = new Table();
+        table = new Table();
         table.setFillParent(true);
+        table.pad(5);
 //        table.debug();
 
-        table.defaults().pad(20).width(Value.percentWidth(.45f, table));
-        table.left();
+        table.defaults().maxWidth(Value.percentWidth(.45f, table));
 
         Character plyCharacter = game.getPlayer().getCurrentCharacter();
 
@@ -67,28 +68,44 @@ public class MainScreen implements Screen {
             }
         });
 
-        table.add(chooseBtn).top().left().height(Value.percentHeight(.1f, table));
         TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
         prefsBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                table.add(new PrefsDisplay(game.getPrefs(), uiSkin)).center().right();
+                if (table.getCell(prefsDisplay) == null) {
+                    table.add(prefsDisplay).right();
+                } else {
+                    table.removeActor(prefsDisplay);
+                }
             }
         });
 
-        table.add(chooseBtn).top().left();
-        table.add(prefsBtn).top().right().row();
+        table.add(chooseBtn)
+                .height(Value.percentHeight(.1f, table))
+                .top().left()
+                .grow();
 
-        table.add(trainBtn).top().right().height(Value.percentHeight(.1f, table)).row();
+        table.add(prefsBtn)
+                .height(Value.percentHeight(.1f, table))
+                .top().right()
+                .grow().row();
+
+        table.add(trainBtn)
+                .height(Value.percentHeight(.1f, table))
+                .top().left()
+                .grow().row();
 
         if (plyCharacter != null) {
-            //table.add(new CharacterImage(plyCharacter.getId(), uiSkin)).left().grow().row();
-            table.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin)).left().grow().row();
+            table.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin))
+                    .height(Value.percentHeight(.3f, table))
+                    .left().grow().row();
         }
-        table.add(new StatsDisplay(game.getCurrentStats(), uiSkin));
 
         statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
-        table.add(statsDisplay).left();
+        prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin);
+        table.add(statsDisplay)
+                .height(Value.percentHeight(.3f, table))
+                .left().grow();
         stage.addActor(table);
     }
 

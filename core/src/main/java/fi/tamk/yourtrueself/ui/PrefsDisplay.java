@@ -3,13 +3,10 @@ package fi.tamk.yourtrueself.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.I18NBundle;
-
-import fi.tamk.yourtrueself.Stats;
 
 public class PrefsDisplay extends Table {
 
@@ -21,8 +18,6 @@ public class PrefsDisplay extends Table {
     int music;
     int noBotherStart;
     int noBotherEnd;
-
-    private ProgressBar[] bars = new ProgressBar[Stats.STAT_ENUMS.length];
 
     public PrefsDisplay(Preferences prefs, Skin skin) {
         super(skin);
@@ -39,8 +34,6 @@ public class PrefsDisplay extends Table {
         noBotherEnd = prefs.getInteger("noBotherEnd", 8);
 
         addSlider(music, "otsikko");
-
-
     }
 
     private void addSlider(int value, String name) {
