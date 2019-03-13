@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterMainPanel;
+import fi.tamk.yourtrueself.ui.PrefsDisplay;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
 
 /**
@@ -57,7 +58,6 @@ public class MainScreen implements Screen {
             }
         });
 
-
         TextButton trainBtn = new TextButton(game.getBundle().get("train"), uiSkin);
         trainBtn.addListener(new ChangeListener() {
             @Override
@@ -68,6 +68,16 @@ public class MainScreen implements Screen {
         });
 
         table.add(chooseBtn).top().left().height(Value.percentHeight(.1f, table));
+        TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
+        prefsBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                table.add(new PrefsDisplay(game.getPrefs(), uiSkin)).center().right();
+            }
+        });
+
+        table.add(chooseBtn).top().left();
+        table.add(prefsBtn).top().right().row();
 
         table.add(trainBtn).top().right().height(Value.percentHeight(.1f, table)).row();
 
@@ -75,6 +85,7 @@ public class MainScreen implements Screen {
             //table.add(new CharacterImage(plyCharacter.getId(), uiSkin)).left().grow().row();
             table.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin)).left().grow().row();
         }
+        table.add(new StatsDisplay(game.getCurrentStats(), uiSkin));
 
         statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
         table.add(statsDisplay).left();

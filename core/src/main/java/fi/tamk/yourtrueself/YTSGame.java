@@ -2,6 +2,7 @@ package fi.tamk.yourtrueself;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -37,6 +38,7 @@ public class YTSGame extends Game {
     private Skin uiSkin;
     private MainScreen mainScreen;
     private CharacterSelectScreen selectScreen;
+    private Preferences prefs;
     private Player player = new Player();
 
     /*
@@ -125,9 +127,14 @@ public class YTSGame extends Game {
         }
     }
 
+    public Preferences getPrefs() {
+        return prefs;
+    }
+
     @Override
     public void create() {
         loadAssets();
+        prefs = Gdx.app.getPreferences("YTSPreferences");
 
         uiViewport = new ScreenViewport();
 
@@ -150,4 +157,5 @@ public class YTSGame extends Game {
     public void dispose() {
         assetManager.dispose();
     }
+
 }
