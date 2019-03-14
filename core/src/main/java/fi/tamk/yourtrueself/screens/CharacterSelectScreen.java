@@ -29,6 +29,7 @@ public final class CharacterSelectScreen implements Screen {
         uiSkin = yts.getSkin();
 
         stage = new Stage(yts.getUiViewport());
+//        stage.setDebugAll(true);
 
         Table main = new Table();
         main.defaults().pad(10).grow();
@@ -55,7 +56,7 @@ public final class CharacterSelectScreen implements Screen {
             });
         }
 
-        ScrollPane scroller = new ScrollPane(characters);
+        ScrollPane scroller = new ScrollPane(characters, uiSkin, "no-bg");
         scroller.setOverscroll(false, false);
         scroller.setScrollingDisabled(false, true);
 
