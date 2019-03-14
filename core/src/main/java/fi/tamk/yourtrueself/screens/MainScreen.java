@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
+import fi.tamk.yourtrueself.ui.ChallengePanel;
 import fi.tamk.yourtrueself.ui.CharacterMainPanel;
 import fi.tamk.yourtrueself.ui.PrefsDisplay;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
@@ -27,6 +29,7 @@ public class MainScreen implements Screen {
 
     private Stage stage;
     private Table table;
+    private Table challengeTable;
     private PrefsDisplay prefsDisplay;
     private StatsDisplay statsDisplay;
 
@@ -34,6 +37,7 @@ public class MainScreen implements Screen {
         this.game = ytsGame;
 
         stage = new Stage(game.getUiViewport());
+        //stage.setDebugAll(true);
     }
 
     @Override
@@ -45,7 +49,6 @@ public class MainScreen implements Screen {
         table = new Table();
         table.setFillParent(true);
         table.pad(5);
-//        table.debug();
 
         table.defaults().maxWidth(Value.percentWidth(.45f, table));
 
@@ -73,12 +76,14 @@ public class MainScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (table.getCell(prefsDisplay) == null) {
-                    table.add(prefsDisplay).right();
+                    //table.add(prefsDisplay).right();
                 } else {
-                    table.removeActor(prefsDisplay);
+                    //table.removeActor(prefsDisplay);
                 }
             }
         });
+
+        // Main screen top buttons
 
         table.add(chooseBtn)
                 .height(Value.percentHeight(.1f, table))
@@ -95,17 +100,36 @@ public class MainScreen implements Screen {
                 .top().left()
                 .grow().row();
 
-        if (plyCharacter != null) {
-            table.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin))
-                    .height(Value.percentHeight(.3f, table))
-                    .left().grow().row();
+        // Separate the rest of the main screen into two elements:
+
+        // Main screen player info (image and stats)
+
+        Table playerInfo = new Table();
+        playerInfo.defaults().grow();
+
+        // Challenge list
+
+        challengeTable = new Table();
+        challengeTable.defaults().padBottom(5).top().growX();
+
+        // Add some placeholder challenges
+        for (int i = 0; i < 1; i++) {
+            challengeTable.add(new ChallengePanel(new Challenge("hello world"), uiSkin));
         }
 
         statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
+
+        // Defensive check in case player gets to main screen without a character (???)
+        if (plyCharacter != null) {
+            playerInfo.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin)).row();
+        }
+        playerInfo.add(statsDisplay);
+
+        table.add(playerInfo).height(Value.percentHeight(.6f, table)).left().grow();
+        table.add(challengeTable).height(Value.percentHeight(.6f, table)).right().grow();
+
         prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin);
-        table.add(statsDisplay)
-                .height(Value.percentHeight(.3f, table))
-                .left().grow();
+
         stage.addActor(table);
     }
 

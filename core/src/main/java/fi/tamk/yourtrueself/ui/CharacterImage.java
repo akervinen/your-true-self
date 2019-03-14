@@ -17,6 +17,11 @@ public final class CharacterImage extends Image {
     }
 
     @Override
+    public float getMinHeight() {
+        return Gdx.graphics.getPpiY() * .5f;
+    }
+
+    @Override
     public float getPrefHeight() {
         return Gdx.graphics.getPpiY() * 2;
     }

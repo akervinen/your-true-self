@@ -9,6 +9,22 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.Player;
 
+final class StatBar extends ProgressBar {
+    public StatBar(Skin skin) {
+        super(0, 100, .5f, false, skin);
+    }
+
+    @Override
+    public float getMinWidth() {
+        return 60;
+    }
+
+    @Override
+    public float getPrefWidth() {
+        return 140;
+    }
+}
+
 public final class StatsDisplay extends Table {
     private Player player;
 
@@ -29,13 +45,13 @@ public final class StatsDisplay extends Table {
 
         for (int i = 0; i < Player.STAT_ENUMS.length; i++) {
             this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left().padRight(2);
-            ProgressBar bar = new ProgressBar(0, 100, 1f, false, skin);
+            StatBar bar = new StatBar(skin);
             bar.setValue(player.getByEnum(Player.STAT_ENUMS[i]));
             bar.getStyle().knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
             bar.getStyle().background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
             bars[i] = bar;
             this.add(bar).grow();
-            this.row();
+            this.row().space(0);
         }
     }
 
@@ -51,7 +67,17 @@ public final class StatsDisplay extends Table {
     }
 
     @Override
+    public float getMinHeight() {
+        return Gdx.graphics.getPpiY() * 0;
+    }
+
+    @Override
     public float getPrefHeight() {
+        return Gdx.graphics.getPpiY() * 1;
+    }
+
+    @Override
+    public float getMaxHeight() {
         return Gdx.graphics.getPpiY() * 2;
     }
 }

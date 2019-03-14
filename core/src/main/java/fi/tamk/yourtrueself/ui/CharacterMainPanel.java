@@ -36,6 +36,11 @@ public final class CharacterMainPanel extends Table {
     }
 
     @Override
+    public float getMinHeight() {
+        return Gdx.graphics.getPpiY() * .5f;
+    }
+
+    @Override
     public float getPrefHeight() {
         return Gdx.graphics.getPpiY() * 1.5f;
     }
