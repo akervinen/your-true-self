@@ -2,8 +2,8 @@ package fi.tamk.yourtrueself;
 
 public class Character {
 
-    private Player.Stat mainStat;
-    private String id;
+    private final Player.Stat mainStat;
+    private final String id;
 
     public Character(String id, Player.Stat mainStat) {
         this.id = id;
