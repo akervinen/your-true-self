@@ -35,7 +35,6 @@ public class MainScreen implements Screen {
 
     public MainScreen(YTSGame ytsGame) {
         this.game = ytsGame;
-
         stage = new Stage(game.getUiViewport());
         //stage.setDebugAll(true);
     }
@@ -75,11 +74,26 @@ public class MainScreen implements Screen {
         prefsBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (table.getCell(prefsDisplay) == null) {
-                    //table.add(prefsDisplay).right();
-                } else {
-                    //table.removeActor(prefsDisplay);
+                boolean addWindow = true;
+                for (Actor stageActor : stage.getActors()) {
+                    if (stageActor.equals(prefsDisplay)) {
+                        prefsDisplay.remove();
+                        addWindow = false;
+                    }
                 }
+                if (addWindow) {
+                    prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
+                    prefsDisplay.setSize(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+                    prefsDisplay.setPosition(Gdx.graphics.getWidth() / 2 - prefsDisplay.getWidth() / 2, Gdx.graphics.getHeight() / 2 - prefsDisplay.getHeight() / 2);
+                    stage.addActor(prefsDisplay);
+                }
+                /**
+                 if (table.getCell(prefsDisplay) == null) {
+                 table.addActor(prefsDisplay);
+                 } else {
+                 //table.removeActor(prefsDisplay);
+                 }
+                 */
             }
         });
 
@@ -128,7 +142,7 @@ public class MainScreen implements Screen {
         table.add(playerInfo).height(Value.percentHeight(.6f, table)).left().grow();
         table.add(challengeTable).height(Value.percentHeight(.6f, table)).right().grow();
 
-        prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin);
+        prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
 
         stage.addActor(table);
     }
