@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -41,31 +41,47 @@ public class PrefsDisplay extends Window {
         noBotherStart = prefs.getInteger("noBotherStart", 22);
         noBotherEnd = prefs.getInteger("noBotherEnd", 8);
 
-        addSlider(music, "otsikko");
-        addSlider(sound, "otsikko");
-        addList(noBotherStart, "otsikko");
-        addList(noBotherEnd, "otsikko");
+        addSlider(music, game.getBundle().get("musicSlider"));
+        addSlider(sound, game.getBundle().get("soundSlider"));
+        this.add(new Label(game.getBundle().get("noBother"), skin));
+        this.row();
+        addSelect(noBotherStart, game.getBundle().get("noBotherStart"));
+        addSelect(noBotherEnd, game.getBundle().get("noBotherEnd"));
+        this.row();
+        addLanguage(lang, game.getBundle().get("noBotherEnd"));
         addButton(game.getBundle().get("changeCharacter"));
+        this.row();
+        addButton(game.getBundle().get("cancel"));
+        addButton(game.getBundle().get("ok"));
     }
 
     private void addSlider(int value, String name) {
-        this.add(new Label(name, skin)).left().padRight(2);
+        this.add(new Label(name, skin));
         Slider slider = new Slider(0, 10, 1f, false, skin);
         slider.setValue(value);
         this.add(slider).grow();
         this.row();
     }
 
-    private void addList(int time, String name) {
-        this.add(new Label(name, skin)).left().padRight(2);
-        List list = new List(skin);
-        int[] times = new int[24];
+    private void addSelect(int time, String name) {
+        this.add(new Label(name, skin));
+        SelectBox select = new SelectBox(skin);
+        String[] times = new String[24];
         for (int i = 0; i < times.length; i++) {
-            times[i] = i;
+            times[i] = Integer.toString(i);
         }
-        list.setItems(times);
-        list.setSelected(time);
-        this.add(list).grow();
+        select.setItems(times);
+        select.setSelected(time);
+        this.add(select).grow();
+    }
+
+    private void addLanguage(String lang, String name) {
+        this.add(new Label(name, skin));
+        SelectBox select = new SelectBox(skin);
+        String[] languages = {"FI", "EN"};
+        select.setItems(languages);
+        select.setSelected(lang);
+        this.add(select).grow();
         this.row();
     }
 
@@ -78,7 +94,6 @@ public class PrefsDisplay extends Window {
             }
         });
         this.add(button).grow();
-        this.row();
     }
 
     @Override
