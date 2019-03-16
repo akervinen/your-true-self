@@ -2,12 +2,14 @@ package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.YTSGame;
@@ -41,8 +43,8 @@ public class PrefsDisplay extends Window {
 
         addSlider(music, "otsikko");
         addSlider(sound, "otsikko");
-        addList("otsikko");
-        addList("otsikko");
+        addList(noBotherStart, "otsikko");
+        addList(noBotherEnd, "otsikko");
         addButton(game.getBundle().get("changeCharacter"));
     }
 
@@ -54,7 +56,7 @@ public class PrefsDisplay extends Window {
         this.row();
     }
 
-    private void addList(String name) {
+    private void addList(int time, String name) {
         this.add(new Label(name, skin)).left().padRight(2);
         List list = new List(skin);
         int[] times = new int[24];
@@ -62,13 +64,21 @@ public class PrefsDisplay extends Window {
             times[i] = i;
         }
         list.setItems(times);
+        list.setSelected(time);
         this.add(list).grow();
         this.row();
     }
 
     private void addButton(String name) {
-        this.add(new Label(name, skin)).left().padRight(2);
-        TextButton button = new TextButton(game.getBundle().get("train"), skin);
+        TextButton button = new TextButton(name, skin);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.goToCharacterSelect();
+            }
+        });
+        this.add(button).grow();
+        this.row();
     }
 
     @Override

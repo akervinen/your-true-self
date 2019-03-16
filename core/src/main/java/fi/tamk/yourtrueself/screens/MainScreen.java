@@ -53,13 +53,14 @@ public class MainScreen implements Screen {
 
         Character plyCharacter = game.getPlayer().getCurrentCharacter();
 
-        TextButton chooseBtn = new TextButton(game.getBundle().get("changeCharacter"), uiSkin);
-        chooseBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.goToCharacterSelect();
-            }
+        /**
+         TextButton chooseBtn = new TextButton(game.getBundle().get("changeCharacter"), uiSkin);
+         chooseBtn.addListener(new ChangeListener() {
+        @Override public void changed(ChangeEvent event, Actor actor) {
+        game.goToCharacterSelect();
+        }
         });
+         */
 
         TextButton trainBtn = new TextButton(game.getBundle().get("train"), uiSkin);
         trainBtn.addListener(new ChangeListener() {
@@ -99,10 +100,12 @@ public class MainScreen implements Screen {
 
         // Main screen top buttons
 
-        table.add(chooseBtn)
-                .height(Value.percentHeight(.1f, table))
-                .top().left()
-                .grow();
+        /**
+         table.add(chooseBtn)
+         .height(Value.percentHeight(.1f, table))
+         .top().left()
+         .grow();
+         */
 
         table.add(prefsBtn)
                 .height(Value.percentHeight(.1f, table))
