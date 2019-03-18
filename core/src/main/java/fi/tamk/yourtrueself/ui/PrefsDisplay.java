@@ -2,6 +2,7 @@ package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 
@@ -41,52 +43,101 @@ public class PrefsDisplay extends Window {
         noBotherStart = prefs.getInteger("noBotherStart", 22);
         noBotherEnd = prefs.getInteger("noBotherEnd", 8);
 
-        addSlider(music, game.getBundle().get("musicSlider"));
-        addSlider(sound, game.getBundle().get("soundSlider"));
+        addMusicSlider();
+        addSoundSlider();
+        addStartSelect();
+        addEndSelect();
+        addLanguageSelect();
+        addCharacterButton();
+        addCancelButton();
+        addOKButton();
+    }
+
+    private void addMusicSlider() {
+        this.add(new Label(game.getBundle().get("musicSlider"), skin));
+        final Slider slider = new Slider(0, 10, 1f, false, skin);
+        slider.setValue(music);
+        this.add(slider).grow();
+        slider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                music = (int) slider.getValue();
+            }
+        });
+        this.row();
+    }
+
+    private void addSoundSlider() {
+        this.add(new Label(game.getBundle().get("soundSlider"), skin));
+        final Slider slider = new Slider(0, 10, 1f, false, skin);
+        slider.setValue(sound);
+        this.add(slider).grow();
+        slider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                sound = (int) slider.getValue();
+            }
+        });
+        this.row();
+    }
+
+    private void addStartSelect() {
         this.add(new Label(game.getBundle().get("noBother"), skin));
         this.row();
-        addSelect(noBotherStart, game.getBundle().get("noBotherStart"));
-        addSelect(noBotherEnd, game.getBundle().get("noBotherEnd"));
-        this.row();
-        addLanguage(lang, game.getBundle().get("noBotherEnd"));
-        addCharacterButton(game.getBundle().get("changeCharacter"));
-        this.row();
-        addCancelButton(game.getBundle().get("cancel"));
-        addOKButton(game.getBundle().get("ok"));
-    }
-
-    private void addSlider(int value, String name) {
-        this.add(new Label(name, skin));
-        Slider slider = new Slider(0, 10, 1f, false, skin);
-        slider.setValue(value);
-        this.add(slider).grow();
-        this.row();
-    }
-
-    private void addSelect(int time, String name) {
-        this.add(new Label(name, skin));
-        SelectBox select = new SelectBox(skin);
+        this.add(new Label(game.getBundle().get("noBotherStart"), skin));
+        final SelectBox select = new SelectBox(skin);
         String[] times = new String[24];
         for (int i = 0; i < times.length; i++) {
             times[i] = Integer.toString(i);
         }
         select.setItems(times);
-        select.setSelected(time);
+        select.setSelected(times[noBotherStart - 1]);
         this.add(select).grow();
+        select.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                noBotherStart = Integer.parseInt(select.getSelected().toString());
+            }
+        });
     }
 
-    private void addLanguage(String lang, String name) {
-        this.add(new Label(name, skin));
-        SelectBox select = new SelectBox(skin);
+    private void addEndSelect() {
+        this.add(new Label(game.getBundle().get("noBotherEnd"), skin));
+        final SelectBox select = new SelectBox(skin);
+        String[] times = new String[24];
+        for (int i = 0; i < times.length; i++) {
+            times[i] = Integer.toString(i);
+        }
+        select.setItems(times);
+        select.setSelected(times[noBotherEnd - 1]);
+        this.add(select).grow();
+        select.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                noBotherEnd = Integer.parseInt(select.getSelected().toString());
+            }
+        });
+        this.row();
+    }
+
+    private void addLanguageSelect() {
+        this.add(new Label(game.getBundle().get("language"), skin));
+        final SelectBox select = new SelectBox(skin);
         String[] languages = {"FI", "EN"};
         select.setItems(languages);
         select.setSelected(lang);
         this.add(select).grow();
         this.row();
+        select.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                lang = select.getSelected().toString();
+            }
+        });
     }
 
-    private void addCharacterButton(String name) {
-        TextButton button = new TextButton(name, skin);
+    private void addCharacterButton() {
+        TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -94,10 +145,11 @@ public class PrefsDisplay extends Window {
             }
         });
         this.add(button).grow();
+        this.row();
     }
 
-    private void addCancelButton(String name) {
-        TextButton button = new TextButton(name, skin);
+    private void addCancelButton() {
+        TextButton button = new TextButton(game.getBundle().get("cancel"), skin);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -107,12 +159,17 @@ public class PrefsDisplay extends Window {
         this.add(button).grow();
     }
 
-    private void addOKButton(String name) {
-        TextButton button = new TextButton(name, skin);
+    private void addOKButton() {
+        TextButton button = new TextButton(game.getBundle().get("ok"), skin);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //save preferences before closing
+                prefs.putString("lang", lang);
+                prefs.putInteger("sound", sound);
+                prefs.putInteger("music", music);
+                prefs.putInteger("noBotherStart", noBotherStart);
+                prefs.putInteger("noBotherEnd", noBotherEnd);
+                prefs.flush();
                 remove();
             }
         });
