@@ -49,10 +49,10 @@ public class PrefsDisplay extends Window {
         addSelect(noBotherEnd, game.getBundle().get("noBotherEnd"));
         this.row();
         addLanguage(lang, game.getBundle().get("noBotherEnd"));
-        addButton(game.getBundle().get("changeCharacter"));
+        addCharacterButton(game.getBundle().get("changeCharacter"));
         this.row();
-        addButton(game.getBundle().get("cancel"));
-        addButton(game.getBundle().get("ok"));
+        addCancelButton(game.getBundle().get("cancel"));
+        addOKButton(game.getBundle().get("ok"));
     }
 
     private void addSlider(int value, String name) {
@@ -85,12 +85,35 @@ public class PrefsDisplay extends Window {
         this.row();
     }
 
-    private void addButton(String name) {
+    private void addCharacterButton(String name) {
         TextButton button = new TextButton(name, skin);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.goToCharacterSelect();
+            }
+        });
+        this.add(button).grow();
+    }
+
+    private void addCancelButton(String name) {
+        TextButton button = new TextButton(name, skin);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                remove();
+            }
+        });
+        this.add(button).grow();
+    }
+
+    private void addOKButton(String name) {
+        TextButton button = new TextButton(name, skin);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //save preferences before closing
+                remove();
             }
         });
         this.add(button).grow();
