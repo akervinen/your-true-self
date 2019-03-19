@@ -117,6 +117,8 @@ public class YTSGame extends Game {
 
     public void setPlayerCharacter(Character chr) {
         player.setCurrentCharacter(chr);
+        prefs.putString("playerCharacter", chr.getId());
+        prefs.flush();
     }
 
     public void setPlayerCharacter(String chr) {
@@ -135,6 +137,10 @@ public class YTSGame extends Game {
     public void create() {
         loadAssets();
         prefs = Gdx.app.getPreferences("YTSPreferences");
+
+        if (prefs.contains("playerCharacter")) {
+            setPlayerCharacter(prefs.getString("playerCharacter"));
+        }
 
         uiViewport = new ScreenViewport();
 
