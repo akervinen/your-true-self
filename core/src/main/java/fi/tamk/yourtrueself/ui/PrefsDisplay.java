@@ -1,9 +1,9 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 
@@ -28,11 +29,14 @@ public class PrefsDisplay extends Window {
     int noBotherStart;
     int noBotherEnd;
     YTSGame game;
+    private Stage stage;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame game) {
         super(game.getBundle().get("prefs"), skin);
         this.defaults().space(5).padTop(20).growX();
         this.game = game;
+
+        stage = this.getStage();
 
         this.setMovable(false);
 
@@ -155,10 +159,14 @@ public class PrefsDisplay extends Window {
     }
 
     private void addCreditsButton() {
-        TextButton button = new TextButton(game.getBundle().get("creditsButton"), skin);
+        final PrefsDisplay self = this;
+        TextButton button = new TextButton(game.getBundle().get("credits"), skin);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                CreditsDisplay credits = new CreditsDisplay(skin, game);
+                credits.setPosition(self.getStage().getWidth() / 2, self.getStage().getHeight() / 2, Align.center);
+                self.getStage().addActor(credits);
             }
         });
         this.add(button).grow();

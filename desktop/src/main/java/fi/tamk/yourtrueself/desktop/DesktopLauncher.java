@@ -21,8 +21,8 @@ public class DesktopLauncher {
     private static LwjglApplicationConfiguration getDefaultConfiguration() {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.title = "Your True Self";
-        configuration.width = 720;
-        configuration.height = 1280;
+        configuration.width = 360;
+        configuration.height = 640;
         for (int size : new int[]{128, 64, 32, 16}) {
             configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
         }
