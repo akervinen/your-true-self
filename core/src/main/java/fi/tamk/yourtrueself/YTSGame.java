@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -30,6 +31,14 @@ public class YTSGame extends Game {
             new Character("graceful", Player.Stat.BALANCE)
     };
 
+    public static final Challenge[] CHALLENGES = {
+            new Challenge("chlStr01", Player.Stat.STRENGTH),
+            new Challenge("chlFlx01", Player.Stat.FLEXIBILITY),
+            new Challenge("chlAgi01", Player.Stat.AGILITY),
+            new Challenge("chlSta01", Player.Stat.STAMINA),
+            new Challenge("chlBal01", Player.Stat.BALANCE)
+    };
+
     private static final String SKIN_PATH = "ui/orange/skin.json";
 
     private AssetManager assetManager = new AssetManager();
@@ -40,6 +49,8 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
     private Preferences prefs;
     private Player player = new Player();
+    private Challenge currentChallenge;
+    private ChallengeCompletedListener challengeCompletedListener;
 
     /*
         UI Stuff
@@ -131,6 +142,34 @@ public class YTSGame extends Game {
 
     public Preferences getPrefs() {
         return prefs;
+    }
+
+    public void setChallengeCompletedListener(ChallengeCompletedListener listener) {
+        challengeCompletedListener = listener;
+    }
+
+    public void completeChallenge() {
+        if (currentChallenge != null) {
+            Challenge prev = currentChallenge;
+            currentChallenge = null;
+            prev.complete(getPlayer());
+
+            if (challengeCompletedListener != null) {
+                challengeCompletedListener.challengeCompleted(prev);
+            }
+        }
+    }
+
+    public Challenge getCurrentChallenge() {
+        if (currentChallenge == null) {
+            currentChallenge = getNextChallenge();
+        }
+        return currentChallenge;
+    }
+
+    public Challenge getNextChallenge() {
+        int idx = MathUtils.random(0, CHALLENGES.length - 1);
+        return CHALLENGES[idx];
     }
 
     @Override

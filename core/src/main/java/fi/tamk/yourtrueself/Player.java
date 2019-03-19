@@ -59,6 +59,10 @@ public final class Player {
         }
     }
 
+    public void train(Stat stat, float value) {
+        setByEnum(stat, getByEnum(stat) + value);
+    }
+
     public Character getCurrentCharacter() {
         return currentCharacter;
     }

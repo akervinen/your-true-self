@@ -1,13 +1,19 @@
 package fi.tamk.yourtrueself;
 
 public class Challenge {
-    private String text;
+    private String id;
+    private Player.Stat mainStat;
 
-    public Challenge(String text) {
-        this.text = text;
+    public Challenge(String id, Player.Stat mainStat) {
+        this.id = id;
+        this.mainStat = mainStat;
     }
 
-    public String getText() {
-        return text;
+    public String getId() {
+        return id;
+    }
+
+    public void complete(Player player) {
+        player.train(mainStat, 2f);
     }
 }

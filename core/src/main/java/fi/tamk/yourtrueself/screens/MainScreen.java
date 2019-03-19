@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.yourtrueself.Challenge;
+import fi.tamk.yourtrueself.ChallengeCompletedListener;
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.ChallengePanel;
@@ -93,9 +94,16 @@ public class MainScreen implements Screen {
         challengeTable.defaults().padBottom(5).top().growX();
 
         // Add some placeholder challenges
-        for (int i = 0; i < 1; i++) {
-            challengeTable.add(new ChallengePanel(new Challenge("hello world"), uiSkin));
-        }
+        challengeTable.add(new ChallengePanel(game.getCurrentChallenge(), game, uiSkin));
+
+        game.setChallengeCompletedListener(new ChallengeCompletedListener() {
+            @Override
+            public void challengeCompleted(Challenge challenge) {
+                statsDisplay.updateStats();
+                challengeTable.clearChildren();
+                challengeTable.add(new ChallengePanel(game.getCurrentChallenge(), game, uiSkin));
+            }
+        });
 
         statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
 
