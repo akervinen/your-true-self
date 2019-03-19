@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.YTSGame;
@@ -29,13 +30,17 @@ public class PrefsDisplay extends Window {
     YTSGame game;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame game) {
-        super("", skin);
-        this.defaults();
+        super(game.getBundle().get("prefs"), skin);
+        this.defaults().space(5).padTop(20).growX();
         this.game = game;
+
+        this.setMovable(false);
+
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         this.skin = skin;
         this.prefs = prefs;
+
         id = prefs.getString("id", "couchpotato");
         lang = prefs.getString("lang", "fi");
         sound = prefs.getInteger("sound", 5);
@@ -49,15 +54,18 @@ public class PrefsDisplay extends Window {
         addEndSelect();
         addLanguageSelect();
         addCharacterButton();
+        addCreditsButton();
         addCancelButton();
         addOKButton();
+
+        this.pack();
     }
 
     private void addMusicSlider() {
         this.add(new Label(game.getBundle().get("musicSlider"), skin));
         final Slider slider = new Slider(0, 10, 1f, false, skin);
         slider.setValue(music);
-        this.add(slider).grow();
+        this.add(slider);
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -71,7 +79,7 @@ public class PrefsDisplay extends Window {
         this.add(new Label(game.getBundle().get("soundSlider"), skin));
         final Slider slider = new Slider(0, 10, 1f, false, skin);
         slider.setValue(sound);
-        this.add(slider).grow();
+        this.add(slider);
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -85,14 +93,14 @@ public class PrefsDisplay extends Window {
         this.add(new Label(game.getBundle().get("noBother"), skin));
         this.row();
         this.add(new Label(game.getBundle().get("noBotherStart"), skin));
-        final SelectBox select = new SelectBox(skin);
-        String[] times = new String[24];
-        for (int i = 0; i < times.length; i++) {
-            times[i] = Integer.toString(i);
+        final SelectBox<String> select = new SelectBox<String>(skin);
+        Array<String> times = new Array<String>(24);
+        for (int i = 0; i < 24; i++) {
+            times.add(Integer.toString(i));
         }
         select.setItems(times);
-        select.setSelected(times[noBotherStart - 1]);
-        this.add(select).grow();
+        select.setSelected(times.get(noBotherStart));
+        this.add(select).row();
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -103,14 +111,14 @@ public class PrefsDisplay extends Window {
 
     private void addEndSelect() {
         this.add(new Label(game.getBundle().get("noBotherEnd"), skin));
-        final SelectBox select = new SelectBox(skin);
-        String[] times = new String[24];
-        for (int i = 0; i < times.length; i++) {
-            times[i] = Integer.toString(i);
+        final SelectBox<String> select = new SelectBox<String>(skin);
+        Array<String> times = new Array<String>(24);
+        for (int i = 0; i < 24; i++) {
+            times.add(Integer.toString(i));
         }
         select.setItems(times);
-        select.setSelected(times[noBotherEnd - 1]);
-        this.add(select).grow();
+        select.setSelected(times.get(noBotherEnd));
+        this.add(select);
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -122,12 +130,11 @@ public class PrefsDisplay extends Window {
 
     private void addLanguageSelect() {
         this.add(new Label(game.getBundle().get("language"), skin));
-        final SelectBox select = new SelectBox(skin);
-        String[] languages = {"FI", "EN"};
-        select.setItems(languages);
+        final SelectBox<String> select = new SelectBox<String>(skin);
+        select.setItems("FI", "EN");
         select.setSelected(lang);
-        this.add(select).grow();
-        this.row();
+        this.add(select);
+        this.row().padTop(20);
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -142,6 +149,16 @@ public class PrefsDisplay extends Window {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.goToCharacterSelect();
+            }
+        });
+        this.add(button).grow();
+    }
+
+    private void addCreditsButton() {
+        TextButton button = new TextButton(game.getBundle().get("creditsButton"), skin);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
             }
         });
         this.add(button).grow();
@@ -176,13 +193,13 @@ public class PrefsDisplay extends Window {
         this.add(button).grow();
     }
 
-    @Override
-    public float getPrefWidth() {
-        return Gdx.graphics.getPpiX() * 1;
-    }
-
-    @Override
-    public float getPrefHeight() {
-        return Gdx.graphics.getPpiY() * 2;
-    }
+//    @Override
+//    public float getPrefWidth() {
+//        return Gdx.graphics.getPpiX() * 1;
+//    }
+//
+//    @Override
+//    public float getPrefHeight() {
+//        return Gdx.graphics.getPpiY() * 2;
+//    }
 }

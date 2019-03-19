@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.Character;
@@ -53,24 +54,6 @@ public class MainScreen implements Screen {
 
         Character plyCharacter = game.getPlayer().getCurrentCharacter();
 
-        /**
-         TextButton chooseBtn = new TextButton(game.getBundle().get("changeCharacter"), uiSkin);
-         chooseBtn.addListener(new ChangeListener() {
-        @Override public void changed(ChangeEvent event, Actor actor) {
-        game.goToCharacterSelect();
-        }
-        });
-         */
-
-        TextButton trainBtn = new TextButton(game.getBundle().get("train"), uiSkin);
-        trainBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.getPlayer().train();
-                statsDisplay.updateStats();
-            }
-        });
-
         TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
         prefsBtn.addListener(new ChangeListener() {
             @Override
@@ -83,38 +66,18 @@ public class MainScreen implements Screen {
                     }
                 }
                 if (addWindow) {
-                    prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
-                    prefsDisplay.setSize(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-                    prefsDisplay.setPosition(Gdx.graphics.getWidth() / 2 - prefsDisplay.getWidth() / 2, Gdx.graphics.getHeight() / 2 - prefsDisplay.getHeight() / 2);
+                    prefsDisplay.setPosition(stage.getWidth()/2, stage.getHeight()/2, Align.center);
                     stage.addActor(prefsDisplay);
                 }
-                /**
-                 if (table.getCell(prefsDisplay) == null) {
-                 table.addActor(prefsDisplay);
-                 } else {
-                 //table.removeActor(prefsDisplay);
-                 }
-                 */
             }
         });
 
         // Main screen top buttons
 
-        /**
-         table.add(chooseBtn)
-         .height(Value.percentHeight(.1f, table))
-         .top().left()
-         .grow();
-         */
-
+        table.add();
         table.add(prefsBtn)
                 .height(Value.percentHeight(.1f, table))
                 .top().right()
-                .grow().row();
-
-        table.add(trainBtn)
-                .height(Value.percentHeight(.1f, table))
-                .top().left()
                 .grow().row();
 
         // Separate the rest of the main screen into two elements:
