@@ -1,5 +1,6 @@
 package fi.tamk.yourtrueself.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,19 +17,21 @@ public final class ChallengePanel extends Window {
     private Challenge challenge;
 
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
-        super("Challenge", skin, "peach");
+        super("Challenge", skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
         this.challenge = chl;
 
         this.setMovable(false);
+        this.padLeft(20).padRight(20);
 
         Label chlText = new Label(game.getBundle().format(chl.getId(), 5), skin);
         chlText.setWrap(true);
         this.add(chlText).padBottom(5).grow().row();
 
         doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
-        this.add(doneButton);
+        doneButton.pad(15);
+        this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
             @Override

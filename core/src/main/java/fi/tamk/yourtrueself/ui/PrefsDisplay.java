@@ -1,5 +1,6 @@
 package fi.tamk.yourtrueself.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,8 +31,8 @@ public class PrefsDisplay extends Window {
     private YTSGame game;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame game) {
-        super(game.getBundle().get("prefs"), skin);
-        this.defaults().space(5).padTop(20).growX();
+        super(game.getBundle().get("prefs"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        this.defaults().space(5).spaceBottom(35).grow().minWidth(Value.percentWidth(.45f, this));
         this.game = game;
 
         this.setMovable(false);
@@ -56,6 +58,7 @@ public class PrefsDisplay extends Window {
         addCancelButton();
         addOKButton();
 
+        this.padLeft(10).padRight(10);
         this.pack();
     }
 
@@ -143,6 +146,7 @@ public class PrefsDisplay extends Window {
 
     private void addCharacterButton() {
         TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin);
+        button.pad(15);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -155,6 +159,7 @@ public class PrefsDisplay extends Window {
     private void addCreditsButton() {
         final PrefsDisplay self = this;
         TextButton button = new TextButton(game.getBundle().get("credits"), skin);
+        button.pad(15);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -178,6 +183,7 @@ public class PrefsDisplay extends Window {
 
     private void addCancelButton() {
         TextButton button = new TextButton(game.getBundle().get("cancel"), skin);
+        button.pad(15);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -189,6 +195,7 @@ public class PrefsDisplay extends Window {
 
     private void addOKButton() {
         TextButton button = new TextButton(game.getBundle().get("ok"), skin);
+        button.pad(15);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

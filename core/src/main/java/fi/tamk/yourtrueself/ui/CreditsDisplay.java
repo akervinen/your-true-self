@@ -2,10 +2,10 @@ package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -15,7 +15,9 @@ public class CreditsDisplay extends Window {
     private YTSGame game;
 
     public CreditsDisplay(Skin skin, YTSGame game) {
-        super(game.getBundle().get("credits"), skin);
+        super(game.getBundle().get("credits"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+
+        this.defaults().grow();
 
         this.game = game;
 
@@ -27,9 +29,10 @@ public class CreditsDisplay extends Window {
         ScrollPane scroller = new ScrollPane(creditsText, skin, "no-bg");
         scroller.setScrollingDisabled(true, false);
 
-        this.add(scroller).grow();
+        this.add(scroller).pad(5).row();
 
-        Button closeBtn = new Button(skin, "close");
+        TextButton closeBtn = new TextButton(game.getBundle().get("ok"), skin);
+        closeBtn.pad(10);
         final CreditsDisplay self = this;
         closeBtn.addListener(new ClickListener() {
             @Override
@@ -38,18 +41,20 @@ public class CreditsDisplay extends Window {
             }
         });
 
-        this.getTitleTable().add(closeBtn);
+        this.add(closeBtn).padTop(10).grow();
 
-        this.setSize(Gdx.graphics.getPpiX() * 3, Gdx.graphics.getPpiX() * 3);
+        this.pack();
+
+//        this.setSize(Gdx.graphics.getPpiX() * 3, Gdx.graphics.getPpiX() * 3);
     }
 
     @Override
     public float getPrefWidth() {
-        return Gdx.graphics.getPpiX() * 3;
+        return Gdx.graphics.getPpiX() * 2;
     }
 
     @Override
     public float getPrefHeight() {
-        return Gdx.graphics.getPpiY() * 4;
+        return Gdx.graphics.getPpiY() * 2;
     }
 }
