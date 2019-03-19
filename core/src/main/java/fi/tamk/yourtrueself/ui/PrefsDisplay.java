@@ -3,7 +3,6 @@ package fi.tamk.yourtrueself.ui;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,23 +19,19 @@ import fi.tamk.yourtrueself.YTSGame;
 
 public class PrefsDisplay extends Window {
 
-    Preferences prefs;
-    Skin skin;
-    String id;
-    String lang;
-    int sound;
-    int music;
-    int noBotherStart;
-    int noBotherEnd;
-    YTSGame game;
-    private Stage stage;
+    private Preferences prefs;
+    private Skin skin;
+    private String lang;
+    private int sound;
+    private int music;
+    private int noBotherStart;
+    private int noBotherEnd;
+    private YTSGame game;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame game) {
         super(game.getBundle().get("prefs"), skin);
         this.defaults().space(5).padTop(20).growX();
         this.game = game;
-
-        stage = this.getStage();
 
         this.setMovable(false);
 
@@ -45,7 +40,6 @@ public class PrefsDisplay extends Window {
         this.skin = skin;
         this.prefs = prefs;
 
-        id = prefs.getString("id", "couchpotato");
         lang = prefs.getString("lang", "fi");
         sound = prefs.getInteger("sound", 5);
         music = prefs.getInteger("music", 5);
@@ -164,9 +158,18 @@ public class PrefsDisplay extends Window {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                CreditsDisplay credits = new CreditsDisplay(skin, game);
-                credits.setPosition(self.getStage().getWidth() / 2, self.getStage().getHeight() / 2, Align.center);
-                self.getStage().addActor(credits);
+                boolean creditsExists = false;
+                for (Actor stageActor : self.getStage().getActors()) {
+                    if (stageActor instanceof CreditsDisplay) {
+                        creditsExists = true;
+                        stageActor.remove();
+                    }
+                }
+                if (!creditsExists) {
+                    CreditsDisplay credits = new CreditsDisplay(skin, game);
+                    credits.setPosition(self.getStage().getWidth() / 2, self.getStage().getHeight() / 2, Align.center);
+                    self.getStage().addActor(credits);
+                }
             }
         });
         this.add(button).grow();
@@ -200,14 +203,4 @@ public class PrefsDisplay extends Window {
         });
         this.add(button).grow();
     }
-
-//    @Override
-//    public float getPrefWidth() {
-//        return Gdx.graphics.getPpiX() * 1;
-//    }
-//
-//    @Override
-//    public float getPrefHeight() {
-//        return Gdx.graphics.getPpiY() * 2;
-//    }
 }

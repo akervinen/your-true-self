@@ -52,7 +52,7 @@ public class MainScreen implements Screen {
 
         table.defaults().maxWidth(Value.percentWidth(.45f, table));
 
-        Character plyCharacter = game.getPlayer().getCurrentCharacter();
+        prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
 
         TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
         prefsBtn.addListener(new ChangeListener() {
@@ -99,16 +99,15 @@ public class MainScreen implements Screen {
 
         statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
 
+        Character plyCharacter = game.getPlayer().getCurrentCharacter();
         // Defensive check in case player gets to main screen without a character (???)
         if (plyCharacter != null) {
             playerInfo.add(new CharacterMainPanel(plyCharacter.getId(), uiSkin)).row();
         }
         playerInfo.add(statsDisplay);
 
-        table.add(playerInfo).height(Value.percentHeight(.6f, table)).left().grow();
-        table.add(challengeTable).height(Value.percentHeight(.6f, table)).right().grow();
-
-        prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
+        table.add(playerInfo).height(Value.percentHeight(.8f, table)).top().left().grow();
+        table.add(challengeTable).height(Value.percentHeight(.8f, table)).top().right().grow();
 
         stage.addActor(table);
     }
