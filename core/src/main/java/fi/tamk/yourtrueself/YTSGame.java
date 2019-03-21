@@ -202,7 +202,7 @@ public class YTSGame extends Game {
 
         mainTheme = Gdx.audio.newMusic(Gdx.files.internal("YourTrueSelf_MainthemeOGG.ogg"));
         mainTheme.setLooping(true);
-        mainTheme.setVolume(prefs.getFloat("sound", 0.5f));
+        mainTheme.setVolume(prefs.getFloat("music", 0.5f));
         mainTheme.play();
 
         if (player.getCurrentCharacter() == null) {
