@@ -33,11 +33,16 @@ public class YTSGame extends Game {
     };
 
     public static final Challenge[] CHALLENGES = {
-            new Challenge("chlStr01", Player.Stat.STRENGTH, 10),
-            new Challenge("chlFlx01", Player.Stat.FLEXIBILITY, 8),
-            new Challenge("chlAgi01", Player.Stat.AGILITY),
-            new Challenge("chlSta01", Player.Stat.STAMINA, 10),
-            new Challenge("chlBal01", Player.Stat.BALANCE, 10)
+            new Challenge("chlStrPushups", Player.Stat.STRENGTH, 8),
+            new Challenge("chlStrSquats", Player.Stat.STRENGTH, 6),
+            new Challenge("chlStrBagCurl", Player.Stat.STRENGTH, 10),
+            new Challenge("chlFlxStretch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxToes", Player.Stat.FLEXIBILITY, 8),
+            new Challenge("chlFlxClaspHands", Player.Stat.FLEXIBILITY, 5),
+            new Challenge("chlAgiHang", Player.Stat.AGILITY),
+            new Challenge("chlStaPlank", Player.Stat.STAMINA, 10),
+            new Challenge("chlBalOneFoot", Player.Stat.BALANCE, 10),
+            new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15)
     };
 
     private static final String SKIN_PATH = "ui/orange/skin.json";
@@ -50,6 +55,7 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
     private Preferences prefs;
     private Player player = new Player();
+    private Challenge previousChallenge;
     private Challenge currentChallenge;
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
@@ -165,9 +171,9 @@ public class YTSGame extends Game {
         if (chl != currentChallenge) {
             // Player tried to complete an old or invalid challenge?
             return;
-
         }
 
+        previousChallenge = chl;
         currentChallenge = null;
         chl.complete(getPlayer());
 
@@ -184,7 +190,14 @@ public class YTSGame extends Game {
     }
 
     public Challenge getNextChallenge() {
-        int idx = MathUtils.random(0, CHALLENGES.length - 1);
+        int idx;
+
+        // Avoid getting the exact same challenge as last
+        do {
+            idx = MathUtils.random(0, CHALLENGES.length - 1);
+        } while (previousChallenge != null &&
+                CHALLENGES[idx].getId().equals(previousChallenge.getId()));
+
         return CHALLENGES[idx];
     }
 
