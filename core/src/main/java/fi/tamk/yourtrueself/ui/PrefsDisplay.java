@@ -24,8 +24,8 @@ public class PrefsDisplay extends Window {
     private Preferences prefs;
     private Skin skin;
     private String lang;
-    private int sound;
-    private int music;
+    private float sound;
+    private float music;
     private int noBotherStart;
     private int noBotherEnd;
     private YTSGame game;
@@ -43,8 +43,8 @@ public class PrefsDisplay extends Window {
         this.prefs = prefs;
 
         lang = prefs.getString("lang", "fi");
-        sound = prefs.getInteger("sound", 5);
-        music = prefs.getInteger("music", 5);
+        sound = prefs.getFloat("sound", 0.5f);
+        music = prefs.getFloat("music", 0.5f);
         noBotherStart = prefs.getInteger("noBotherStart", 22);
         noBotherEnd = prefs.getInteger("noBotherEnd", 8);
 
@@ -64,13 +64,13 @@ public class PrefsDisplay extends Window {
 
     private void addMusicSlider() {
         this.add(new Label(game.getBundle().get("musicSlider"), skin));
-        final Slider slider = new Slider(0, 10, 1f, false, skin);
+        final Slider slider = new Slider(0, 1, 0.1f, false, skin);
         slider.setValue(music);
         this.add(slider);
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                music = (int) slider.getValue();
+                music = slider.getValue();
                 game.setMusicVolume(music);
             }
         });
@@ -79,13 +79,13 @@ public class PrefsDisplay extends Window {
 
     private void addSoundSlider() {
         this.add(new Label(game.getBundle().get("soundSlider"), skin));
-        final Slider slider = new Slider(0, 10, 1f, false, skin);
+        final Slider slider = new Slider(0, 1, 0.1f, false, skin);
         slider.setValue(sound);
         this.add(slider);
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                sound = (int) slider.getValue();
+                sound = slider.getValue();
             }
         });
         this.row();
@@ -201,8 +201,8 @@ public class PrefsDisplay extends Window {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 prefs.putString("lang", lang);
-                prefs.putInteger("sound", sound);
-                prefs.putInteger("music", music);
+                prefs.putFloat("sound", sound);
+                prefs.putFloat("music", music);
                 prefs.putInteger("noBotherStart", noBotherStart);
                 prefs.putInteger("noBotherEnd", noBotherEnd);
                 prefs.flush();

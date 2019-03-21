@@ -196,10 +196,10 @@ public class YTSGame extends Game {
         mainScreen = new MainScreen(this);
         selectScreen = new CharacterSelectScreen(this);
 
-        //mainTheme = Gdx.audio.newMusic(Gdx.files.internal("YourTrueSelf_MainTheme.wav"));
-        //mainTheme.setLooping(true);
-        //mainTheme.setVolume(prefs.getInteger("sound", 5));
-        //mainTheme.play();
+        mainTheme = Gdx.audio.newMusic(Gdx.files.internal("YourTrueSelf_MainthemeOGG.ogg"));
+        mainTheme.setLooping(true);
+        mainTheme.setVolume(prefs.getFloat("sound", 0.5f));
+        mainTheme.play();
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);
