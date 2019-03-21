@@ -88,6 +88,8 @@ public class YTSGame extends Game {
         assetManager.load("characters.atlas", TextureAtlas.class);
         assetManager.load(SKIN_PATH, Skin.class, skinParam);
 
+        assetManager.load("YourTrueSelf_MainthemeOGG.ogg", Music.class);
+
         // Actually load assets
         // This can be split up if we need a loading screen
         assetManager.finishLoading();
@@ -200,7 +202,7 @@ public class YTSGame extends Game {
         mainScreen = new MainScreen(this);
         selectScreen = new CharacterSelectScreen(this);
 
-        mainTheme = Gdx.audio.newMusic(Gdx.files.internal("YourTrueSelf_MainthemeOGG.ogg"));
+        mainTheme = assetManager.get("YourTrueSelf_MainthemeOGG.ogg");
         mainTheme.setLooping(true);
         mainTheme.setVolume(prefs.getFloat("music", 0.5f));
         mainTheme.play();
