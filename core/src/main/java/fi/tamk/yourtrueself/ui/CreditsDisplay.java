@@ -11,10 +11,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import fi.tamk.yourtrueself.YTSGame;
 
+/**
+ * Simple scrollable text window with game credits.
+ */
 public class CreditsDisplay extends Window {
     private YTSGame game;
 
-    public CreditsDisplay(Skin skin, YTSGame game) {
+    /**
+     * Create the credits window with given skin.
+     *
+     * @param game game instance, used to get i18n bundle
+     * @param skin skin to use
+     */
+    public CreditsDisplay(YTSGame game, Skin skin) {
         super(game.getBundle().get("credits"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.defaults().grow();
@@ -44,15 +53,23 @@ public class CreditsDisplay extends Window {
         this.add(closeBtn).padTop(10).grow();
 
         this.pack();
-
-//        this.setSize(Gdx.graphics.getPpiX() * 3, Gdx.graphics.getPpiX() * 3);
     }
 
+    /**
+     * Preferred width of the widget. Scales according to pixel density.
+     *
+     * @return preferred width of the widget
+     */
     @Override
     public float getPrefWidth() {
         return Gdx.graphics.getPpiX() * 2;
     }
 
+    /**
+     * Preferred height of the widget. Scales according to pixel density.
+     *
+     * @return preferred height of the widget
+     */
     @Override
     public float getPrefHeight() {
         return Gdx.graphics.getPpiY() * 2;

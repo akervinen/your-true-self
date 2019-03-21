@@ -172,7 +172,7 @@ public class PrefsDisplay extends Window {
                     }
                 }
                 if (!creditsExists) {
-                    CreditsDisplay credits = new CreditsDisplay(skin, game);
+                    CreditsDisplay credits = new CreditsDisplay(game, skin);
                     credits.setPosition(self.getStage().getWidth() / 2, self.getStage().getHeight() / 2, Align.center);
                     self.getStage().addActor(credits);
                 }

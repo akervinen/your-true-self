@@ -17,27 +17,35 @@ import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterSelectPanel;
 
+/**
+ * Character selection screen.
+ */
 public final class CharacterSelectScreen implements Screen {
     private final YTSGame game;
 
     private Skin uiSkin;
     private Stage stage;
 
+    /**
+     * Create and initialize the character selection screen.
+     *
+     * @param yts instance of the game class
+     */
     public CharacterSelectScreen(YTSGame yts) {
         this.game = yts;
 
+        // Get the game's global skin
         uiSkin = yts.getSkin();
 
+        // Create stage using the game's global UI viewport
         stage = new Stage(yts.getUiViewport());
-//        stage.setDebugAll(true);
 
         Table main = new Table();
         main.defaults().pad(10).grow();
 
-        Label title = new Label(game.getBundle().get("chooseYourTrueSelf"), uiSkin, "title-white-bg");
+        Label title = new Label(game.getBundle().get("chooseYourTrueSelf"),
+                uiSkin, "title-white-bg");
         title.setAlignment(Align.center);
-
-        float ppiY = Gdx.graphics.getPpiY();
 
         main.add(title).height(Value.percentHeight(.1f, main)).row();
 
@@ -65,11 +73,27 @@ public final class CharacterSelectScreen implements Screen {
         stage.addActor(main);
     }
 
+    /**
+     * Called when game switches to this screen.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Called when the game switches away from this screen.
+     */
+    @Override
+    public void hide() {
+        Gdx.input.setInputProcessor(null);
+    }
+
+    /**
+     * Render screen.
+     *
+     * @param delta time passed since last render call in seconds
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -79,26 +103,34 @@ public final class CharacterSelectScreen implements Screen {
         stage.draw();
     }
 
+    /**
+     * Called when game window is resized.
+     *
+     * @param width  new width
+     * @param height new height
+     */
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Called when game is paused (out of focus, or put to background on Android)
+     */
     @Override
     public void pause() {
-
     }
 
+    /**
+     * Called when game is resumed from pause.
+     */
     @Override
     public void resume() {
-
     }
 
-    @Override
-    public void hide() {
-        Gdx.input.setInputProcessor(null);
-    }
-
+    /**
+     * Dispose the screen's resources.
+     */
     @Override
     public void dispose() {
         stage.dispose();

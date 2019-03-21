@@ -11,10 +11,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.YTSGame;
 
+/**
+ * Panel containing challenge information and a button to complete it.
+ */
 public final class ChallengePanel extends Window {
     private YTSGame game;
 
+    /**
+     * Create new challenge panel with given challenge.
+     *
+     * @param chl     challenge to show
+     * @param ytsGame game instance
+     * @param skin    skin to use
+     */
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
+        // Show thinner title on less dense displays (e.g. desktop)
         super("Challenge", skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
@@ -23,10 +34,12 @@ public final class ChallengePanel extends Window {
         this.setMovable(false);
         this.padLeft(20).padRight(20);
 
+        // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
         this.add(chlText).padBottom(5).grow().row();
 
+        // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
         doneButton.pad(15);
         this.add(doneButton).growY();

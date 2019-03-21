@@ -10,10 +10,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 
+/**
+ * Character information panel for the selection screen. Contains character name,
+ * portrait, description/backstory and a button to pick the character.
+ */
 public final class CharacterSelectPanel extends Table {
     private TextButton chooseBtn;
 
-    public CharacterSelectPanel(String character, Skin skin) {
+    /**
+     * Create a new character panel with given internal ID. ID must exist in bundle and character
+     * atlas.
+     *
+     * @param characterId internal ID of the character
+     * @param skin        skin to use
+     */
+    public CharacterSelectPanel(String characterId, Skin skin) {
         super();
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
@@ -22,11 +33,11 @@ public final class CharacterSelectPanel extends Table {
 
         this.defaults().grow();
 
-        Label name = new Label(bundle.get(character), skin, "white-bg");
+        Label name = new Label(bundle.get(characterId), skin, "white-bg");
         name.setAlignment(Align.center);
-        CharacterImage disp = new CharacterImage(character, skin);
+        CharacterImage disp = new CharacterImage(characterId, skin);
 
-        Label desc = new Label(bundle.get(character + "Story"), skin);
+        Label desc = new Label(bundle.get(characterId + "Story"), skin);
         desc.setWrap(true);
         chooseBtn = new TextButton(bundle.get("choose"), skin);
 
@@ -39,16 +50,32 @@ public final class CharacterSelectPanel extends Table {
         this.add(chooseBtn).height(Value.percentHeight(.1f, this));
     }
 
+    /**
+     * Preferred width of the widget. Scales according to pixel density.
+     *
+     * @return preferred width of the widget
+     */
     @Override
     public float getPrefWidth() {
         return Gdx.graphics.getPpiX() * 2;
     }
 
+    /**
+     * Preferred height of the widget. Scales according to pixel density.
+     *
+     * @return preferred height of the widget
+     */
     @Override
     public float getPrefHeight() {
         return Gdx.graphics.getPpiY() * 4;
     }
 
+    /**
+     * Add a callback for clicking the 'choose' button.
+     *
+     * @param eventListener callback object to add
+     * @return true if listener was added, false if listener was null or already existed
+     */
     public boolean addButtonListener(EventListener eventListener) {
         return this.chooseBtn.addListener(eventListener);
     }
