@@ -13,30 +13,28 @@ import fi.tamk.yourtrueself.YTSGame;
 
 public final class ChallengePanel extends Window {
     private YTSGame game;
-    private TextButton doneButton;
-    private Challenge challenge;
 
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
         super("Challenge", skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
-        this.challenge = chl;
+        final Challenge challenge = chl;
 
         this.setMovable(false);
         this.padLeft(20).padRight(20);
 
-        Label chlText = new Label(game.getBundle().format(chl.getId(), 5), skin);
+        Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
         this.add(chlText).padBottom(5).grow().row();
 
-        doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
         doneButton.pad(15);
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.completeChallenge();
+                game.completeChallenge(challenge);
             }
         });
     }

@@ -33,11 +33,11 @@ public class YTSGame extends Game {
     };
 
     public static final Challenge[] CHALLENGES = {
-            new Challenge("chlStr01", Player.Stat.STRENGTH),
-            new Challenge("chlFlx01", Player.Stat.FLEXIBILITY),
+            new Challenge("chlStr01", Player.Stat.STRENGTH, 10),
+            new Challenge("chlFlx01", Player.Stat.FLEXIBILITY, 8),
             new Challenge("chlAgi01", Player.Stat.AGILITY),
-            new Challenge("chlSta01", Player.Stat.STAMINA),
-            new Challenge("chlBal01", Player.Stat.BALANCE)
+            new Challenge("chlSta01", Player.Stat.STAMINA, 10),
+            new Challenge("chlBal01", Player.Stat.BALANCE, 10)
     };
 
     private static final String SKIN_PATH = "ui/orange/skin.json";
@@ -158,15 +158,19 @@ public class YTSGame extends Game {
         challengeCompletedListener = listener;
     }
 
-    public void completeChallenge() {
-        if (currentChallenge != null) {
-            Challenge prev = currentChallenge;
-            currentChallenge = null;
-            prev.complete(getPlayer());
+    public void completeChallenge(Challenge chl) {
+        // Check if challenge is valid (either normal, daily or MP challenge)
+        if (chl != currentChallenge) {
+            // Player tried to complete an old or invalid challenge?
+            return;
 
-            if (challengeCompletedListener != null) {
-                challengeCompletedListener.challengeCompleted(prev);
-            }
+        }
+
+        currentChallenge = null;
+        chl.complete(getPlayer());
+
+        if (challengeCompletedListener != null) {
+            challengeCompletedListener.challengeCompleted(chl);
         }
     }
 
