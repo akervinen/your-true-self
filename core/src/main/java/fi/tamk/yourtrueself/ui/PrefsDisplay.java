@@ -71,6 +71,7 @@ public class PrefsDisplay extends Window {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 music = (int) slider.getValue();
+                game.setMusicVolume(music);
             }
         });
         this.row();
@@ -205,6 +206,7 @@ public class PrefsDisplay extends Window {
                 prefs.putInteger("noBotherStart", noBotherStart);
                 prefs.putInteger("noBotherEnd", noBotherEnd);
                 prefs.flush();
+                game.setPrefs(prefs);
                 remove();
             }
         });

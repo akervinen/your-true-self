@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -51,6 +52,7 @@ public class YTSGame extends Game {
     private Player player = new Player();
     private Challenge currentChallenge;
     private ChallengeCompletedListener challengeCompletedListener;
+    private Music mainTheme;
 
     /*
         UI Stuff
@@ -140,8 +142,16 @@ public class YTSGame extends Game {
         }
     }
 
+    public void setMusicVolume(float volume) {
+        mainTheme.setVolume(volume);
+    }
+
     public Preferences getPrefs() {
         return prefs;
+    }
+
+    public void setPrefs(Preferences prefs) {
+        this.prefs = prefs;
     }
 
     public void setChallengeCompletedListener(ChallengeCompletedListener listener) {
@@ -185,6 +195,11 @@ public class YTSGame extends Game {
 
         mainScreen = new MainScreen(this);
         selectScreen = new CharacterSelectScreen(this);
+
+        //mainTheme = Gdx.audio.newMusic(Gdx.files.internal("YourTrueSelf_MainTheme.wav"));
+        //mainTheme.setLooping(true);
+        //mainTheme.setVolume(prefs.getInteger("sound", 5));
+        //mainTheme.play();
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);
