@@ -15,6 +15,12 @@ public class AndroidLauncher extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
-        initialize(new YTSGame(), configuration);
+
+        YTSAndroidHelper yan = new YTSAndroidHelper(this);
+
+        YTSGame game = new YTSGame();
+        game.setAlarmHelper(yan);
+
+        initialize(game, configuration);
     }
 }

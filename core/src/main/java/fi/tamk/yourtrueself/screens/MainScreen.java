@@ -104,17 +104,17 @@ public class MainScreen implements Screen {
         challengeTable.defaults().padBottom(5).top().growX();
 
         // Add the current challenge
-        // TODO: check for null if no challenge exists
-        challengeTable.add(new ChallengePanel(game.getCurrentChallenge(), game, uiSkin));
+        Challenge chl = game.getCurrentChallenge();
+        if (chl != null) {
+            challengeTable.add(new ChallengePanel(chl, game, uiSkin));
+        }
 
         // Add a callback to update the UI after a challenge is completed
         game.setChallengeCompletedListener(new ChallengeCompletedListener() {
             @Override
             public void challengeCompleted(Challenge challenge) {
                 statsDisplay.updateStats();
-                challengeTable.clearChildren();
-                // TODO: null check
-                challengeTable.add(new ChallengePanel(game.getCurrentChallenge(), game, uiSkin));
+                refreshChallenges();
             }
         });
 
@@ -144,6 +144,18 @@ public class MainScreen implements Screen {
     }
 
     /**
+     * Clear challenge list and add active challenges if some exist.
+     */
+    private void refreshChallenges() {
+        challengeTable.clearChildren();
+
+        Challenge chl = game.getCurrentChallenge();
+        if (chl != null) {
+            challengeTable.add(new ChallengePanel(game.getCurrentChallenge(), game, uiSkin));
+        }
+    }
+
+    /**
      * Render screen.
      *
      * @param delta time passed since last render call in seconds
@@ -152,6 +164,10 @@ public class MainScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        if (game.checkChallenges()) {
+            refreshChallenges();
+        }
 
         stage.act(delta);
         stage.draw();

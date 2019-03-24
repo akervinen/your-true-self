@@ -64,6 +64,8 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
     private Preferences prefs;
 
+    private YTSAlarmHelper alarmHelper;
+
     /**
      * Player's information and stats.
      */
@@ -78,6 +80,11 @@ public class YTSGame extends Game {
      * Player's current challenge.
      */
     private Challenge currentChallenge;
+
+    /**
+     * Time in milliseconds (System.currentTimeMillis()) when the next challenge appears.
+     */
+    private long nextChallengeTime;
 
     /**
      * Callback used after a challenge is completed.
@@ -140,6 +147,10 @@ public class YTSGame extends Game {
         uiSkin.addRegions(assetManager.get("characters.atlas", TextureAtlas.class));
 
         uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
+    }
+
+    public void setAlarmHelper(YTSAlarmHelper alarmHelper) {
+        this.alarmHelper = alarmHelper;
     }
 
     /**
@@ -276,6 +287,8 @@ public class YTSGame extends Game {
         if (challengeCompletedListener != null) {
             challengeCompletedListener.challengeCompleted(chl);
         }
+
+        startNextChallengeTimer();
     }
 
     /**
@@ -284,10 +297,65 @@ public class YTSGame extends Game {
      * @return current challenge
      */
     public Challenge getCurrentChallenge() {
-        if (currentChallenge == null) {
-            currentChallenge = getNextChallenge();
-        }
         return currentChallenge;
+    }
+
+    /**
+     * Set current challenge by its ID.
+     *
+     * @param challengeId ID of the new current challenge
+     */
+    public void setCurrentChallenge(String challengeId) {
+        if (challengeId != null) {
+            for (Challenge chl : CHALLENGES) {
+                if (chl.getId().equals(challengeId)) {
+                    setCurrentChallenge(chl);
+                }
+            }
+        }
+    }
+
+    /**
+     * Set current challenge and save it in preferences. If given challenge is null,
+     * currentChallenge is removed from preferences.
+     *
+     * @param challenge new current challenge
+     */
+    public void setCurrentChallenge(Challenge challenge) {
+        currentChallenge = challenge;
+        if (challenge != null) {
+            prefs.putString("currentChallenge", challenge.getId());
+        } else {
+            prefs.remove("currentChallenge");
+        }
+        prefs.flush();
+    }
+
+    /**
+     * Get the time when the next challenge appears in milliseconds according to
+     * System.currentTimeMillis
+     *
+     * @return time for the next challenge
+     */
+    public long getNextChallengeTime() {
+        return nextChallengeTime;
+    }
+
+    /**
+     * Set the time when the next challenge appears in milliseconds according to
+     * System.currentTimeMillis.
+     *
+     * @param nextChallengeTime time for the next challenge
+     */
+    public void setNextChallengeTime(long nextChallengeTime) {
+        this.nextChallengeTime = nextChallengeTime;
+
+        if (nextChallengeTime == 0) {
+            prefs.remove("nextChallengeTime");
+        } else {
+            prefs.putLong("nextChallengeTime", nextChallengeTime);
+        }
+        prefs.flush();
     }
 
     /**
@@ -308,6 +376,61 @@ public class YTSGame extends Game {
     }
 
     /**
+     * Start timer until next challenge.
+     */
+    private void startNextChallengeTimer() {
+        int nextTime = 10;
+
+        setNextChallengeTime(System.currentTimeMillis() + nextTime * 1000);
+
+        if (alarmHelper != null) {
+            alarmHelper.startTimer(nextTime);
+        }
+    }
+
+    /**
+     * Re-read preferences for current challenge, check if next challenge needs to be given
+     * and make sure that the player has a challenge if there's no active timer.
+     */
+    private void refreshChallenges() {
+        setCurrentChallenge(prefs.getString("currentChallenge"));
+
+        nextChallengeTime = prefs.getLong("nextChallengeTime", 0);
+        if (currentChallenge == null && nextChallengeTime != 0) {
+            if (System.currentTimeMillis() >= nextChallengeTime) {
+                setNextChallengeTime(0);
+                setCurrentChallenge(getNextChallenge());
+            }
+        }
+
+        if (currentChallenge == null && !prefs.contains("nextChallengeTime")) {
+            setCurrentChallenge(getNextChallenge());
+        }
+    }
+
+    /**
+     * Check if any new challenges should be added, return true if any were added.
+     *
+     * @return true if new challenges were added, otherwise false
+     */
+    public boolean checkChallenges() {
+        if (currentChallenge == null && nextChallengeTime != 0) {
+            if (System.currentTimeMillis() >= nextChallengeTime) {
+                setNextChallengeTime(0);
+                setCurrentChallenge(getNextChallenge());
+                return true;
+            }
+        }
+
+        if (currentChallenge == null && nextChallengeTime == 0) {
+            setCurrentChallenge(getNextChallenge());
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Initialize game.
      */
     @Override
@@ -318,6 +441,8 @@ public class YTSGame extends Game {
         if (prefs.contains("playerCharacter")) {
             setPlayerCharacter(prefs.getString("playerCharacter"));
         }
+
+        refreshChallenges();
 
         uiViewport = new ScreenViewport();
 
@@ -334,6 +459,17 @@ public class YTSGame extends Game {
         } else {
             setScreen(mainScreen);
         }
+    }
+
+    /**
+     * Called when coming back to focus or switching back to the app on Android.
+     * Refreshes game challenges.
+     */
+    @Override
+    public void resume() {
+        super.resume();
+
+        refreshChallenges();
     }
 
     /**
