@@ -281,7 +281,7 @@ public class YTSGame extends Game {
         }
 
         previousChallenge = chl;
-        currentChallenge = null;
+        setCurrentChallenge((Challenge) null);
         chl.complete(getPlayer());
         saveStats();
 
@@ -302,21 +302,6 @@ public class YTSGame extends Game {
     }
 
     /**
-     * Set current challenge by its ID.
-     *
-     * @param challengeId ID of the new current challenge
-     */
-    public void setCurrentChallenge(String challengeId) {
-        if (challengeId != null) {
-            for (Challenge chl : CHALLENGES) {
-                if (chl.getId().equals(challengeId)) {
-                    setCurrentChallenge(chl);
-                }
-            }
-        }
-    }
-
-    /**
      * Set current challenge and save it in preferences. If given challenge is null,
      * currentChallenge is removed from preferences.
      *
@@ -330,6 +315,21 @@ public class YTSGame extends Game {
             prefs.remove("currentChallenge");
         }
         prefs.flush();
+    }
+
+    /**
+     * Set current challenge by its ID.
+     *
+     * @param challengeId ID of the new current challenge
+     */
+    public void setCurrentChallenge(String challengeId) {
+        if (challengeId != null) {
+            for (Challenge chl : CHALLENGES) {
+                if (chl.getId().equals(challengeId)) {
+                    setCurrentChallenge(chl);
+                }
+            }
+        }
     }
 
     /**
