@@ -134,13 +134,13 @@ public class PrefsDisplay extends Window {
         this.add(new Label(game.getBundle().get("language"), skin));
         final SelectBox<String> select = new SelectBox<String>(skin);
         select.setItems("FI", "EN");
-        select.setSelected(lang);
+        select.setSelected(lang.toUpperCase());
         this.add(select);
         this.row().padTop(20);
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                lang = select.getSelected().toString();
+                lang = select.getSelected();
             }
         });
     }
@@ -208,6 +208,7 @@ public class PrefsDisplay extends Window {
                 prefs.flush();
                 game.setPrefs(prefs);
                 remove();
+                game.changeLanguage(lang);
             }
         });
         this.add(button).grow();

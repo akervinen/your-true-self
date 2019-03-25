@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Locale;
+
 import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
 
@@ -23,6 +26,8 @@ import fi.tamk.yourtrueself.screens.MainScreen;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class YTSGame extends Game {
+    public static final String PREF_NAME = "YTSPreferences";
+
     /**
      * List of characters in the game.
      */
@@ -130,8 +135,6 @@ public class YTSGame extends Game {
 
         // Add assets to load
 
-        assetManager.load("i18n/YourTrueSelf", I18NBundle.class);
-//        assetManager.load("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(new Locale("fi", "FI")));
         assetManager.load("characters.atlas", TextureAtlas.class);
         assetManager.load(SKIN_PATH, Skin.class, skinParam);
 
@@ -141,12 +144,8 @@ public class YTSGame extends Game {
         // This can be split up if we need a loading screen
         assetManager.finishLoading();
 
-        bundle = assetManager.get("i18n/YourTrueSelf", I18NBundle.class);
-
         uiSkin = assetManager.get(SKIN_PATH);
         uiSkin.addRegions(assetManager.get("characters.atlas", TextureAtlas.class));
-
-        uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
     }
 
     public void setAlarmHelper(YTSAlarmHelper alarmHelper) {
@@ -380,7 +379,7 @@ public class YTSGame extends Game {
      * Start timer until next challenge.
      */
     private void startNextChallengeTimer() {
-        int nextTime = 10;
+        int nextTime = 5;
 
         setNextChallengeTime(System.currentTimeMillis() + nextTime * 1000);
 
@@ -444,17 +443,63 @@ public class YTSGame extends Game {
         prefs.flush();
     }
 
+    public static Locale localeFromPref(String lang) {
+        if (lang != null && lang.toLowerCase().equals("fi")) {
+            return new Locale("fi", "FI");
+        } else {
+            return new Locale("en", "US");
+        }
+    }
+
+    private void loadLanguage(Locale locale) {
+        if (assetManager.contains("i18n/YourTrueSelf")) {
+            assetManager.unload("i18n/YourTrueSelf");
+        }
+        assetManager.load("i18n/YourTrueSelf", I18NBundle.class, new I18NBundleLoader.I18NBundleParameter(locale));
+        assetManager.finishLoadingAsset("i18n/YourTrueSelf");
+        bundle = assetManager.get("i18n/YourTrueSelf");
+
+        uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
+    }
+
+    public void changeLanguage(String lang) {
+        Locale locale = localeFromPref(lang);
+        loadLanguage(locale);
+
+        mainScreen = new MainScreen(this);
+        selectScreen = new CharacterSelectScreen(this);
+
+        if (player.getCurrentCharacter() == null) {
+            setScreen(selectScreen);
+        } else {
+            setScreen(mainScreen);
+        }
+    }
+
     /**
      * Initialize game.
      */
     @Override
     public void create() {
-        loadAssets();
-        prefs = Gdx.app.getPreferences("YTSPreferences");
+        prefs = Gdx.app.getPreferences(PREF_NAME);
 
         if (prefs.contains("playerCharacter")) {
             setPlayerCharacter(prefs.getString("playerCharacter"));
         }
+
+        Locale locale;
+        if (!prefs.contains("lang")) {
+            if (Locale.getDefault().getLanguage().equals(new Locale("fi").getLanguage())) {
+                locale = localeFromPref("fi");
+            } else {
+                locale = localeFromPref("en");
+            }
+        } else {
+            locale = localeFromPref(prefs.getString("lang", "en"));
+        }
+
+        loadAssets();
+        loadLanguage(locale);
 
         loadStats();
         refreshChallenges();
