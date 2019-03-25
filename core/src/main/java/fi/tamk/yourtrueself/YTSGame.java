@@ -491,9 +491,12 @@ public class YTSGame extends Game {
         if (!prefs.contains("lang")) {
             if (Locale.getDefault().getLanguage().equals(new Locale("fi").getLanguage())) {
                 locale = localeFromPref("fi");
+                prefs.putString("lang", "fi");
             } else {
                 locale = localeFromPref("en");
+                prefs.putString("lang", "en");
             }
+            prefs.flush();
         } else {
             locale = localeFromPref(prefs.getString("lang", "en"));
         }
