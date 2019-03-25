@@ -148,6 +148,11 @@ public class YTSGame extends Game {
         uiSkin.addRegions(assetManager.get("characters.atlas", TextureAtlas.class));
     }
 
+    /**
+     * Set helper for platform-specific background timer functions.
+     *
+     * @param alarmHelper helper instance
+     */
     public void setAlarmHelper(YTSAlarmHelper alarmHelper) {
         this.alarmHelper = alarmHelper;
     }
@@ -306,7 +311,7 @@ public class YTSGame extends Game {
      *
      * @param challenge new current challenge
      */
-    public void setCurrentChallenge(Challenge challenge) {
+    private void setCurrentChallenge(Challenge challenge) {
         currentChallenge = challenge;
         if (challenge != null) {
             prefs.putString("currentChallenge", challenge.getId());
@@ -321,7 +326,7 @@ public class YTSGame extends Game {
      *
      * @param challengeId ID of the new current challenge
      */
-    public void setCurrentChallenge(String challengeId) {
+    private void setCurrentChallenge(String challengeId) {
         if (challengeId != null) {
             for (Challenge chl : CHALLENGES) {
                 if (chl.getId().equals(challengeId)) {
@@ -430,19 +435,31 @@ public class YTSGame extends Game {
         return false;
     }
 
+    /**
+     * Load player stats from preferences.
+     */
     private void loadStats() {
         for (int i = 0; i < Player.STAT_NAMES.length; i++) {
             player.setByEnum(Player.STAT_ENUMS[i], prefs.getFloat(Player.STAT_NAMES[i], 0f));
         }
     }
 
-    public void saveStats() {
+    /**
+     * Save player stats to preferences.
+     */
+    private void saveStats() {
         for (int i = 0; i < Player.STAT_NAMES.length; i++) {
             prefs.putFloat(Player.STAT_NAMES[i], player.getByEnum(Player.STAT_ENUMS[i]));
         }
         prefs.flush();
     }
 
+    /**
+     * Create a Locale instance from preferences language code.
+     *
+     * @param lang language code (en or fi)
+     * @return a Locale instance of given language
+     */
     public static Locale localeFromPref(String lang) {
         if (lang != null && lang.toLowerCase().equals("fi")) {
             return new Locale("fi", "FI");
@@ -451,6 +468,11 @@ public class YTSGame extends Game {
         }
     }
 
+    /**
+     * Load language file of given Locale.
+     *
+     * @param locale Locale of bundle to load
+     */
     private void loadLanguage(Locale locale) {
         if (assetManager.contains("i18n/YourTrueSelf")) {
             assetManager.unload("i18n/YourTrueSelf");
@@ -462,6 +484,11 @@ public class YTSGame extends Game {
         uiSkin.add("i18n-bundle", bundle, I18NBundle.class);
     }
 
+    /**
+     * Change language according to given language code and refresh screens.
+     *
+     * @param lang language code
+     */
     public void changeLanguage(String lang) {
         Locale locale = localeFromPref(lang);
         loadLanguage(locale);
@@ -487,6 +514,7 @@ public class YTSGame extends Game {
             setPlayerCharacter(prefs.getString("playerCharacter"));
         }
 
+        // If no language is set, set it according to platform's default locale
         Locale locale;
         if (!prefs.contains("lang")) {
             if (Locale.getDefault().getLanguage().equals(new Locale("fi").getLanguage())) {
