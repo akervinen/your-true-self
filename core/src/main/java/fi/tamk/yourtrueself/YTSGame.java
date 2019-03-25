@@ -384,7 +384,7 @@ public class YTSGame extends Game {
      * Start timer until next challenge.
      */
     private void startNextChallengeTimer() {
-        int nextTime = 5;
+        int nextTime = 60;
 
         setNextChallengeTime(System.currentTimeMillis() + nextTime * 1000);
 
