@@ -283,6 +283,7 @@ public class YTSGame extends Game {
         previousChallenge = chl;
         currentChallenge = null;
         chl.complete(getPlayer());
+        saveStats();
 
         if (challengeCompletedListener != null) {
             challengeCompletedListener.challengeCompleted(chl);
@@ -430,6 +431,19 @@ public class YTSGame extends Game {
         return false;
     }
 
+    private void loadStats() {
+        for (int i = 0; i < Player.STAT_NAMES.length; i++) {
+            player.setByEnum(Player.STAT_ENUMS[i], prefs.getFloat(Player.STAT_NAMES[i], 0f));
+        }
+    }
+
+    public void saveStats() {
+        for (int i = 0; i < Player.STAT_NAMES.length; i++) {
+            prefs.putFloat(Player.STAT_NAMES[i], player.getByEnum(Player.STAT_ENUMS[i]));
+        }
+        prefs.flush();
+    }
+
     /**
      * Initialize game.
      */
@@ -442,6 +456,7 @@ public class YTSGame extends Game {
             setPlayerCharacter(prefs.getString("playerCharacter"));
         }
 
+        loadStats();
         refreshChallenges();
 
         uiViewport = new ScreenViewport();

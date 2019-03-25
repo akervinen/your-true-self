@@ -10,11 +10,11 @@ public final class Player {
      * Internal names of stats. Used for translation purposes.
      */
     public static final String[] STAT_NAMES = {
-            "statStrength",
-            "statFlexibility",
-            "statAgility",
-            "statStamina",
-            "statBalance"
+            "strength",
+            "flexibility",
+            "agility",
+            "stamina",
+            "balance"
     };
 
     /**
@@ -81,6 +81,7 @@ public final class Player {
      */
     public void train(Stat stat, float value) {
         setByEnum(stat, getByEnum(stat) + value);
+
     }
 
     /**
