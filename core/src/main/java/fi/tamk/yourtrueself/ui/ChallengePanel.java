@@ -26,7 +26,7 @@ public final class ChallengePanel extends Window {
      */
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super("Challenge", skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(ytsGame.getBundle().get("challengeTitle"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
         final Challenge challenge = chl;
