@@ -13,13 +13,29 @@ import fi.tamk.yourtrueself.Player;
  * Progress bar for a stat. Modifies normal ProgressBar by setting different width.
  */
 final class StatBar extends ProgressBar {
+    private final Player player;
+    private final Player.Stat stat;
+
     /**
      * Create new stat bar.
      *
      * @param skin skin to use
      */
-    StatBar(Skin skin) {
+    StatBar(Player player, Player.Stat stat, Skin skin) {
         super(0, 100, .5f, false, skin);
+
+        this.player = player;
+        this.stat = stat;
+
+        // Change bar height
+        this.getStyle().knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+        this.getStyle().background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+
+        update();
+    }
+
+    void update() {
+        setValue(player.getByEnum(stat));
     }
 
     /**
@@ -48,8 +64,6 @@ final class StatBar extends ProgressBar {
  * contains stat bar.
  */
 public final class StatsDisplay extends Table {
-    private final Player player;
-
     /**
      * List of stat progress bars.
      */
@@ -57,8 +71,6 @@ public final class StatsDisplay extends Table {
 
     public StatsDisplay(Player player, boolean background, Skin skin) {
         super(skin);
-
-        this.player = player;
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
@@ -68,15 +80,9 @@ public final class StatsDisplay extends Table {
 
         for (int i = 0; i < Player.STAT_ENUMS.length; i++) {
             this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left().padRight(2);
-            StatBar bar = new StatBar(skin);
-            bar.setValue(player.getByEnum(Player.STAT_ENUMS[i]));
 
-            // Change bar height
-            bar.getStyle().knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
-            bar.getStyle().background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
-
-            bars[i] = bar;
-            this.add(bar).grow();
+            bars[i] = new StatBar(player, Player.STAT_ENUMS[i], skin);
+            this.add(bars[i]).grow();
             this.row().space(0);
         }
     }
@@ -85,8 +91,8 @@ public final class StatsDisplay extends Table {
      * Update stat bar values.
      */
     public void updateStats() {
-        for (int i = 0; i < bars.length; i++) {
-            bars[i].setValue(player.getByEnum(Player.STAT_ENUMS[i]));
+        for (StatBar bar : bars) {
+            bar.update();
         }
     }
 
