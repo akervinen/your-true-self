@@ -462,9 +462,9 @@ public class YTSGame extends Game {
      */
     public static Locale localeFromPref(String lang) {
         if (lang != null && lang.toLowerCase().equals("fi")) {
-            return new Locale("fi", "FI");
+            return new Locale("fi");
         } else {
-            return new Locale("en", "US");
+            return new Locale("en");
         }
     }
 
