@@ -15,20 +15,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.YTSGame;
 
 public class PrefsDisplay extends Window {
 
-    private Preferences prefs;
-    private Skin skin;
+    private final YTSGame game;
+    private final Preferences prefs;
+    private final Skin skin;
+
     private String lang;
     private float sound;
     private float music;
     private int noBotherStart;
     private int noBotherEnd;
-    private YTSGame game;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame game) {
         super(game.getBundle().get("prefs"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
@@ -36,8 +36,6 @@ public class PrefsDisplay extends Window {
         this.game = game;
 
         this.setMovable(false);
-
-        I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         this.skin = skin;
         this.prefs = prefs;
@@ -182,7 +180,8 @@ public class PrefsDisplay extends Window {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 boolean creditsExists = false;
-                for (Actor stageActor : self.getStage().getActors()) {
+
+                for (Actor stageActor : new Array.ArrayIterator<Actor>(self.getStage().getActors())) {
                     if (stageActor instanceof CreditsDisplay) {
                         creditsExists = true;
                         stageActor.remove();

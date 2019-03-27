@@ -15,7 +15,7 @@ import fi.tamk.yourtrueself.YTSGame;
  * Panel containing challenge information and a button to complete it.
  */
 public final class ChallengePanel extends Window {
-    private YTSGame game;
+    private final YTSGame game;
 
     /**
      * Create new challenge panel with given challenge.

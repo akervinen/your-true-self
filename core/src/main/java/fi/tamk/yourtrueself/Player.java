@@ -61,16 +61,7 @@ public final class Player {
     /**
      * Create a new player with all default values (no character and all stats 0).
      */
-    public Player() {
-    }
-
-    /**
-     * Create a new player with given character and all stats at zero.
-     *
-     * @param chr player's character
-     */
-    public Player(Character chr) {
-        currentCharacter = chr;
+    Player() {
     }
 
     /**
@@ -79,9 +70,8 @@ public final class Player {
      * @param stat  stat to increase
      * @param value value to increase stat by
      */
-    public void train(Stat stat, float value) {
+    void train(Stat stat, float value) {
         setByEnum(stat, getByEnum(stat) + value);
-
     }
 
     /**
@@ -98,7 +88,7 @@ public final class Player {
      *
      * @param currentCharacter player's new character or null
      */
-    public void setCurrentCharacter(Character currentCharacter) {
+    void setCurrentCharacter(Character currentCharacter) {
         this.currentCharacter = currentCharacter;
     }
 
@@ -131,7 +121,7 @@ public final class Player {
      * @param stat stat to set
      * @param val  value to set to
      */
-    public void setByEnum(Stat stat, float val) {
+    void setByEnum(Stat stat, float val) {
         val = MathUtils.clamp(val, 0, 100);
 
         switch (stat) {

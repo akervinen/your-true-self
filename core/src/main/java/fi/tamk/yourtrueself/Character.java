@@ -23,7 +23,7 @@ public class Character {
      * @param id       internal ID of the character
      * @param mainStat main stat of the character
      */
-    public Character(String id, Player.Stat mainStat) {
+    Character(String id, Player.Stat mainStat) {
         this.id = id;
         this.mainStat = mainStat;
     }

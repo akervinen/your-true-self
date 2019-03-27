@@ -61,7 +61,7 @@ public class YTSGame extends Game {
      */
     private static final String SKIN_PATH = "ui/orange/skin.json";
 
-    private AssetManager assetManager = new AssetManager();
+    private final AssetManager assetManager = new AssetManager();
     private I18NBundle bundle;
     private Viewport uiViewport;
     private Skin uiSkin;
@@ -74,7 +74,7 @@ public class YTSGame extends Game {
     /**
      * Player's information and stats.
      */
-    private Player player = new Player();
+    private final Player player = new Player();
 
     /**
      * Last completed challenge, used to avoid generating the same challenge twice in a row.
@@ -352,7 +352,7 @@ public class YTSGame extends Game {
      *
      * @param nextChallengeTime time for the next challenge
      */
-    public void setNextChallengeTime(long nextChallengeTime) {
+    private void setNextChallengeTime(long nextChallengeTime) {
         this.nextChallengeTime = nextChallengeTime;
 
         if (nextChallengeTime == 0) {

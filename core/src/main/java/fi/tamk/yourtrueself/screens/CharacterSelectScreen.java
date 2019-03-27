@@ -23,8 +23,7 @@ import fi.tamk.yourtrueself.ui.CharacterSelectPanel;
 public final class CharacterSelectScreen implements Screen {
     private final YTSGame game;
 
-    private Skin uiSkin;
-    private Stage stage;
+    private final Stage stage;
 
     /**
      * Create and initialize the character selection screen.
@@ -35,7 +34,7 @@ public final class CharacterSelectScreen implements Screen {
         this.game = yts;
 
         // Get the game's global skin
-        uiSkin = yts.getSkin();
+        Skin uiSkin = yts.getSkin();
 
         // Create stage using the game's global UI viewport
         stage = new Stage(yts.getUiViewport());

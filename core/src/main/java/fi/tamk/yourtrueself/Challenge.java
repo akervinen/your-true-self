@@ -8,12 +8,12 @@ public class Challenge {
      * Internal ID of the challenge. Mostly used for finding translations from the
      * i18n bundle.
      */
-    private String id;
+    private final String id;
 
     /**
      * Challenge's main stat. Completing the challenge raises this stat.
      */
-    private Player.Stat mainStat;
+    private final Player.Stat mainStat;
 
     /**
      * Challenge's modifier, for example "walk (x) steps" or "do (x) squats". Gets passed

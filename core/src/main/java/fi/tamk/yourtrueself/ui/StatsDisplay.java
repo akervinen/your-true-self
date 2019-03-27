@@ -48,12 +48,12 @@ final class StatBar extends ProgressBar {
  * contains stat bar.
  */
 public final class StatsDisplay extends Table {
-    private Player player;
+    private final Player player;
 
     /**
      * List of stat progress bars.
      */
-    private StatBar[] bars = new StatBar[Player.STAT_ENUMS.length];
+    private final StatBar[] bars = new StatBar[Player.STAT_ENUMS.length];
 
     public StatsDisplay(Player player, boolean background, Skin skin) {
         super(skin);

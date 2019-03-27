@@ -15,7 +15,6 @@ import fi.tamk.yourtrueself.YTSGame;
  * Simple scrollable text window with game credits.
  */
 public class CreditsDisplay extends Window {
-    private YTSGame game;
 
     /**
      * Create the credits window with given skin.
@@ -27,8 +26,6 @@ public class CreditsDisplay extends Window {
         super(game.getBundle().get("credits"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.defaults().grow();
-
-        this.game = game;
 
         this.setMovable(false);
 

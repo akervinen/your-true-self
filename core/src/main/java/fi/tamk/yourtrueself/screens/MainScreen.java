@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 
 import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.ChallengeCompletedListener;
@@ -25,11 +26,11 @@ import fi.tamk.yourtrueself.ui.StatsDisplay;
  * Main screen of the game. Player spends almost all of their time here.
  */
 public class MainScreen implements Screen {
-    private YTSGame game;
+    private final YTSGame game;
 
     private Skin uiSkin;
 
-    private Stage stage;
+    private final Stage stage;
     private Table challengeTable;
     private PrefsDisplay prefsDisplay;
     private StatsDisplay statsDisplay;
@@ -69,7 +70,7 @@ public class MainScreen implements Screen {
                 // First check if preferences window is already open
                 // Remove if yes, open if no
                 boolean addWindow = true;
-                for (Actor stageActor : stage.getActors()) {
+                for (Actor stageActor : new Array.ArrayIterator<Actor>(stage.getActors())) {
                     if (stageActor.equals(prefsDisplay)) {
                         prefsDisplay.remove();
                         addWindow = false;

@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.I18NBundle;
  * portrait, description/backstory and a button to pick the character.
  */
 public final class CharacterSelectPanel extends Table {
-    private TextButton chooseBtn;
+    private final TextButton chooseBtn;
 
     /**
      * Create a new character panel with given internal ID. ID must exist in bundle and character
@@ -74,9 +74,8 @@ public final class CharacterSelectPanel extends Table {
      * Add a callback for clicking the 'choose' button.
      *
      * @param eventListener callback object to add
-     * @return true if listener was added, false if listener was null or already existed
      */
-    public boolean addButtonListener(EventListener eventListener) {
-        return this.chooseBtn.addListener(eventListener);
+    public void addButtonListener(EventListener eventListener) {
+        this.chooseBtn.addListener(eventListener);
     }
 }
