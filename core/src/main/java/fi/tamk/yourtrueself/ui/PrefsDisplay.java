@@ -55,8 +55,7 @@ public class PrefsDisplay extends Window {
         addLanguageSelect();
         addCharacterButton();
         addCreditsButton();
-        addCancelButton();
-        addOKButton();
+        addBackButton();
 
         this.padLeft(10).padRight(10);
         this.pack();
@@ -72,6 +71,9 @@ public class PrefsDisplay extends Window {
             public void changed(ChangeEvent event, Actor actor) {
                 music = slider.getValue();
                 game.setMusicVolume(music);
+                prefs.putFloat("music", music);
+                prefs.flush();
+                game.setPrefs(prefs);
             }
         });
         this.row();
@@ -86,6 +88,9 @@ public class PrefsDisplay extends Window {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 sound = slider.getValue();
+                prefs.putFloat("sound", sound);
+                prefs.flush();
+                game.setPrefs(prefs);
             }
         });
         this.row();
@@ -98,7 +103,7 @@ public class PrefsDisplay extends Window {
         final SelectBox<String> select = new SelectBox<String>(skin);
         Array<String> times = new Array<String>(24);
         for (int i = 0; i < 24; i++) {
-            times.add(Integer.toString(i));
+            times.add(Integer.toString(i) + game.getBundle().get("timeEnding"));
         }
         select.setItems(times);
         select.setSelected(times.get(noBotherStart));
@@ -106,7 +111,12 @@ public class PrefsDisplay extends Window {
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                noBotherStart = Integer.parseInt(select.getSelected().toString());
+                String selection = select.getSelected().toString();
+                selection = selection.replace(game.getBundle().get("timeEnding"), "");
+                noBotherStart = Integer.parseInt(selection);
+                prefs.putInteger("noBotherStart", noBotherStart);
+                prefs.flush();
+                game.setPrefs(prefs);
             }
         });
     }
@@ -116,7 +126,7 @@ public class PrefsDisplay extends Window {
         final SelectBox<String> select = new SelectBox<String>(skin);
         Array<String> times = new Array<String>(24);
         for (int i = 0; i < 24; i++) {
-            times.add(Integer.toString(i));
+            times.add(Integer.toString(i) + game.getBundle().get("timeEnding"));
         }
         select.setItems(times);
         select.setSelected(times.get(noBotherEnd));
@@ -124,7 +134,12 @@ public class PrefsDisplay extends Window {
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                noBotherEnd = Integer.parseInt(select.getSelected().toString());
+                String selection = select.getSelected().toString();
+                selection = selection.replace(game.getBundle().get("timeEnding"), "");
+                noBotherEnd = Integer.parseInt(selection);
+                prefs.putInteger("noBotherEnd", noBotherEnd);
+                prefs.flush();
+                game.setPrefs(prefs);
             }
         });
         this.row();
@@ -141,6 +156,8 @@ public class PrefsDisplay extends Window {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 lang = select.getSelected();
+                prefs.putString("lang", lang);
+                prefs.flush();
             }
         });
     }
@@ -182,35 +199,18 @@ public class PrefsDisplay extends Window {
         this.row();
     }
 
-    private void addCancelButton() {
-        TextButton button = new TextButton(game.getBundle().get("cancel"), skin);
+    private void addBackButton() {
+        TextButton button = new TextButton(game.getBundle().get("back"), skin);
         button.pad(15);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.setPrefs(prefs);
+                game.changeLanguage(lang);
                 remove();
             }
         });
         this.add(button).grow();
     }
 
-    private void addOKButton() {
-        TextButton button = new TextButton(game.getBundle().get("ok"), skin);
-        button.pad(15);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                prefs.putString("lang", lang);
-                prefs.putFloat("sound", sound);
-                prefs.putFloat("music", music);
-                prefs.putInteger("noBotherStart", noBotherStart);
-                prefs.putInteger("noBotherEnd", noBotherEnd);
-                prefs.flush();
-                game.setPrefs(prefs);
-                remove();
-                game.changeLanguage(lang);
-            }
-        });
-        this.add(button).grow();
-    }
 }

@@ -40,7 +40,7 @@ public class CreditsDisplay extends Window {
 
         this.add(scroller).pad(5).row();
 
-        TextButton closeBtn = new TextButton(game.getBundle().get("ok"), skin);
+        TextButton closeBtn = new TextButton(game.getBundle().get("back"), skin);
         closeBtn.pad(10);
         final CreditsDisplay self = this;
         closeBtn.addListener(new ClickListener() {
