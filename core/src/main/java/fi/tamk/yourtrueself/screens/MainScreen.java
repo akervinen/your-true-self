@@ -156,16 +156,18 @@ public class MainScreen implements Screen {
      */
     private void refreshChallenges() {
         challengeTable.clearChildren();
-        challengeTable.defaults().top().growX().padTop(dp(10)).padBottom(dp(10));
+        challengeTable.top();
+        challengeTable.defaults().top().growX().padBottom(dp(40));
+
+        DailyChallenge dchl = game.getCurrentDaily();
+        if (dchl != null) {
+            challengeTable.add(new ChallengePanel(dchl, game, uiSkin));
+        }
 
         Challenge chl = game.getCurrentChallenge();
         if (chl != null) {
+            challengeTable.row().padTop(dp(40));
             challengeTable.add(new ChallengePanel(chl, game, uiSkin));
-        }
-        DailyChallenge dchl = game.getCurrentDaily();
-        if (dchl != null) {
-            challengeTable.row();
-            challengeTable.add(new ChallengePanel(dchl, game, uiSkin));
         }
     }
 

@@ -133,6 +133,11 @@ public class PrefsDisplay extends YTSWindow {
         pack();
     }
 
+    @Override
+    public float getPrefWidth() {
+        return dp(350);
+    }
+
     private <T extends Actor> Cell<T> addSetting(String lblProp, T actor) {
         row().center().padTop(dp(10)).padBottom(dp(10));
         add(new Label(game.getBundle().get(lblProp), skin)).center().padRight(dp(10));

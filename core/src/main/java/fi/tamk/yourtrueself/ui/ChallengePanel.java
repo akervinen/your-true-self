@@ -34,16 +34,19 @@ public final class ChallengePanel extends Window {
         final Challenge challenge = chl;
 
         this.setMovable(false);
-        this.padLeft(20).padRight(20);
+        this.padLeft(dp(20)).padRight(dp(20));
 
         // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
-        this.add(chlText).padBottom(5).grow().row();
+        this.add(chlText)
+                .padTop(dp(15))
+                .padBottom(dp(15))
+                .grow().row();
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
-        doneButton.pad(15);
+        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -70,16 +73,19 @@ public final class ChallengePanel extends Window {
         final Challenge challenge = chl;
 
         this.setMovable(false);
-        this.padLeft(20).padRight(20);
+        this.padLeft(dp(20)).padRight(dp(20));
 
         // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
-        this.add(chlText).padBottom(5).grow().row();
+        this.add(chlText)
+                .padTop(dp(15))
+                .padBottom(dp(15))
+                .grow().row();
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
-        doneButton.pad(15);
+        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -88,5 +94,15 @@ public final class ChallengePanel extends Window {
                 game.completeChallenge(challenge);
             }
         });
+    }
+
+    /**
+     * Convert given pixel value to dp (Density Independent Pixel) value.
+     *
+     * @param px pixel value to convert
+     * @return given pixel value in dp
+     */
+    static float dp(float px) {
+        return px * Gdx.graphics.getDensity();
     }
 }
