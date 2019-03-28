@@ -28,6 +28,7 @@ public class CreditsDisplay extends YTSWindow {
 
         ScrollPane scroller = new ScrollPane(creditsText, skin, "no-bg");
         scroller.setScrollingDisabled(true, false);
+        scroller.setFadeScrollBars(false);
 
         this.add(scroller).pad(5);
 

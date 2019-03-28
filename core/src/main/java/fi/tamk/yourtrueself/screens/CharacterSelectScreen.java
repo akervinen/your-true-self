@@ -66,6 +66,7 @@ public final class CharacterSelectScreen implements Screen {
         ScrollPane scroller = new ScrollPane(characters, uiSkin, "no-bg");
         scroller.setOverscroll(false, false);
         scroller.setScrollingDisabled(false, true);
+        scroller.setFadeScrollBars(false);
 
         main.setFillParent(true);
         main.add(scroller).height(Value.percentHeight(.85f, main));
