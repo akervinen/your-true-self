@@ -103,7 +103,6 @@ public class MainScreen implements Screen {
         // - Challenge list
 
         challengeTable = new Table();
-        challengeTable.defaults().padBottom(5).top().growX();
 
         // Add the current challenges
         refreshChallenges();
@@ -143,17 +142,29 @@ public class MainScreen implements Screen {
     }
 
     /**
+     * Convert given pixel value to dp (Density Independent Pixel) value.
+     *
+     * @param px pixel value to convert
+     * @return given pixel value in dp
+     */
+    static float dp(float px) {
+        return px * Gdx.graphics.getDensity();
+    }
+
+    /**
      * Clear challenge list and add active challenges if some exist.
      */
     private void refreshChallenges() {
         challengeTable.clearChildren();
+        challengeTable.defaults().top().growX().padTop(dp(10)).padBottom(dp(10));
 
         Challenge chl = game.getCurrentChallenge();
         if (chl != null) {
-            challengeTable.add(new ChallengePanel(chl, game, uiSkin)).row();
+            challengeTable.add(new ChallengePanel(chl, game, uiSkin));
         }
         DailyChallenge dchl = game.getCurrentDaily();
         if (dchl != null) {
+            challengeTable.row();
             challengeTable.add(new ChallengePanel(dchl, game, uiSkin));
         }
     }

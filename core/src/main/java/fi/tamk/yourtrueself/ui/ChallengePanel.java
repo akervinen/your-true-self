@@ -30,6 +30,7 @@ public final class ChallengePanel extends Window {
         super(ytsGame.getBundle().get("challengeTitle"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
+
         final Challenge challenge = chl;
 
         this.setMovable(false);
@@ -62,9 +63,10 @@ public final class ChallengePanel extends Window {
      */
     public ChallengePanel(DailyChallenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("challengeTitle"), skin, Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon");
+        super(ytsGame.getBundle().get("dailyChallengeTitle"), skin, Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon");
 
         this.game = ytsGame;
+
         final Challenge challenge = chl;
 
         this.setMovable(false);
