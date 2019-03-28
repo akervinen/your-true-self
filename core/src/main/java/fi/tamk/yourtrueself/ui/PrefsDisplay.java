@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -18,7 +17,7 @@ import com.badlogic.gdx.utils.Array;
 
 import fi.tamk.yourtrueself.YTSGame;
 
-public class PrefsDisplay extends Window {
+public class PrefsDisplay extends YTSWindow {
 
     private final YTSGame game;
     private final Preferences prefs;
@@ -30,12 +29,10 @@ public class PrefsDisplay extends Window {
     private int noBotherStart;
     private int noBotherEnd;
 
-    public PrefsDisplay(Preferences prefs, Skin skin, YTSGame game) {
-        super(game.getBundle().get("prefs"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+    public PrefsDisplay(Preferences prefs, Skin skin, YTSGame ytsGame) {
+        super(ytsGame.getBundle().get("prefs"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
         this.defaults().space(5).spaceBottom(35).grow().minWidth(Value.percentWidth(.45f, this));
-        this.game = game;
-
-        this.setMovable(false);
+        this.game = ytsGame;
 
         this.skin = skin;
         this.prefs = prefs;
@@ -53,7 +50,14 @@ public class PrefsDisplay extends Window {
         addLanguageSelect();
         addCharacterButton();
         addCreditsButton();
-        addBackButton();
+
+        getBackButton().addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.changeLanguage(lang);
+                remove();
+            }
+        });
 
         this.padLeft(10).padRight(10);
         this.pack();
@@ -109,7 +113,7 @@ public class PrefsDisplay extends Window {
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String selection = select.getSelected().toString();
+                String selection = select.getSelected();
                 selection = selection.replace(game.getBundle().get("timeEnding"), "");
                 noBotherStart = Integer.parseInt(selection);
                 prefs.putInteger("noBotherStart", noBotherStart);
@@ -132,7 +136,7 @@ public class PrefsDisplay extends Window {
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String selection = select.getSelected().toString();
+                String selection = select.getSelected();
                 selection = selection.replace(game.getBundle().get("timeEnding"), "");
                 noBotherEnd = Integer.parseInt(selection);
                 prefs.putInteger("noBotherEnd", noBotherEnd);
@@ -196,20 +200,6 @@ public class PrefsDisplay extends Window {
         });
         this.add(button).grow();
         this.row();
-    }
-
-    private void addBackButton() {
-        TextButton button = new TextButton(game.getBundle().get("back"), skin);
-        button.pad(15);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setPrefs(prefs);
-                game.changeLanguage(lang);
-                remove();
-            }
-        });
-        this.add(button).grow();
     }
 
 }
