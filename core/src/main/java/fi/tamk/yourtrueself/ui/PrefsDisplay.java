@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -87,17 +88,24 @@ public class PrefsDisplay extends YTSWindow {
     private final Preferences prefs;
     private final Skin skin;
 
+    private CreditsDisplay credits;
+
     private String lang;
     private int noBotherStart;
     private int noBotherEnd;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame ytsGame) {
         super(ytsGame.getBundle().get("prefs"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
-        this.defaults().space(5).spaceBottom(35).grow().minWidth(Value.percentWidth(.45f, this));
-        this.game = ytsGame;
 
+        this.game = ytsGame;
         this.skin = skin;
         this.prefs = prefs;
+
+//        this.debug();
+
+        credits = new CreditsDisplay(game, skin);
+
+        defaults().grow().minWidth(Value.percentWidth(.45f, this));
 
         VolumeSlider.changeStyle(skin.get("default-horizontal", Slider.SliderStyle.class));
 
@@ -121,25 +129,25 @@ public class PrefsDisplay extends YTSWindow {
             }
         });
 
-        this.padLeft(10).padRight(10);
-        this.pack();
+        padLeft(dp(5)).padRight(dp(5));
+        pack();
+    }
+
+    private <T extends Actor> Cell<T> addSetting(String lblProp, T actor) {
+        row().center().padTop(dp(10)).padBottom(dp(10));
+        add(new Label(game.getBundle().get(lblProp), skin)).center().padRight(dp(10));
+        return add(actor).center();
     }
 
     private void addMusicSlider() {
-        this.add(new Label(game.getBundle().get("musicSlider"), skin));
-        this.add(new VolumeSlider(prefs, "music", game, skin)).row();
+        addSetting("musicSlider", new VolumeSlider(prefs, "music", game, skin));
     }
 
     private void addSoundSlider() {
-        this.add(new Label(game.getBundle().get("soundSlider"), skin));
-        this.add(new VolumeSlider(prefs, "sound", game, skin)).row();
+        addSetting("soundSlider", new VolumeSlider(prefs, "sound", game, skin));
     }
 
-    private void addStartSelect() {
-        this.add(new Label(game.getBundle().get("noBother"), skin));
-        this.row();
-        this.add(new Label(game.getBundle().get("noBotherStart"), skin));
-        final SelectBox<String> select = new SelectBox<String>(skin);
+    private Array<String> getHours() {
         Array<String> times = new Array<String>(24);
         Calendar c = Calendar.getInstance();
         for (int i = 0; i < 24; i++) {
@@ -147,9 +155,13 @@ public class PrefsDisplay extends YTSWindow {
             c.set(Calendar.HOUR_OF_DAY, i);
             times.add(game.getBundle().format("dndTime", c.getTime()));
         }
-        select.setItems(times);
+        return times;
+    }
+
+    private void addStartSelect() {
+        final SelectBox<String> select = new SelectBox<String>(skin);
+        select.setItems(getHours());
         select.setSelectedIndex(noBotherStart);
-        this.add(select).row();
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -159,21 +171,18 @@ public class PrefsDisplay extends YTSWindow {
                 game.setPrefs(prefs);
             }
         });
+
+        row().padTop(dp(10));
+        add(new Label(game.getBundle().get("noBother"), skin));
+        row().padBottom(dp(5));
+        add(new Label(game.getBundle().get("noBotherStart"), skin)).center();
+        add(select).center();
     }
 
     private void addEndSelect() {
-        this.add(new Label(game.getBundle().get("noBotherEnd"), skin));
         final SelectBox<String> select = new SelectBox<String>(skin);
-        Array<String> times = new Array<String>(24);
-        Calendar c = Calendar.getInstance();
-        for (int i = 0; i < 24; i++) {
-            c.clear();
-            c.set(Calendar.HOUR_OF_DAY, i);
-            times.add(game.getBundle().format("dndTime", c.getTime()));
-        }
-        select.setItems(times);
+        select.setItems(getHours());
         select.setSelectedIndex(noBotherEnd);
-        this.add(select);
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -183,16 +192,14 @@ public class PrefsDisplay extends YTSWindow {
                 game.setPrefs(prefs);
             }
         });
-        this.row();
+
+        addSetting("noBotherEnd", select);
     }
 
     private void addLanguageSelect() {
-        this.add(new Label(game.getBundle().get("language"), skin));
         final SelectBox<String> select = new SelectBox<String>(skin);
         select.setItems("FI", "EN");
         select.setSelected(lang.toUpperCase());
-        this.add(select);
-        this.row().padTop(20);
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -201,44 +208,41 @@ public class PrefsDisplay extends YTSWindow {
                 prefs.flush();
             }
         });
+
+        addSetting("language", select);
     }
 
     private void addCharacterButton() {
         TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin);
-        button.pad(15);
+        button.pad(dp(10));
+        button.getLabel().setWrap(true);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.goToCharacterSelect();
             }
         });
-        this.add(button).grow();
+
+        row().padTop(dp(20));
+        add(button).padRight(dp(10));
     }
 
     private void addCreditsButton() {
-        final PrefsDisplay self = this;
         TextButton button = new TextButton(game.getBundle().get("credits"), skin);
-        button.pad(15);
+        button.pad(dp(10));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                boolean creditsExists = false;
-
-                for (Actor stageActor : new Array.ArrayIterator<Actor>(self.getStage().getActors())) {
-                    if (stageActor instanceof CreditsDisplay) {
-                        creditsExists = true;
-                        stageActor.remove();
-                    }
-                }
-                if (!creditsExists) {
-                    CreditsDisplay credits = new CreditsDisplay(game, skin);
-                    credits.setPosition(self.getStage().getWidth() / 2, self.getStage().getHeight() / 2, Align.center);
-                    self.getStage().addActor(credits);
-                }
+                showCredits();
             }
         });
-        this.add(button).grow();
-        this.row();
+
+        add(button);
+    }
+
+    private void showCredits() {
+        credits.setPosition(getStage().getWidth() / 2, getStage().getHeight() / 2, Align.center);
+        getStage().addActor(credits);
     }
 
 }

@@ -42,7 +42,7 @@ public class CreditsDisplay extends YTSWindow {
      */
     @Override
     public float getPrefWidth() {
-        return Gdx.graphics.getPpiX() * 2.5f;
+        return dp(350);
     }
 
     /**
@@ -52,6 +52,6 @@ public class CreditsDisplay extends YTSWindow {
      */
     @Override
     public float getPrefHeight() {
-        return Gdx.graphics.getPpiY() * 2.5f;
+        return dp(500);
     }
 }
