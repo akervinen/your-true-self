@@ -555,6 +555,13 @@ public class YTSGame extends Game {
         }
     }
 
+    @Override
+    public void resize(int width, int height) {
+        getUiViewport().update(width, height, true);
+
+        super.resize(width, height);
+    }
+
     /**
      * Called when coming back to focus or switching back to the app on Android.
      * Refreshes game challenges.
