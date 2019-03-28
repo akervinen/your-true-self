@@ -12,10 +12,72 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 import fi.tamk.yourtrueself.YTSGame;
+
+class VolumeSlider extends Slider {
+    private final YTSGame game;
+    private final Preferences preferences;
+    private final String prefName;
+
+    VolumeSlider(Preferences preferences, final String prefName, YTSGame ytsGame, Skin skin) {
+        super(0, 1, 0.1f, false, skin);
+
+        this.game = ytsGame;
+        this.preferences = preferences;
+        this.prefName = prefName;
+
+        setValue(preferences.getFloat(prefName, 0.5f));
+
+        this.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                updatePref();
+                if (prefName.equals("music")) {
+                    game.setMusicVolume(getValue());
+                }
+            }
+        });
+    }
+
+    static void changeStyle(SliderStyle style) {
+        // Change bar height (otherwise it's however many pixels the assets are high)
+        Drawable[] knobs = new Drawable[]{
+                style.knob, style.knobAfter, style.knobOver, style.knobDown, style.disabledKnob,
+                style.disabledKnobAfter
+        };
+
+        Drawable[] sliderGfx = new Drawable[]{
+                style.background, style.disabledBackground, style.knobBefore, style.disabledKnobBefore
+        };
+
+        for (Drawable d : knobs) {
+            if (d == null) continue;
+            float ratio = ((Gdx.graphics.getPpiY() * 0.125f) / d.getMinHeight());
+            d.setMinHeight(d.getMinHeight() * ratio);
+            d.setMinWidth(d.getMinWidth() * ratio);
+        }
+        for (Drawable d : sliderGfx) {
+            if (d == null) continue;
+            float ratio = ((Gdx.graphics.getPpiY() * 0.05f) / d.getMinHeight());
+            d.setMinHeight(d.getMinHeight() * ratio);
+//            d.setMinWidth(d.getMinWidth() * ratio);
+        }
+    }
+
+    private void updatePref() {
+        preferences.putFloat(prefName, getValue());
+        preferences.flush();
+    }
+
+    @Override
+    public float getMinHeight() {
+        return Gdx.graphics.getPpiY() * 0.25f;
+    }
+}
 
 public class PrefsDisplay extends YTSWindow {
 
@@ -24,8 +86,6 @@ public class PrefsDisplay extends YTSWindow {
     private final Skin skin;
 
     private String lang;
-    private float sound;
-    private float music;
     private int noBotherStart;
     private int noBotherEnd;
 
@@ -37,9 +97,9 @@ public class PrefsDisplay extends YTSWindow {
         this.skin = skin;
         this.prefs = prefs;
 
+        VolumeSlider.changeStyle(skin.get("default-horizontal", Slider.SliderStyle.class));
+
         lang = prefs.getString("lang", "fi");
-        sound = prefs.getFloat("sound", 0.5f);
-        music = prefs.getFloat("music", 0.5f);
         noBotherStart = prefs.getInteger("noBotherStart", 22);
         noBotherEnd = prefs.getInteger("noBotherEnd", 8);
 
@@ -65,37 +125,12 @@ public class PrefsDisplay extends YTSWindow {
 
     private void addMusicSlider() {
         this.add(new Label(game.getBundle().get("musicSlider"), skin));
-        final Slider slider = new Slider(0, 1, 0.1f, false, skin);
-        slider.setValue(music);
-        this.add(slider);
-        slider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                music = slider.getValue();
-                game.setMusicVolume(music);
-                prefs.putFloat("music", music);
-                prefs.flush();
-                game.setPrefs(prefs);
-            }
-        });
-        this.row();
+        this.add(new VolumeSlider(prefs, "music", game, skin)).row();
     }
 
     private void addSoundSlider() {
         this.add(new Label(game.getBundle().get("soundSlider"), skin));
-        final Slider slider = new Slider(0, 1, 0.1f, false, skin);
-        slider.setValue(sound);
-        this.add(slider);
-        slider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                sound = slider.getValue();
-                prefs.putFloat("sound", sound);
-                prefs.flush();
-                game.setPrefs(prefs);
-            }
-        });
-        this.row();
+        this.add(new VolumeSlider(prefs, "sound", game, skin)).row();
     }
 
     private void addStartSelect() {
