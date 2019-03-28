@@ -4,16 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
-import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -111,41 +109,16 @@ public class YTSGame extends Game {
      */
 
     /**
-     * Convert font points (72pt = inch) to pixels using the screen's vertical pixel density.
-     *
-     * @param pt typographical points to convert
-     * @return given pt value in pixels
-     */
-    private int getPointInPixels(float pt) {
-        return (int) (pt * (Gdx.graphics.getPpiY() / 72f));
-    }
-
-    /**
      * Load game assets.
      */
     private void loadAssets() {
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ui/Roboto-Regular.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = getPointInPixels(10);
-        BitmapFont fontSmall = generator.generateFont(parameter);
-
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = getPointInPixels(18);
-        BitmapFont fontTitle = generator.generateFont(parameter);
-        generator.dispose();
-
-        // Add generated fonts here, so that the skin can use them
-        ObjectMap<String, Object> fontMap = new ObjectMap<String, Object>();
-        fontMap.put("font", fontSmall);
-        fontMap.put("font-title", fontTitle);
-
-        SkinLoader.SkinParameter skinParam = new SkinLoader.SkinParameter(fontMap);
+        // Add custom loaders
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        assetManager.setLoader(Skin.class, new YTSSkinLoader(resolver));
 
         // Add assets to load
-
         assetManager.load("characters.atlas", TextureAtlas.class);
-        assetManager.load(SKIN_PATH, Skin.class, skinParam);
+        assetManager.load(SKIN_PATH, Skin.class);
 
         assetManager.load("YourTrueSelf_MainthemeOGG.ogg", Music.class);
 
