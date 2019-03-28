@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Calendar;
+
 import fi.tamk.yourtrueself.YTSGame;
 
 class VolumeSlider extends Slider {
@@ -139,18 +141,19 @@ public class PrefsDisplay extends YTSWindow {
         this.add(new Label(game.getBundle().get("noBotherStart"), skin));
         final SelectBox<String> select = new SelectBox<String>(skin);
         Array<String> times = new Array<String>(24);
+        Calendar c = Calendar.getInstance();
         for (int i = 0; i < 24; i++) {
-            times.add(Integer.toString(i) + game.getBundle().get("timeEnding"));
+            c.clear();
+            c.set(Calendar.HOUR_OF_DAY, i);
+            times.add(game.getBundle().format("dndTime", c.getTime()));
         }
         select.setItems(times);
-        select.setSelected(times.get(noBotherStart));
+        select.setSelectedIndex(noBotherStart);
         this.add(select).row();
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String selection = select.getSelected();
-                selection = selection.replace(game.getBundle().get("timeEnding"), "");
-                noBotherStart = Integer.parseInt(selection);
+                noBotherStart = select.getSelectedIndex();
                 prefs.putInteger("noBotherStart", noBotherStart);
                 prefs.flush();
                 game.setPrefs(prefs);
@@ -162,18 +165,19 @@ public class PrefsDisplay extends YTSWindow {
         this.add(new Label(game.getBundle().get("noBotherEnd"), skin));
         final SelectBox<String> select = new SelectBox<String>(skin);
         Array<String> times = new Array<String>(24);
+        Calendar c = Calendar.getInstance();
         for (int i = 0; i < 24; i++) {
-            times.add(Integer.toString(i) + game.getBundle().get("timeEnding"));
+            c.clear();
+            c.set(Calendar.HOUR_OF_DAY, i);
+            times.add(game.getBundle().format("dndTime", c.getTime()));
         }
         select.setItems(times);
-        select.setSelected(times.get(noBotherEnd));
+        select.setSelectedIndex(noBotherEnd);
         this.add(select);
         select.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String selection = select.getSelected();
-                selection = selection.replace(game.getBundle().get("timeEnding"), "");
-                noBotherEnd = Integer.parseInt(selection);
+                noBotherEnd = select.getSelectedIndex();
                 prefs.putInteger("noBotherEnd", noBotherEnd);
                 prefs.flush();
                 game.setPrefs(prefs);
