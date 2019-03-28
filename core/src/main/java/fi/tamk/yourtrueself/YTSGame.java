@@ -56,6 +56,10 @@ public class YTSGame extends Game {
             new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15)
     };
 
+    public static final DailyChallenge[] DAILY_CHALLENGES = {
+            new DailyChallenge("dchlStairs", Player.Stat.STAMINA)
+    };
+
     /**
      * Path to the Scene2D skin to use.
      */
@@ -90,6 +94,11 @@ public class YTSGame extends Game {
      * Time in milliseconds (System.currentTimeMillis()) when the next challenge appears.
      */
     private long nextChallengeTime;
+
+    /**
+     * Current daily challenge.
+     */
+    private DailyChallenge currentDaily;
 
     /**
      * Callback used after a challenge is completed.
@@ -393,6 +402,10 @@ public class YTSGame extends Game {
         }
     }
 
+    public DailyChallenge getCurrentDaily() {
+        return currentDaily;
+    }
+
     /**
      * Re-read preferences for current challenge, check if next challenge needs to be given
      * and make sure that the player has a challenge if there's no active timer.
@@ -534,6 +547,7 @@ public class YTSGame extends Game {
 
         loadStats();
         refreshChallenges();
+        currentDaily = DAILY_CHALLENGES[0];
 
         uiViewport = new ScreenViewport();
 

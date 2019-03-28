@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.ChallengeCompletedListener;
 import fi.tamk.yourtrueself.Character;
+import fi.tamk.yourtrueself.DailyChallenge;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.ChallengePanel;
 import fi.tamk.yourtrueself.ui.CharacterMainPanel;
@@ -104,11 +105,8 @@ public class MainScreen implements Screen {
         challengeTable = new Table();
         challengeTable.defaults().padBottom(5).top().growX();
 
-        // Add the current challenge
-        Challenge chl = game.getCurrentChallenge();
-        if (chl != null) {
-            challengeTable.add(new ChallengePanel(chl, game, uiSkin));
-        }
+        // Add the current challenges
+        refreshChallenges();
 
         // Add a callback to update the UI after a challenge is completed
         game.setChallengeCompletedListener(new ChallengeCompletedListener() {
@@ -152,7 +150,11 @@ public class MainScreen implements Screen {
 
         Challenge chl = game.getCurrentChallenge();
         if (chl != null) {
-            challengeTable.add(new ChallengePanel(game.getCurrentChallenge(), game, uiSkin));
+            challengeTable.add(new ChallengePanel(chl, game, uiSkin)).row();
+        }
+        DailyChallenge dchl = game.getCurrentDaily();
+        if (dchl != null) {
+            challengeTable.add(new ChallengePanel(dchl, game, uiSkin));
         }
     }
 

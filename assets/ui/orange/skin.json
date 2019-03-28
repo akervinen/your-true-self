@@ -275,14 +275,19 @@
       titleFont: font,
       titleFontColor: { a: 1, b: 1, g: 1, r: 1 }
     },
+    large: {
+      background: window-large,
+      titleFont: font,
+      titleFontColor: { a: 1, b: 1, g: 1, r: 1 }
+    },
     dialog-large: {
       background: window-large,
       titleFont: font,
       titleFontColor: { a: 1, b: 1, g: 1, r: 1 },
       stageBackground: bleached-peach
     },
-    large: {
-      background: window-large,
+    maroon-large: {
+      background: window-maroon-large,
       titleFont: font,
       titleFontColor: { a: 1, b: 1, g: 1, r: 1 }
     }

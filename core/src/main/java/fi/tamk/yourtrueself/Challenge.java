@@ -13,7 +13,7 @@ public class Challenge {
     /**
      * Challenge's main stat. Completing the challenge raises this stat.
      */
-    private final Player.Stat mainStat;
+    protected final Player.Stat mainStat;
 
     /**
      * Challenge's modifier, for example "walk (x) steps" or "do (x) squats". Gets passed
