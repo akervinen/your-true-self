@@ -89,6 +89,11 @@ public class YTSGame extends Game {
     private Challenge currentChallenge;
 
     /**
+     * Time between challenges in seconds.
+     */
+    private int challengeDelay = 5;
+
+    /**
      * Time in milliseconds (System.currentTimeMillis()) when the next challenge appears.
      */
     private long nextChallengeTime;
@@ -319,6 +324,15 @@ public class YTSGame extends Game {
     }
 
     /**
+     * Set the delay between challenges.
+     *
+     * @param challengeDelay new delay in seconds
+     */
+    public void setChallengeDelay(int challengeDelay) {
+        this.challengeDelay = challengeDelay;
+    }
+
+    /**
      * Get the time when the next challenge appears in milliseconds according to
      * System.currentTimeMillis
      *
@@ -366,7 +380,7 @@ public class YTSGame extends Game {
      * Start timer until next challenge.
      */
     private void startNextChallengeTimer() {
-        int nextTime = 60;
+        int nextTime = challengeDelay;
 
         setNextChallengeTime(System.currentTimeMillis() + nextTime * 1000);
 

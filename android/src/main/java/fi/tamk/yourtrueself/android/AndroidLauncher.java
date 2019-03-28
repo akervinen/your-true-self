@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+import fi.tamk.yourtrueself.BuildConfig;
 import fi.tamk.yourtrueself.YTSGame;
 
 /**
@@ -20,6 +21,10 @@ public class AndroidLauncher extends AndroidApplication {
 
         YTSGame game = new YTSGame();
         game.setAlarmHelper(yan);
+
+        if (BuildConfig.BUILD_TYPE.equals("release")) {
+            game.setChallengeDelay(60 * 60);
+        }
 
         initialize(game, configuration);
     }
