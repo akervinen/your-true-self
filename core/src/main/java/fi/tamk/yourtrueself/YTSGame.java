@@ -450,10 +450,10 @@ public class YTSGame extends Game {
      */
     private void startNextChallengeTimer() {
         int delay = 5;
-
         if (releaseMode) {
-            delay = 60 * 60;
+            delay = 90 * 60;
         }
+
         Calendar c = Calendar.getInstance();
         c.add(Calendar.SECOND, delay);
 
