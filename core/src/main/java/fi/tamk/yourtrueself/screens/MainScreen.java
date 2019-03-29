@@ -37,6 +37,9 @@ public class MainScreen implements Screen {
     private PrefsDisplay prefsDisplay;
     private StatsDisplay statsDisplay;
 
+    private Challenge currentChallenge;
+    private DailyChallenge currentDaily;
+
     /**
      * Create a main screen instance.
      *
@@ -106,14 +109,14 @@ public class MainScreen implements Screen {
         challengeTable = new Table();
 
         // Add the current challenges
-        refreshChallenges();
+        refreshChallengeList();
 
         // Add a callback to update the UI after a challenge is completed
         game.setChallengeCompletedListener(new ChallengeCompletedListener() {
             @Override
             public void challengeCompleted(Challenge challenge) {
                 statsDisplay.updateStats();
-                refreshChallenges();
+                refreshChallengeList();
             }
         });
 
@@ -156,20 +159,20 @@ public class MainScreen implements Screen {
     /**
      * Clear challenge list and add active challenges if some exist.
      */
-    private void refreshChallenges() {
+    private void refreshChallengeList() {
         challengeTable.clearChildren();
         challengeTable.top();
         challengeTable.defaults().top().growX().padBottom(dp(40));
 
-        DailyChallenge dchl = game.getCurrentDaily();
-        if (dchl != null) {
-            challengeTable.add(new ChallengePanel(dchl, game, uiSkin));
+        currentDaily = game.getCurrentDaily();
+        if (currentDaily != null) {
+            challengeTable.add(new ChallengePanel(currentDaily, game, uiSkin));
         }
 
-        Challenge chl = game.getCurrentChallenge();
-        if (chl != null) {
+        currentChallenge = game.getCurrentChallenge();
+        if (currentChallenge != null) {
             challengeTable.row().padTop(dp(40));
-            challengeTable.add(new ChallengePanel(chl, game, uiSkin));
+            challengeTable.add(new ChallengePanel(currentChallenge, game, uiSkin));
         } else {
             challengeTable.row().padTop(dp(40));
             challengeTable.add(new ChallengeTimerPanel(game, uiSkin));
@@ -186,8 +189,9 @@ public class MainScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (game.checkChallenges() || (!challengeTable.hasChildren() && game.getCurrentChallenge() != null)) {
-            refreshChallenges();
+        game.checkChallenges();
+        if (currentChallenge != game.getCurrentChallenge() || currentDaily != game.getCurrentDaily()) {
+            refreshChallengeList();
         }
 
         stage.act(delta);

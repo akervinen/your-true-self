@@ -82,6 +82,7 @@ public final class ChallengePanel extends YTSWindow {
                 .padBottom(dp(15))
                 .grow().row();
 
+
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
         doneButton.pad(dp(15));

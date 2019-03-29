@@ -55,7 +55,8 @@ public class YTSGame extends Game {
     };
 
     public static final DailyChallenge[] DAILY_CHALLENGES = {
-            new DailyChallenge("dchlStairs", Player.Stat.STAMINA)
+            new DailyChallenge("dchlStairs", Player.Stat.NONE, false),
+            new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true)
     };
 
     /**
@@ -266,21 +267,25 @@ public class YTSGame extends Game {
      */
     public void completeChallenge(Challenge chl) {
         // Check if challenge is valid (either normal, daily or MP challenge)
-        if (chl != currentChallenge) {
+        if (chl != currentChallenge && chl != currentDaily) {
             // Player tried to complete an old or invalid challenge?
             return;
         }
 
-        previousChallenge = chl;
-        setCurrentChallenge((Challenge) null);
+        if (chl instanceof DailyChallenge) {
+            setCurrentDaily((DailyChallenge) null);
+        } else {
+            previousChallenge = chl;
+            setCurrentChallenge((Challenge) null);
+            startNextChallengeTimer();
+        }
+
         chl.complete(getPlayer());
         saveStats();
 
         if (challengeCompletedListener != null) {
             challengeCompletedListener.challengeCompleted(chl);
         }
-
-        startNextChallengeTimer();
     }
 
     /**
@@ -377,6 +382,16 @@ public class YTSGame extends Game {
     }
 
     /**
+     * Get a random(-ish) daily challenge.
+     *
+     * @return random daily challenge
+     */
+    private DailyChallenge getNextDaily() {
+        int idx = MathUtils.random(0, DAILY_CHALLENGES.length - 1);
+        return DAILY_CHALLENGES[idx];
+    }
+
+    /**
      * Start timer until next challenge.
      */
     private void startNextChallengeTimer() {
@@ -389,8 +404,43 @@ public class YTSGame extends Game {
         }
     }
 
+    /**
+     * Get current daily challenge.
+     *
+     * @return current daily challenge, or null
+     */
     public DailyChallenge getCurrentDaily() {
         return currentDaily;
+    }
+
+    /**
+     * Set current daily challenge. Can be null to remove daily.
+     *
+     * @param daily new daily challenge or null
+     */
+    private void setCurrentDaily(DailyChallenge daily) {
+        currentDaily = daily;
+        if (daily != null) {
+            prefs.putString("currentDaily", daily.getId());
+        } else {
+            prefs.remove("currentDaily");
+        }
+        prefs.flush();
+    }
+
+    /**
+     * Set current daily challenge by its ID.
+     *
+     * @param challengeId ID of the new daily challenge
+     */
+    private void setCurrentDaily(String challengeId) {
+        if (challengeId != null) {
+            for (DailyChallenge chl : DAILY_CHALLENGES) {
+                if (chl.getId().equals(challengeId)) {
+                    setCurrentDaily(chl);
+                }
+            }
+        }
     }
 
     /**
@@ -399,18 +449,10 @@ public class YTSGame extends Game {
      */
     private void refreshChallenges() {
         setCurrentChallenge(prefs.getString("currentChallenge"));
-
+        setCurrentDaily(prefs.getString("currentDaily"));
         nextChallengeTime = prefs.getLong("nextChallengeTime", 0);
-        if (currentChallenge == null && nextChallengeTime != 0) {
-            if (System.currentTimeMillis() >= nextChallengeTime) {
-                setNextChallengeTime(0);
-                setCurrentChallenge(getNextChallenge());
-            }
-        }
 
-        if (currentChallenge == null && !prefs.contains("nextChallengeTime")) {
-            setCurrentChallenge(getNextChallenge());
-        }
+        checkChallenges();
     }
 
     /**
@@ -419,20 +461,22 @@ public class YTSGame extends Game {
      * @return true if new challenges were added, otherwise false
      */
     public boolean checkChallenges() {
-        if (currentChallenge == null && nextChallengeTime != 0) {
+        boolean changed = false;
+
+        if (currentChallenge == null) {
             if (System.currentTimeMillis() >= nextChallengeTime) {
                 setNextChallengeTime(0);
                 setCurrentChallenge(getNextChallenge());
-                return true;
+                changed = true;
             }
         }
 
-        if (currentChallenge == null && nextChallengeTime == 0) {
-            setCurrentChallenge(getNextChallenge());
-            return true;
+        if (currentDaily == null) {
+            setCurrentDaily(getNextDaily());
+            changed = true;
         }
 
-        return false;
+        return changed;
     }
 
     /**
@@ -544,7 +588,6 @@ public class YTSGame extends Game {
 
         loadStats();
         refreshChallenges();
-        currentDaily = DAILY_CHALLENGES[0];
 
         uiViewport = new ScreenViewport();
 
@@ -555,9 +598,6 @@ public class YTSGame extends Game {
         mainTheme.setLooping(true);
         mainTheme.setVolume(prefs.getFloat("music", 0.5f));
         mainTheme.play();
-
-//        Gdx.graphics.setContinuousRendering(false);
-//        Gdx.graphics.requestRendering();
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);
