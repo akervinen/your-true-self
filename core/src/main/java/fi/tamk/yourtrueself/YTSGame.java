@@ -654,6 +654,7 @@ public class YTSGame extends Game {
             setScreen(selectScreen);
         } else {
             setScreen(mainScreen);
+            mainScreen.preferences();
         }
     }
 

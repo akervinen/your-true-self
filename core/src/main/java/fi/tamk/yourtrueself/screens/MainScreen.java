@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 
 import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.ChallengeCompletedListener;
@@ -72,20 +71,7 @@ public class MainScreen implements Screen {
         prefsBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // First check if preferences window is already open
-                // Remove if yes, open if no
-                boolean addWindow = true;
-                for (Actor stageActor : new Array.ArrayIterator<Actor>(stage.getActors())) {
-                    if (stageActor.equals(prefsDisplay)) {
-                        prefsDisplay.remove();
-                        addWindow = false;
-                    }
-                }
-
-                if (addWindow) {
-                    prefsDisplay.setPosition(stage.getWidth()/2, stage.getHeight()/2, Align.center);
-                    stage.addActor(prefsDisplay);
-                }
+                preferences();
             }
         });
 
@@ -134,6 +120,12 @@ public class MainScreen implements Screen {
 
         stage.addActor(table);
     }
+
+    public void preferences() {
+        prefsDisplay.setPosition(stage.getWidth() / 2, stage.getHeight() / 2, Align.center);
+        stage.addActor(prefsDisplay);
+    }
+
 
     /**
      * Called when the game switches away from this screen.

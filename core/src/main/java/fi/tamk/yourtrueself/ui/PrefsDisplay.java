@@ -124,7 +124,6 @@ public class PrefsDisplay extends YTSWindow {
         getBackButton().addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeLanguage(lang);
                 remove();
             }
         });
@@ -211,6 +210,7 @@ public class PrefsDisplay extends YTSWindow {
                 lang = select.getSelected();
                 prefs.putString("lang", lang);
                 prefs.flush();
+                game.changeLanguage(lang);
             }
         });
 
