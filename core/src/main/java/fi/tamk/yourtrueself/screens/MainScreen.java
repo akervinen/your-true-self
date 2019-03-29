@@ -131,6 +131,7 @@ public class MainScreen implements Screen {
         stage.addActor(table);
     }
 
+
     /**
      * Called when the game switches away from this screen.
      */
