@@ -60,6 +60,8 @@ public class YTSGame extends Game {
             new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true)
     };
 
+    private static final float OFF_STAT_CHANCE = 0.3f;
+
     /**
      * Path to the Scene2D skin to use.
      */
@@ -412,11 +414,20 @@ public class YTSGame extends Game {
     private Challenge getNextChallenge() {
         int idx;
 
+        boolean pickOffStat = MathUtils.random() <= OFF_STAT_CHANCE;
+        boolean isOffStat = false;
+
+        Character chr = player.getCurrentCharacter();
+
         // Avoid getting the exact same challenge as last
         do {
             idx = MathUtils.random(0, CHALLENGES.length - 1);
-        } while (previousChallenge != null &&
-                CHALLENGES[idx].getId().equals(previousChallenge.getId()));
+            if (chr.getMainStat() != Player.Stat.NONE) {
+                isOffStat = CHALLENGES[idx].mainStat != chr.getMainStat();
+            }
+        } while ((isOffStat && !pickOffStat) ||
+                (previousChallenge != null &&
+                        CHALLENGES[idx].getId().equals(previousChallenge.getId())));
 
         return CHALLENGES[idx];
     }
