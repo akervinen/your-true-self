@@ -35,6 +35,7 @@ android {
         applicationId 'fi.tamk.yourtrueself'
         minSdkVersion 14
         targetSdkVersion 27
+        setProperty("archivesBaseName", "Your True Self v$version")
     }
 }
 
