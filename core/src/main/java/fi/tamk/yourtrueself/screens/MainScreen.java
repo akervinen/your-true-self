@@ -167,6 +167,8 @@ public class MainScreen implements Screen {
         currentDaily = game.getCurrentDaily();
         if (currentDaily != null) {
             challengeTable.add(new ChallengePanel(currentDaily, game, uiSkin));
+        } else {
+            challengeTable.add(new ChallengeTimerPanel(true, game, uiSkin));
         }
 
         currentChallenge = game.getCurrentChallenge();
@@ -175,7 +177,7 @@ public class MainScreen implements Screen {
             challengeTable.add(new ChallengePanel(currentChallenge, game, uiSkin));
         } else {
             challengeTable.row().padTop(dp(40));
-            challengeTable.add(new ChallengeTimerPanel(game, uiSkin));
+            challengeTable.add(new ChallengeTimerPanel(false, game, uiSkin));
         }
     }
 

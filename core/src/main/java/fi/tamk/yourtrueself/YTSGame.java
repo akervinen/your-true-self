@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
@@ -75,6 +76,11 @@ public class YTSGame extends Game {
     private YTSAlarmHelper alarmHelper;
 
     /**
+     * Set to true to use longer challenge delays. Default is false.
+     */
+    private boolean releaseMode = false;
+
+    /**
      * Player's information and stats.
      */
     private final Player player = new Player();
@@ -90,14 +96,14 @@ public class YTSGame extends Game {
     private Challenge currentChallenge;
 
     /**
-     * Time between challenges in seconds.
-     */
-    private int challengeDelay = 5;
-
-    /**
      * Time in milliseconds (System.currentTimeMillis()) when the next challenge appears.
      */
     private long nextChallengeTime;
+
+    /**
+     * Time in milliseconds (System.currentTimeMillis()) when the next daily appears.
+     */
+    private long nextDailyTime;
 
     /**
      * Current daily challenge.
@@ -105,10 +111,25 @@ public class YTSGame extends Game {
     private DailyChallenge currentDaily;
 
     /**
+     * Time in milliseconds (System.currentTimeMillis()) when the current daily started.
+     */
+    private long currentDailyStartTime;
+
+    /**
      * Callback used after a challenge is completed.
      */
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
+
+    /**
+     * Set release mode. Release mode increases challenge delays to proper values.
+     * Default is false.
+     *
+     * @param releaseMode true to enable release mode
+     */
+    public void setReleaseMode(boolean releaseMode) {
+        this.releaseMode = releaseMode;
+    }
 
     /*
         UI Stuff
@@ -274,6 +295,7 @@ public class YTSGame extends Game {
 
         if (chl instanceof DailyChallenge) {
             setCurrentDaily((DailyChallenge) null);
+            startNextDailyTimer();
         } else {
             previousChallenge = chl;
             setCurrentChallenge((Challenge) null);
@@ -329,12 +351,30 @@ public class YTSGame extends Game {
     }
 
     /**
-     * Set the delay between challenges.
+     * Get the time when the next challenge appears in milliseconds according to
+     * System.currentTimeMillis
      *
-     * @param challengeDelay new delay in seconds
+     * @return time for the next challenge
      */
-    public void setChallengeDelay(int challengeDelay) {
-        this.challengeDelay = challengeDelay;
+    public long getNextDailyTime() {
+        return nextDailyTime;
+    }
+
+    /**
+     * Set the time when the next challenge appears in milliseconds according to
+     * System.currentTimeMillis.
+     *
+     * @param nextDailyTime time for the next challenge
+     */
+    private void setNextDailyTime(long nextDailyTime) {
+        this.nextDailyTime = nextDailyTime;
+
+        if (nextDailyTime == 0) {
+            prefs.remove("nextDailyTime");
+        } else {
+            prefs.putLong("nextDailyTime", nextDailyTime);
+        }
+        prefs.flush();
     }
 
     /**
@@ -395,12 +435,38 @@ public class YTSGame extends Game {
      * Start timer until next challenge.
      */
     private void startNextChallengeTimer() {
-        int nextTime = challengeDelay;
+        int nextTime = 10;
+
+        if (releaseMode) {
+            nextTime = 60 * 60;
+        }
 
         setNextChallengeTime(System.currentTimeMillis() + nextTime * 1000);
 
         if (alarmHelper != null) {
             alarmHelper.startTimer(nextTime);
+        }
+    }
+
+    /**
+     * Start timer until next challenge.
+     */
+    private void startNextDailyTimer() {
+        if (releaseMode) {
+            Calendar c = Calendar.getInstance();
+
+            if (currentDailyStartTime != 0) {
+                c.setTimeInMillis(currentDailyStartTime);
+            }
+
+            c.add(Calendar.DAY_OF_MONTH, 1);
+            c.set(Calendar.HOUR_OF_DAY, prefs.getInteger("noBotherEnd", 8));
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+
+            setNextDailyTime(c.getTimeInMillis());
+        } else {
+            setNextDailyTime(System.currentTimeMillis() + 15 * 1000);
         }
     }
 
@@ -422,8 +488,12 @@ public class YTSGame extends Game {
         currentDaily = daily;
         if (daily != null) {
             prefs.putString("currentDaily", daily.getId());
+            if (!prefs.contains("currentDailyStart")) {
+                prefs.putLong("currentDailyStart", System.currentTimeMillis());
+            }
         } else {
             prefs.remove("currentDaily");
+            prefs.remove("currentDailyStart");
         }
         prefs.flush();
     }
@@ -449,8 +519,10 @@ public class YTSGame extends Game {
      */
     private void refreshChallenges() {
         setCurrentChallenge(prefs.getString("currentChallenge"));
-        setCurrentDaily(prefs.getString("currentDaily"));
         nextChallengeTime = prefs.getLong("nextChallengeTime", 0);
+        setCurrentDaily(prefs.getString("currentDaily"));
+        currentDailyStartTime = prefs.getLong("currentDailyStart");
+        nextDailyTime = prefs.getLong("nextDailyTime");
 
         checkChallenges();
     }
@@ -472,8 +544,11 @@ public class YTSGame extends Game {
         }
 
         if (currentDaily == null) {
-            setCurrentDaily(getNextDaily());
-            changed = true;
+            if (System.currentTimeMillis() >= nextDailyTime) {
+                setCurrentDaily(getNextDaily());
+                setNextDailyTime(0);
+                changed = true;
+            }
         }
 
         return changed;

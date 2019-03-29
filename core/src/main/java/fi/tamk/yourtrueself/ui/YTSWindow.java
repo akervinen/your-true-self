@@ -1,5 +1,6 @@
 package fi.tamk.yourtrueself.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -71,5 +72,15 @@ public class YTSWindow extends Window {
      */
     static float dp(float px) {
         return YTSGame.dp(px);
+    }
+
+    protected static String getWindowStyle(String style) {
+        if (style.equals("default")) {
+            return Gdx.graphics.getPpiY() > 200 ? "large" : "default";
+        } else if (style.equals("maroon")) {
+            return Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon";
+        }
+
+        return "default";
     }
 }

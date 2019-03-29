@@ -23,7 +23,7 @@ public class AndroidLauncher extends AndroidApplication {
         game.setAlarmHelper(yan);
 
         if (BuildConfig.BUILD_TYPE.equals("release")) {
-            game.setChallengeDelay(60 * 60);
+            game.setReleaseMode(true);
         }
 
         initialize(game, configuration);

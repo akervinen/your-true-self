@@ -1,6 +1,5 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,7 +25,7 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("challengeTitle"), false, skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(ytsGame.getBundle().get("challengeTitle"), false, skin, getWindowStyle("default"));
 
         this.game = ytsGame;
 
@@ -65,7 +64,7 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(DailyChallenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon");
+        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, getWindowStyle("maroon"));
 
         this.game = ytsGame;
 
