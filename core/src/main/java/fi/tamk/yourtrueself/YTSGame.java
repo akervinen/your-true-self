@@ -418,6 +418,9 @@ public class YTSGame extends Game {
         boolean isOffStat = false;
 
         Character chr = player.getCurrentCharacter();
+        if (chr == null) {
+            return null;
+        }
 
         // Avoid getting the exact same challenge as last
         do {
@@ -446,16 +449,37 @@ public class YTSGame extends Game {
      * Start timer until next challenge.
      */
     private void startNextChallengeTimer() {
-        int nextTime = 10;
+        int delay = 5;
 
         if (releaseMode) {
-            nextTime = 60 * 60;
+            delay = 60 * 60;
+        }
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.SECOND, delay);
+
+        int dndStart = prefs.getInteger("noBotherStart", 22);
+        int dndEnd = prefs.getInteger("noBotherEnd", 8);
+
+        int possibleHour = c.get(Calendar.HOUR_OF_DAY);
+        if (dndStart < dndEnd) {
+            if (possibleHour >= dndStart && possibleHour < dndEnd) {
+                c.set(Calendar.HOUR_OF_DAY, dndEnd);
+                c.set(Calendar.MINUTE, 0);
+                c.set(Calendar.SECOND, 0);
+            }
+        } else {
+            if (possibleHour >= dndStart || possibleHour < dndEnd) {
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                c.set(Calendar.HOUR_OF_DAY, dndEnd);
+                c.set(Calendar.MINUTE, 0);
+                c.set(Calendar.SECOND, 0);
+            }
         }
 
-        setNextChallengeTime(System.currentTimeMillis() + nextTime * 1000);
+        setNextChallengeTime(c.getTimeInMillis());
 
         if (alarmHelper != null) {
-            alarmHelper.startTimer(nextTime);
+            alarmHelper.startTimer(c.getTimeInMillis());
         }
     }
 

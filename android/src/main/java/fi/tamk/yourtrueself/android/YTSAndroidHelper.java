@@ -21,14 +21,14 @@ public final class YTSAndroidHelper implements YTSAlarmHelper {
     }
 
     @Override
-    public void startTimer(int seconds) {
+    public void startTimer(long time) {
         AlarmManager am = (AlarmManager) app.getSystemService(Context.ALARM_SERVICE);
         Intent in = new Intent(app, AlarmBroadcastReceiver.class);
         PendingIntent pin = PendingIntent.getBroadcast(app, 0, in, 0);
 
         am.set(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + seconds * 1000,
+                time,
                 pin
         );
     }
