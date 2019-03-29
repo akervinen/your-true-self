@@ -19,9 +19,10 @@ public class CreditsDisplay extends YTSWindow {
      * @param skin skin to use
      */
     public CreditsDisplay(YTSGame game, Skin skin) {
-        super(game.getBundle().get("credits"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(game.getBundle().get("credits"), true, skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.defaults().grow();
+        this.setModal(true);
 
         Label creditsText = new Label(game.getBundle().get("creditsText"), skin);
         creditsText.setWrap(true);

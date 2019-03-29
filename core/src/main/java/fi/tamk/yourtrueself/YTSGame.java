@@ -556,8 +556,8 @@ public class YTSGame extends Game {
         mainTheme.setVolume(prefs.getFloat("music", 0.5f));
         mainTheme.play();
 
-        Gdx.graphics.setContinuousRendering(false);
-        Gdx.graphics.requestRendering();
+//        Gdx.graphics.setContinuousRendering(false);
+//        Gdx.graphics.requestRendering();
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);

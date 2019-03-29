@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import fi.tamk.yourtrueself.Challenge;
@@ -15,7 +14,7 @@ import fi.tamk.yourtrueself.YTSGame;
 /**
  * Panel containing challenge information and a button to complete it.
  */
-public final class ChallengePanel extends Window {
+public final class ChallengePanel extends YTSWindow {
     private final YTSGame game;
 
     /**
@@ -27,7 +26,7 @@ public final class ChallengePanel extends Window {
      */
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("challengeTitle"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(ytsGame.getBundle().get("challengeTitle"), false, skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
 
@@ -66,7 +65,7 @@ public final class ChallengePanel extends Window {
      */
     public ChallengePanel(DailyChallenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("dailyChallengeTitle"), skin, Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon");
+        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon");
 
         this.game = ytsGame;
 

@@ -25,29 +25,30 @@ public class YTSWindow extends Window {
      * @param skin      skin to use
      * @param styleName style name to use
      */
-    public YTSWindow(String title, Skin skin, String styleName) {
+    public YTSWindow(String title, boolean addBackBtn, Skin skin, String styleName) {
         super(title, skin, styleName);
 
         this.setMovable(false);
-        this.setModal(true);
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
-        Label titleLbl = getTitleLabel();
-        backBtn = new TextButton(bundle.get("back"), skin, "maroon");
-        backBtn.pad(dp(8)).addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                remove();
-            }
-        });
-        getTitleTable().clearChildren();
-        getTitleTable().add(backBtn)
-                .left()
-                .padLeft(dp(1))
-                .padRight(dp(10))
-                .height(Value.percentHeight(.9f, getTitleTable()));
-        getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
+        if (addBackBtn) {
+            Label titleLbl = getTitleLabel();
+            backBtn = new TextButton(bundle.get("back"), skin, "maroon");
+            backBtn.pad(dp(8)).addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    remove();
+                }
+            });
+            getTitleTable().clearChildren();
+            getTitleTable().add(backBtn)
+                    .left()
+                    .padLeft(dp(1))
+                    .padRight(dp(10))
+                    .height(Value.percentHeight(.9f, getTitleTable()));
+            getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
+        }
 
         padLeft(dp(5));
         padRight(dp(5));

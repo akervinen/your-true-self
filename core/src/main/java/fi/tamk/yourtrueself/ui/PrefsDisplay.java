@@ -95,11 +95,13 @@ public class PrefsDisplay extends YTSWindow {
     private int noBotherEnd;
 
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame ytsGame) {
-        super(ytsGame.getBundle().get("prefs"), skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(ytsGame.getBundle().get("prefs"), true, skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
 
         this.game = ytsGame;
         this.skin = skin;
         this.prefs = prefs;
+
+        this.setModal(true);
 
 //        this.debug();
 

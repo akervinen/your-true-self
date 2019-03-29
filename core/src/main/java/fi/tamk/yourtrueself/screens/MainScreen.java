@@ -19,6 +19,7 @@ import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.DailyChallenge;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.ChallengePanel;
+import fi.tamk.yourtrueself.ui.ChallengeTimerPanel;
 import fi.tamk.yourtrueself.ui.CharacterMainPanel;
 import fi.tamk.yourtrueself.ui.PrefsDisplay;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
@@ -60,7 +61,7 @@ public class MainScreen implements Screen {
         table.setFillParent(true);
         table.pad(5);
 
-        table.defaults().maxWidth(Value.percentWidth(.45f, table));
+        table.defaults().width(Value.percentWidth(.45f, table));
 
         prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
 
@@ -169,6 +170,9 @@ public class MainScreen implements Screen {
         if (chl != null) {
             challengeTable.row().padTop(dp(40));
             challengeTable.add(new ChallengePanel(chl, game, uiSkin));
+        } else {
+            challengeTable.row().padTop(dp(40));
+            challengeTable.add(new ChallengeTimerPanel(game, uiSkin));
         }
     }
 
