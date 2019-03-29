@@ -40,7 +40,7 @@ public final class CharacterSelectScreen implements Screen {
         stage = new Stage(yts.getUiViewport());
 
         Table main = new Table();
-        main.defaults().pad(10).grow();
+        main.defaults().pad(dp(10)).grow();
 
         Label title = new Label(game.getBundle().get("chooseYourTrueSelf"),
                 uiSkin, "title-white-bg");
@@ -49,7 +49,7 @@ public final class CharacterSelectScreen implements Screen {
         main.add(title).height(Value.percentHeight(.1f, main)).row();
 
         Table characters = new Table();
-        characters.defaults().pad(10);
+        characters.defaults().pad(dp(10));
 
         for (final Character chr : YTSGame.CHARACTERS) {
             CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), uiSkin);
@@ -87,6 +87,16 @@ public final class CharacterSelectScreen implements Screen {
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+    }
+
+    /**
+     * Convert given pixel value to dp (Density Independent Pixel) value.
+     *
+     * @param px pixel value to convert
+     * @return given pixel value in dp
+     */
+    static float dp(float px) {
+        return YTSGame.dp(px);
     }
 
     /**

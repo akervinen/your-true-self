@@ -103,6 +103,6 @@ public final class ChallengePanel extends Window {
      * @return given pixel value in dp
      */
     static float dp(float px) {
-        return px * Gdx.graphics.getDensity();
+        return YTSGame.dp(px);
     }
 }

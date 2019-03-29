@@ -1,6 +1,5 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.I18NBundle;
+
+import fi.tamk.yourtrueself.YTSGame;
 
 /**
  * Custom Window class that has a Back button in the title bar.
@@ -68,6 +69,6 @@ public class YTSWindow extends Window {
      * @return given pixel value in dp
      */
     static float dp(float px) {
-        return px * Gdx.graphics.getDensity();
+        return YTSGame.dp(px);
     }
 }

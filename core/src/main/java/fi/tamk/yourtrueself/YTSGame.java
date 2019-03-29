@@ -504,6 +504,16 @@ public class YTSGame extends Game {
     }
 
     /**
+     * Convert given pixel value to dp (Density Independent Pixel) value.
+     *
+     * @param px pixel value to convert
+     * @return given pixel value in dp
+     */
+    public static float dp(float px) {
+        return px * Gdx.graphics.getDensity();
+    }
+
+    /**
      * Initialize game.
      */
     @Override

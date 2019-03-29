@@ -5,7 +5,7 @@
       file: ui/Roboto-Regular.ttf
     },
     font-title: {
-      dpSize: 36,
+      dpSize: 32,
       file: ui/Roboto-Regular.ttf
     }
   },

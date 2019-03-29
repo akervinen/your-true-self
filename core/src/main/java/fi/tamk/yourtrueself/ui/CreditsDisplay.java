@@ -42,7 +42,7 @@ public class CreditsDisplay extends YTSWindow {
      */
     @Override
     public float getPrefWidth() {
-        return dp(350);
+        return dp(320);
     }
 
     /**
@@ -52,6 +52,6 @@ public class CreditsDisplay extends YTSWindow {
      */
     @Override
     public float getPrefHeight() {
-        return dp(500);
+        return dp(480);
     }
 }

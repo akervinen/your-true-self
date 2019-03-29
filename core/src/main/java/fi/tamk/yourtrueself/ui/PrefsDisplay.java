@@ -135,7 +135,7 @@ public class PrefsDisplay extends YTSWindow {
 
     @Override
     public float getPrefWidth() {
-        return dp(350);
+        return dp(320);
     }
 
     private <T extends Actor> Cell<T> addSetting(String lblProp, T actor) {
