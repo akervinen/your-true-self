@@ -40,13 +40,18 @@ public final class CharacterSelectScreen implements Screen {
         stage = new Stage(yts.getUiViewport());
 
         Table main = new Table();
-        main.defaults().pad(dp(10)).grow();
+        main.defaults().pad(dp(5)).grow();
 
         Label title = new Label(game.getBundle().get("chooseYourTrueSelf"),
                 uiSkin, "title-white-bg");
         title.setAlignment(Align.center);
 
         main.add(title).height(Value.percentHeight(.1f, main)).row();
+
+        Label help = new Label(game.getBundle().get("selectHelp"), uiSkin);
+        help.setWrap(true);
+
+        main.add(help).height(Value.percentHeight(.1f, main)).row();
 
         Table characters = new Table();
         characters.defaults().pad(dp(10));
@@ -69,7 +74,7 @@ public final class CharacterSelectScreen implements Screen {
         scroller.setFadeScrollBars(false);
 
         main.setFillParent(true);
-        main.add(scroller).height(Value.percentHeight(.85f, main));
+        main.add(scroller).height(Value.percentHeight(.75f, main));
         stage.addActor(main);
     }
 
