@@ -2,6 +2,8 @@ package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,6 +20,8 @@ import fi.tamk.yourtrueself.YTSGame;
  */
 public class YTSWindow extends Window {
     private TextButton backBtn;
+
+    private boolean isClickingOutside = false;
 
     /**
      * Create a window instance.
@@ -53,6 +57,34 @@ public class YTSWindow extends Window {
 
         padLeft(dp(5));
         padRight(dp(5));
+
+        addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                isClickingOutside = false;
+
+                if (!isModal()) {
+                    return false;
+                }
+                if (x < 0 || y < 0 || x > getWidth() || y > getHeight()) {
+                    isClickingOutside = true;
+                    return true;
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (!isClickingOutside) {
+                    return;
+                }
+
+                if (x < 0 || y < 0 || x > getWidth() || y > getHeight()) {
+                    isClickingOutside = false;
+                    remove();
+                }
+            }
+        });
     }
 
     /**
