@@ -422,6 +422,16 @@ public class YTSGame extends Game {
             return null;
         }
 
+        int mainStatChls = 0;
+        for (Challenge chl : CHALLENGES) {
+            if (chl.mainStat == chr.getMainStat()) {
+                mainStatChls += 1;
+            }
+        }
+        if (mainStatChls <= 1) {
+            pickOffStat = true;
+        }
+
         // Avoid getting the exact same challenge as last
         do {
             idx = MathUtils.random(0, CHALLENGES.length - 1);
