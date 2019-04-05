@@ -12,6 +12,10 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.YTSGame;
 
+/**
+ * A panel that shows time remaining until next challenge is given. Can also show a
+ * congratulation message.
+ */
 public class ChallengeTimerPanel extends YTSWindow {
     private final YTSGame game;
     private boolean isDaily = false;
@@ -22,6 +26,7 @@ public class ChallengeTimerPanel extends YTSWindow {
     /**
      * Create new challenge panel with given challenge.
      *
+     * @param daily   whether challenge panel is for the daily challenge
      * @param ytsGame game instance
      * @param skin    skin to use
      */
@@ -47,6 +52,9 @@ public class ChallengeTimerPanel extends YTSWindow {
                 .grow().row();
     }
 
+    /**
+     * Update label with current time remaining. Does nothing if congratulation message is active.
+     */
     private void updateLabel() {
         if (isCongratulating) {
             return;
@@ -74,6 +82,9 @@ public class ChallengeTimerPanel extends YTSWindow {
         }
     }
 
+    /**
+     * Shows a timed congratulation message.
+     */
     public void congratulate() {
         final I18NBundle bundle = getSkin().get("i18n-bundle", I18NBundle.class);
         isCongratulating = true;
@@ -116,6 +127,12 @@ public class ChallengeTimerPanel extends YTSWindow {
         addAction(seq);
     }
 
+    /**
+     * Draw actor and update label with current time remaining.
+     *
+     * @param batch       SpriteBatch to use
+     * @param parentAlpha alpha of parent actor
+     */
     @Override
     public void draw(Batch batch, float parentAlpha) {
         updateLabel();

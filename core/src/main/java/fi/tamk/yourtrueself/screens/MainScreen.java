@@ -141,6 +141,9 @@ public class MainScreen implements Screen {
         stage.addActor(table);
     }
 
+    /**
+     * Open preferences window.
+     */
     public void preferences() {
         prefsDisplay.setPosition(stage.getWidth() / 2, stage.getHeight() / 2, Align.center);
         stage.addActor(prefsDisplay);

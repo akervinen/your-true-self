@@ -92,7 +92,7 @@ public class YTSGame extends Game {
     private CharacterSelectScreen selectScreen;
     private Preferences prefs;
 
-    private YTSAlarmHelper alarmHelper;
+    private YTSTimerHelper alarmHelper;
 
     /**
      * Set to true to use longer challenge delays. Default is false.
@@ -181,7 +181,7 @@ public class YTSGame extends Game {
      *
      * @param alarmHelper helper instance
      */
-    public void setAlarmHelper(YTSAlarmHelper alarmHelper) {
+    public void setAlarmHelper(YTSTimerHelper alarmHelper) {
         this.alarmHelper = alarmHelper;
     }
 

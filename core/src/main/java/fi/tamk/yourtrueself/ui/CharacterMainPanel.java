@@ -12,7 +12,13 @@ import com.badlogic.gdx.utils.I18NBundle;
  * Character information panel for the main screen. Shows character name and portrait.
  */
 public final class CharacterMainPanel extends Table {
-    public CharacterMainPanel(String character, Skin skin) {
+    /**
+     * Create  character information panel.
+     *
+     * @param characterId ID of the character to show
+     * @param skin        skin to use
+     */
+    public CharacterMainPanel(String characterId, Skin skin) {
         super();
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
@@ -21,9 +27,9 @@ public final class CharacterMainPanel extends Table {
 
         this.defaults().grow();
 
-        Label name = new Label(bundle.get(character), skin, "white-bg");
+        Label name = new Label(bundle.get(characterId), skin, "white-bg");
         name.setAlignment(Align.center);
-        CharacterImage img = new CharacterImage(character, skin);
+        CharacterImage img = new CharacterImage(characterId, skin);
 
         this.add(name).top().height(Value.percentHeight(.1f, this));
         this.row();

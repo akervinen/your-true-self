@@ -7,13 +7,13 @@ import android.content.Intent;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
-import fi.tamk.yourtrueself.YTSAlarmHelper;
+import fi.tamk.yourtrueself.YTSTimerHelper;
 
 /**
  * Helper class to access platform-specific timer functions.
  * This Android version uses AlarmManager for the timer, so it doesn't depend on the game running.
  */
-public final class YTSAndroidHelper implements YTSAlarmHelper {
+public final class YTSAndroidHelper implements YTSTimerHelper {
     private AndroidApplication app;
 
     YTSAndroidHelper(AndroidApplication app) {

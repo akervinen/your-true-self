@@ -24,6 +24,8 @@ final class StatBar extends ProgressBar {
     /**
      * Create new stat bar.
      *
+     * @param player player whose stat points to use
+     * @param stat which stat to show
      * @param skin skin to use
      */
     StatBar(Player player, Player.Stat stat, Skin skin) {
@@ -39,6 +41,9 @@ final class StatBar extends ProgressBar {
         update();
     }
 
+    /**
+     * Update stat bar from player's stat values.
+     */
     void update() {
         setValue(player.getByEnum(stat));
     }
@@ -74,6 +79,13 @@ public final class StatsDisplay extends Table {
      */
     private final StatBar[] bars = new StatBar[Player.STAT_ENUMS.length];
 
+    /**
+     * Create a stats panel with a bar for each stat.
+     *
+     * @param player     player object
+     * @param background whether to have a background
+     * @param skin       skin object to use
+     */
     public StatsDisplay(Player player, boolean background, Skin skin) {
         super(skin);
 
@@ -101,6 +113,13 @@ public final class StatsDisplay extends Table {
         }
     }
 
+    /**
+     * Creates a label on given stat bar with given number. Fades in and out, shown for a total of
+     * 3 seconds.
+     *
+     * @param statIdx index of stat according to STAT_ENUMS order
+     * @param amount how much stat changed
+     */
     private void createFloatingLabel(int statIdx, float amount) {
         Label lbl = new Label("+" + new DecimalFormat("#.#").format(amount), getSkin(), "black");
         lbl.getColor().a = 0;
@@ -121,6 +140,13 @@ public final class StatsDisplay extends Table {
         addActor(lbl);
     }
 
+    /**
+     * Show a floating number to visualize stat changes. If given stat is NONE, number is shown
+     * on all stat bars.
+     *
+     * @param stat stat to show number on
+     * @param amount how much stat changed
+     */
     public void showFloatingNumber(Player.Stat stat, float amount) {
         if (stat == Player.Stat.NONE) {
             for (Player.Stat s : Player.STAT_ENUMS) {

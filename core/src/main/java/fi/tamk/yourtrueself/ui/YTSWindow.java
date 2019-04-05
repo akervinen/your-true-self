@@ -26,9 +26,10 @@ public class YTSWindow extends Window {
     /**
      * Create a window instance.
      *
-     * @param title     title of the window
-     * @param skin      skin to use
-     * @param styleName style name to use
+     * @param title      title of the window
+     * @param addBackBtn whether to add back button to window title bar
+     * @param skin       skin to use
+     * @param styleName  style name to use
      */
     public YTSWindow(String title, boolean addBackBtn, Skin skin, String styleName) {
         super(title, skin, styleName);
@@ -106,7 +107,13 @@ public class YTSWindow extends Window {
         return YTSGame.dp(px);
     }
 
-    protected static String getWindowStyle(String style) {
+    /**
+     * Get window style based on display DPI.
+     *
+     * @param style style color ("default" or "maroon")
+     * @return name of the style to use
+     */
+    static String getWindowStyle(String style) {
         if (style.equals("default")) {
             return Gdx.graphics.getPpiY() > 200 ? "large" : "default";
         } else if (style.equals("maroon")) {
