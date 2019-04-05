@@ -16,6 +16,7 @@ import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.ChallengeCompletedListener;
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.DailyChallenge;
+import fi.tamk.yourtrueself.Player;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.ChallengePanel;
 import fi.tamk.yourtrueself.ui.ChallengeTimerPanel;
@@ -108,6 +109,14 @@ public class MainScreen implements Screen {
             public void challengeCompleted(Challenge challenge) {
                 statsDisplay.updateStats();
                 refreshChallengeList();
+
+                Player.Stat mainStat = challenge.getMainStat();
+
+                if (mainStat == Player.Stat.NONE) {
+                    statsDisplay.showFloatingNumber(mainStat, .5f);
+                } else {
+                    statsDisplay.showFloatingNumber(mainStat, 2f);
+                }
 
                 if (challenge instanceof DailyChallenge && currentDaily == null) {
                     currentDailyTimer.congratulate();

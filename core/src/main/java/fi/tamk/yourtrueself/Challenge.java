@@ -64,6 +64,15 @@ public class Challenge {
     }
 
     /**
+     * Get the challenge's main stat that it increases.
+     *
+     * @return challenge's main stat
+     */
+    public Player.Stat getMainStat() {
+        return mainStat;
+    }
+
+    /**
      * Complete the challenge and increase player stats according to main stat.
      *
      * @param player player that completed the challenge
