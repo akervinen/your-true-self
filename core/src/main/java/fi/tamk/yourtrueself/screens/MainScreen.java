@@ -39,6 +39,9 @@ public class MainScreen implements Screen {
     private Challenge currentChallenge;
     private DailyChallenge currentDaily;
 
+    private ChallengeTimerPanel currentChallengeTimer;
+    private ChallengeTimerPanel currentDailyTimer;
+
     /**
      * Create a main screen instance.
      *
@@ -66,6 +69,8 @@ public class MainScreen implements Screen {
         table.defaults().width(Value.percentWidth(.45f, table));
 
         prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
+        currentChallengeTimer = new ChallengeTimerPanel(false, game, uiSkin);
+        currentDailyTimer = new ChallengeTimerPanel(true, game, uiSkin);
 
         TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
         prefsBtn.addListener(new ChangeListener() {
@@ -103,6 +108,12 @@ public class MainScreen implements Screen {
             public void challengeCompleted(Challenge challenge) {
                 statsDisplay.updateStats();
                 refreshChallengeList();
+
+                if (challenge instanceof DailyChallenge && currentDaily == null) {
+                    currentDailyTimer.congratulate();
+                } else if (currentChallenge == null) {
+                    currentChallengeTimer.congratulate();
+                }
             }
         });
 
@@ -159,7 +170,7 @@ public class MainScreen implements Screen {
         if (currentDaily != null) {
             challengeTable.add(new ChallengePanel(currentDaily, game, uiSkin));
         } else {
-            challengeTable.add(new ChallengeTimerPanel(true, game, uiSkin));
+            challengeTable.add(currentDailyTimer);
         }
 
         currentChallenge = game.getCurrentChallenge();
@@ -168,7 +179,7 @@ public class MainScreen implements Screen {
             challengeTable.add(new ChallengePanel(currentChallenge, game, uiSkin));
         } else {
             challengeTable.row().padTop(dp(40));
-            challengeTable.add(new ChallengeTimerPanel(false, game, uiSkin));
+            challengeTable.add(currentChallengeTimer);
         }
     }
 

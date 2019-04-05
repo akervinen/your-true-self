@@ -1,14 +1,22 @@
 package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
+import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.YTSGame;
 
 public class ChallengeTimerPanel extends YTSWindow {
     private final YTSGame game;
     private boolean isDaily = false;
+    private boolean isCongratulating = false;
+
     private Label timerText;
 
     /**
@@ -40,6 +48,10 @@ public class ChallengeTimerPanel extends YTSWindow {
     }
 
     private void updateLabel() {
+        if (isCongratulating) {
+            return;
+        }
+
         long target;
         if (isDaily) {
             target = game.getNextDailyTime();
@@ -60,6 +72,48 @@ public class ChallengeTimerPanel extends YTSWindow {
         } else {
             timerText.setText(game.getBundle().format("challengeRemainingTime", hours, minutes));
         }
+    }
+
+    public void congratulate() {
+        final I18NBundle bundle = getSkin().get("i18n-bundle", I18NBundle.class);
+        isCongratulating = true;
+        getColor().a = 0;
+
+        RunnableAction changeStyle = new RunnableAction();
+        changeStyle.setRunnable(new Runnable() {
+            @Override
+            public void run() {
+                timerText.setStyle(getSkin().get("title-black", Label.LabelStyle.class));
+                timerText.setText(bundle.get("challengeCongratulation"));
+            }
+        });
+
+        RunnableAction resetAction = new RunnableAction();
+        resetAction.setRunnable(new Runnable() {
+            @Override
+            public void run() {
+                isCongratulating = false;
+                timerText.setStyle(getSkin().get("default", Label.LabelStyle.class));
+                updateLabel();
+            }
+        });
+
+        AlphaAction fadeOut = Actions.fadeOut(.25f);
+        fadeOut.setActor(timerText);
+
+        AlphaAction fadeIn = Actions.fadeIn(.25f);
+        fadeIn.setActor(timerText);
+
+        SequenceAction seq = new SequenceAction();
+        seq.addAction(Actions.alpha(0));
+        seq.addAction(changeStyle);
+        seq.addAction(Actions.fadeIn(.25f));
+        seq.addAction(new DelayAction(1.5f));
+        seq.addAction(fadeOut);
+        seq.addAction(resetAction);
+        seq.addAction(fadeIn);
+
+        addAction(seq);
     }
 
     @Override

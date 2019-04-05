@@ -1,6 +1,9 @@
 package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -50,7 +53,15 @@ public final class ChallengePanel extends YTSWindow {
         doneButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.completeChallenge(challenge);
+                RunnableAction completeAction = new RunnableAction();
+                completeAction.setRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.completeChallenge(challenge);
+                    }
+                });
+
+                addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
             }
         });
     }
@@ -90,7 +101,15 @@ public final class ChallengePanel extends YTSWindow {
         doneButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.completeChallenge(challenge);
+                RunnableAction completeAction = new RunnableAction();
+                completeAction.setRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.completeChallenge(challenge);
+                    }
+                });
+
+                addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
             }
         });
     }
