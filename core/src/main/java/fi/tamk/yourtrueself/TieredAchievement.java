@@ -10,6 +10,11 @@ public class TieredAchievement extends Achievement {
     }
 
     @Override
+    public String getTitleProp() {
+        return getId() + "." + getClosestTier() + ".Title";
+    }
+
+    @Override
     public int getMax() {
         return getClosestTier();
     }

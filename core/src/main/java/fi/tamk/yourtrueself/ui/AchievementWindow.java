@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.Achievement;
-import fi.tamk.yourtrueself.TieredAchievement;
 import fi.tamk.yourtrueself.YTSGame;
 
 public class AchievementWindow extends YTSWindow {
@@ -98,14 +97,8 @@ class AchievementPanel extends Table {
     public void update() {
         I18NBundle bundle = getSkin().get("i18n-bundle", I18NBundle.class);
 
-        String titleProp = achievement.getId() + ".Title";
-
-        if (achievement instanceof TieredAchievement) {
-            titleProp = achievement.getId() + "." + ((TieredAchievement) achievement).getClosestTier() + ".Title";
-        }
-
-        titleLabel.setText(bundle.get(titleProp));
-        descLabel.setText(bundle.format(achievement.getId() + ".Description", achievement.getMax()));
+        titleLabel.setText(bundle.get(achievement.getTitleProp()));
+        descLabel.setText(bundle.format(achievement.getDescProp(), achievement.getMax()));
         bar.setRange(0, achievement.getMax());
         bar.setValue(achievement.getCurrent());
     }

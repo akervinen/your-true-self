@@ -5,6 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -12,12 +14,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
+import fi.tamk.yourtrueself.Achievement;
+import fi.tamk.yourtrueself.AchievementListener;
 import fi.tamk.yourtrueself.Challenge;
 import fi.tamk.yourtrueself.ChallengeCompletedListener;
 import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.DailyChallenge;
 import fi.tamk.yourtrueself.Player;
 import fi.tamk.yourtrueself.YTSGame;
+import fi.tamk.yourtrueself.ui.AchievementPopup;
 import fi.tamk.yourtrueself.ui.AchievementWindow;
 import fi.tamk.yourtrueself.ui.ChallengePanel;
 import fi.tamk.yourtrueself.ui.ChallengeTimerPanel;
@@ -127,7 +132,7 @@ public class MainScreen implements Screen {
                 Player.Stat mainStat = challenge.getMainStat();
 
                 if (mainStat == Player.Stat.NONE) {
-                    statsDisplay.showFloatingNumber(mainStat, .5f);
+                    statsDisplay.showFloatingNumber(mainStat, 1f);
                 } else {
                     statsDisplay.showFloatingNumber(mainStat, 2f);
                 }
@@ -137,6 +142,13 @@ public class MainScreen implements Screen {
                 } else if (currentChallenge == null) {
                     currentChallengeTimer.congratulate();
                 }
+            }
+        });
+
+        game.getAchievementManager().setListener(new AchievementListener() {
+            @Override
+            public void achievementDone(Achievement achievement) {
+                achievementCompleted(achievement);
             }
         });
 
@@ -166,10 +178,26 @@ public class MainScreen implements Screen {
     /**
      * Open preferences window.
      */
-    public void achievements() {
+    private void achievements() {
         achievementWindow.setPosition(stage.getWidth() / 2, stage.getHeight() / 2, Align.center);
         achievementWindow.update();
         stage.addActor(achievementWindow);
+    }
+
+    private void achievementCompleted(Achievement achievement) {
+        AchievementPopup popup = new AchievementPopup(achievement, uiSkin);
+
+        popup.getColor().a = 0;
+        popup.setPosition(stage.getWidth() / 2, popup.getHeight() / 2 + dp(80), Align.center);
+
+        stage.addActor(popup);
+
+        popup.addAction(new SequenceAction(
+                Actions.fadeIn(.5f),
+                Actions.delay(2.5f),
+                Actions.fadeOut(.5f),
+                Actions.removeActor()
+        ));
     }
 
     /**

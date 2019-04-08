@@ -15,6 +15,14 @@ public class Achievement {
         return id;
     }
 
+    public String getTitleProp() {
+        return getId() + ".Title";
+    }
+
+    public String getDescProp() {
+        return getId() + ".Description";
+    }
+
     public int getMax() {
         return max;
     }

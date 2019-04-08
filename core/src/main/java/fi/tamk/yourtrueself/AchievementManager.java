@@ -5,6 +5,8 @@ import com.badlogic.gdx.Preferences;
 public class AchievementManager {
     private Achievement[] achievementList;
 
+    private AchievementListener listener;
+
     public AchievementManager(Achievement[] achievements) {
         achievementList = achievements;
     }
@@ -47,6 +49,20 @@ public class AchievementManager {
     public void increaseProgress(String id, int amount) {
         Achievement ach = getAchievement(id);
 
-        ach.setCurrent(ach.getCurrent() + amount);
+        int max = ach.getMax();
+        boolean wasCompleted = ach.getCurrent() >= max;
+        int newAmt = ach.getCurrent() + amount;
+
+        if (newAmt >= max && !wasCompleted) {
+            if (listener != null) {
+                listener.achievementDone(ach);
+            }
+        }
+
+        ach.setCurrent(newAmt);
+    }
+
+    public void setListener(AchievementListener listener) {
+        this.listener = listener;
     }
 }
