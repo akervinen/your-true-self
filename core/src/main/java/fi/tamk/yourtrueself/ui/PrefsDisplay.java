@@ -127,7 +127,7 @@ public class PrefsDisplay extends YTSWindow {
      * @param ytsGame game object
      */
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame ytsGame) {
-        super(ytsGame.getBundle().get("prefs"), true, skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(ytsGame.getBundle().get("prefs"), true, skin, getWindowStyle("default"));
 
         this.game = ytsGame;
         this.skin = skin;

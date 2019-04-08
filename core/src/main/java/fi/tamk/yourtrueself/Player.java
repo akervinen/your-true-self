@@ -59,9 +59,15 @@ public final class Player {
     private float balance;
 
     /**
+     * Player's achievements.
+     */
+    private AchievementManager achievementManager;
+
+    /**
      * Create a new player with all default values (no character and all stats 0).
      */
-    Player() {
+    Player(AchievementManager achievementManager) {
+        this.achievementManager = achievementManager;
     }
 
     /**
@@ -72,6 +78,15 @@ public final class Player {
      */
     void train(Stat stat, float value) {
         setByEnum(stat, getByEnum(stat) + value);
+    }
+
+    /**
+     * Get player's achievement manager.
+     *
+     * @return achievement manager
+     */
+    public AchievementManager getAchievementManager() {
+        return achievementManager;
     }
 
     /**

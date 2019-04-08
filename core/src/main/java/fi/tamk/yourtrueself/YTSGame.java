@@ -72,9 +72,20 @@ public class YTSGame extends Game {
             new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15)
     };
 
+    /**
+     * List of daily challenges in the game.
+     */
     public static final DailyChallenge[] DAILY_CHALLENGES = {
             new DailyChallenge("dchlStairs", Player.Stat.NONE, false),
             new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true)
+    };
+
+    /**
+     * List of achievements.
+     */
+    public static final Achievement[] ACHIEVEMENTS = {
+            new TieredAchievement("ach.Challenge", 100, new int[]{1, 5, 15, 25, 50, 100}),
+            new TieredAchievement("ach.Daily", 10, new int[]{1, 3, 6, 10}),
     };
 
     private static final float OFF_STAT_CHANCE = 0.3f;
@@ -100,9 +111,14 @@ public class YTSGame extends Game {
     private boolean releaseMode = false;
 
     /**
+     * Achievement manager.
+     */
+    private final AchievementManager achievementManager = new AchievementManager(ACHIEVEMENTS);
+
+    /**
      * Player's information and stats.
      */
-    private final Player player = new Player();
+    private final Player player = new Player(achievementManager);
 
     /**
      * Last completed challenge, used to avoid generating the same challenge twice in a row.
@@ -213,6 +229,15 @@ public class YTSGame extends Game {
     }
 
     /**
+     * Get achievement manager.
+     *
+     * @return game achievement manager
+     */
+    public AchievementManager getAchievementManager() {
+        return achievementManager;
+    }
+
+    /**
      * Switch to main game screen.
      */
     public void goToMainScreen() {
@@ -306,10 +331,12 @@ public class YTSGame extends Game {
         if (chl instanceof DailyChallenge) {
             setCurrentDaily((DailyChallenge) null);
             startNextDailyTimer();
+            achievementManager.increaseProgress("ach.Daily", 1);
         } else {
             previousChallenge = chl;
             setCurrentChallenge((Challenge) null);
             startNextChallengeTimer();
+            achievementManager.increaseProgress("ach.Challenge", 1);
         }
 
         chl.complete(getPlayer());
@@ -716,6 +743,7 @@ public class YTSGame extends Game {
         loadLanguage(locale);
 
         loadStats();
+        achievementManager.loadProgress(prefs);
         refreshChallenges();
 
         uiViewport = new ScreenViewport();
@@ -740,6 +768,14 @@ public class YTSGame extends Game {
         getUiViewport().update(width, height, true);
 
         super.resize(width, height);
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+
+        saveStats();
+        achievementManager.saveProgress(prefs);
     }
 
     /**

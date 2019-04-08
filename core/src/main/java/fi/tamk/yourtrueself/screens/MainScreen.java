@@ -18,6 +18,7 @@ import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.DailyChallenge;
 import fi.tamk.yourtrueself.Player;
 import fi.tamk.yourtrueself.YTSGame;
+import fi.tamk.yourtrueself.ui.AchievementWindow;
 import fi.tamk.yourtrueself.ui.ChallengePanel;
 import fi.tamk.yourtrueself.ui.ChallengeTimerPanel;
 import fi.tamk.yourtrueself.ui.CharacterMainPanel;
@@ -36,6 +37,7 @@ public class MainScreen implements Screen {
     private Table challengeTable;
     private PrefsDisplay prefsDisplay;
     private StatsDisplay statsDisplay;
+    private AchievementWindow achievementWindow;
 
     private Challenge currentChallenge;
     private DailyChallenge currentDaily;
@@ -72,6 +74,7 @@ public class MainScreen implements Screen {
         prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
         currentChallengeTimer = new ChallengeTimerPanel(false, game, uiSkin);
         currentDailyTimer = new ChallengeTimerPanel(true, game, uiSkin);
+        achievementWindow = new AchievementWindow(game, uiSkin);
 
         TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
         prefsBtn.addListener(new ChangeListener() {
@@ -81,9 +84,20 @@ public class MainScreen implements Screen {
             }
         });
 
+        TextButton achBtn = new TextButton(game.getBundle().get("achievements"), uiSkin);
+        achBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                achievements();
+            }
+        });
+
         // Main screen top buttons
 
-        table.add();
+        table.add(achBtn)
+                .height(Value.percentHeight(.1f, table))
+                .top().left()
+                .grow();
         table.add(prefsBtn)
                 .height(Value.percentHeight(.1f, table))
                 .top().right()
@@ -149,6 +163,14 @@ public class MainScreen implements Screen {
         stage.addActor(prefsDisplay);
     }
 
+    /**
+     * Open preferences window.
+     */
+    public void achievements() {
+        achievementWindow.setPosition(stage.getWidth() / 2, stage.getHeight() / 2, Align.center);
+        achievementWindow.update();
+        stage.addActor(achievementWindow);
+    }
 
     /**
      * Called when the game switches away from this screen.
