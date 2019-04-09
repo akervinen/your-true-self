@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,7 +17,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
@@ -155,6 +158,7 @@ public class YTSGame extends Game {
      */
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
+    Map<String,Sound> soundMap = new HashMap<String,Sound>();
 
     /**
      * Set release mode. Release mode increases challenge delays to proper values.
@@ -273,6 +277,10 @@ public class YTSGame extends Game {
         player.setCurrentCharacter(chr);
         prefs.putString(PREF_CHARACTER, chr.getId());
         prefs.flush();
+        Sound soundEffect = soundMap.get(chr.getId());
+        if (soundEffect != null) {
+            soundEffect.play();
+        }
     }
 
     /**
@@ -755,6 +763,18 @@ public class YTSGame extends Game {
         mainTheme.setLooping(true);
         mainTheme.setVolume(prefs.getFloat(PREF_MUSIC, PREF_MUSIC_DEFAULT));
         mainTheme.play();
+
+        soundMap.put("couchpotato", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
+        soundMap.put("enlightened", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedEnlightened.ogg")));
+        soundMap.put("graceful", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedGraceful.ogg")));
+        soundMap.put("thespider", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedSpider.ogg")));
+        soundMap.put("stronkman", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedStronkperson.ogg")));
+        soundMap.put("marathon", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
+        soundMap.put("buttonPress", Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonPress.ogg")));
+        soundMap.put("completedChallenge", Gdx.audio.newSound(Gdx.files.internal("sounds/CompletedChallenge.ogg")));
+        soundMap.put("notification", Gdx.audio.newSound(Gdx.files.internal("sounds/Notification.ogg")));
+        soundMap.put("notThere", Gdx.audio.newSound(Gdx.files.internal("sounds/NotThere.ogg")));
+        soundMap.put("success", Gdx.audio.newSound(Gdx.files.internal("sounds/Success.ogg")));
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);
