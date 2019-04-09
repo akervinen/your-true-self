@@ -349,6 +349,7 @@ public class YTSGame extends Game {
 
         chl.complete(getPlayer());
         saveStats();
+        soundMap.get("completedChallenge").play();
 
         if (challengeCompletedListener != null) {
             challengeCompletedListener.challengeCompleted(chl);
@@ -627,6 +628,7 @@ public class YTSGame extends Game {
             if (System.currentTimeMillis() >= nextChallengeTime) {
                 setNextChallengeTime(0);
                 setCurrentChallenge(getNextChallenge());
+                soundMap.get("notification").play();
                 changed = true;
             }
         }
@@ -635,6 +637,7 @@ public class YTSGame extends Game {
             if (System.currentTimeMillis() >= nextDailyTime) {
                 setCurrentDaily(getNextDaily());
                 setNextDailyTime(0);
+                soundMap.get("notification").play();
                 changed = true;
             }
         }
@@ -721,6 +724,30 @@ public class YTSGame extends Game {
         return px * Gdx.graphics.getDensity();
     }
 
+    public void createSounds() {
+        soundMap.put("couchpotato", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
+        soundMap.put("enlightened", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedEnlightened.ogg")));
+        soundMap.put("graceful", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedGraceful.ogg")));
+        soundMap.put("thespider", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedSpider.ogg")));
+        soundMap.put("stronkman", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedStronkperson.ogg")));
+        soundMap.put("marathon", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
+        soundMap.put("buttonPress", Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonPress.ogg")));
+        soundMap.put("completedChallenge", Gdx.audio.newSound(Gdx.files.internal("sounds/CompletedChallenge.ogg")));
+        soundMap.put("notification", Gdx.audio.newSound(Gdx.files.internal("sounds/Notification.ogg")));
+        soundMap.put("notThere", Gdx.audio.newSound(Gdx.files.internal("sounds/NotThere.ogg")));
+        soundMap.put("success", Gdx.audio.newSound(Gdx.files.internal("sounds/Success.ogg")));
+    }
+
+    public void playSound(String soundName) {
+        Sound soundEffect = soundMap.get(soundName);
+        if (soundEffect != null) {
+            soundEffect.play();
+        }
+        else {
+            soundMap.get("notThere").play();
+        }
+    }
+
     /**
      * Initialize game.
      */
@@ -763,18 +790,7 @@ public class YTSGame extends Game {
         mainTheme.setLooping(true);
         mainTheme.setVolume(prefs.getFloat(PREF_MUSIC, PREF_MUSIC_DEFAULT));
         mainTheme.play();
-
-        soundMap.put("couchpotato", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
-        soundMap.put("enlightened", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedEnlightened.ogg")));
-        soundMap.put("graceful", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedGraceful.ogg")));
-        soundMap.put("thespider", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedSpider.ogg")));
-        soundMap.put("stronkman", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedStronkperson.ogg")));
-        soundMap.put("marathon", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
-        soundMap.put("buttonPress", Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonPress.ogg")));
-        soundMap.put("completedChallenge", Gdx.audio.newSound(Gdx.files.internal("sounds/CompletedChallenge.ogg")));
-        soundMap.put("notification", Gdx.audio.newSound(Gdx.files.internal("sounds/Notification.ogg")));
-        soundMap.put("notThere", Gdx.audio.newSound(Gdx.files.internal("sounds/NotThere.ogg")));
-        soundMap.put("success", Gdx.audio.newSound(Gdx.files.internal("sounds/Success.ogg")));
+        createSounds();
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);

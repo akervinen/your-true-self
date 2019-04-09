@@ -86,6 +86,7 @@ public class MainScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 preferences();
+                game.playSound("buttonPress");
             }
         });
 
@@ -94,6 +95,7 @@ public class MainScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 achievements();
+                game.playSound("buttonPress");
             }
         });
 

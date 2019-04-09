@@ -56,6 +56,10 @@ class VolumeSlider extends Slider {
                 updatePref();
                 if (prefName.equals(YTSGame.PREF_MUSIC)) {
                     game.setMusicVolume(getValue());
+                    game.playSound("success");
+                }
+                else {
+                    game.playSound("success");
                 }
             }
         });
@@ -204,6 +208,7 @@ public class PrefsDisplay extends YTSWindow {
                 noBotherStart = select.getSelectedIndex();
                 prefs.putInteger(YTSGame.PREF_DND_START, noBotherStart);
                 prefs.flush();
+                game.playSound("success");
             }
         });
 
@@ -227,6 +232,7 @@ public class PrefsDisplay extends YTSWindow {
                 noBotherEnd = select.getSelectedIndex();
                 prefs.putInteger(YTSGame.PREF_DND_END, noBotherEnd);
                 prefs.flush();
+                game.playSound("success");
             }
         });
 
@@ -247,6 +253,7 @@ public class PrefsDisplay extends YTSWindow {
                 prefs.putString(YTSGame.PREF_LANGUAGE, lang);
                 prefs.flush();
                 game.changeLanguage(lang);
+                game.playSound("success");
             }
         });
 
@@ -264,6 +271,7 @@ public class PrefsDisplay extends YTSWindow {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.goToCharacterSelect();
+                game.playSound("buttonPress");
             }
         });
 
@@ -281,6 +289,7 @@ public class PrefsDisplay extends YTSWindow {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 showCredits();
+                game.playSound("buttonPress");
             }
         });
 
