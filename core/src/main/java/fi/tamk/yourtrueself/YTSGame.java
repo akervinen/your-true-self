@@ -159,6 +159,7 @@ public class YTSGame extends Game {
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
     Map<String,Sound> soundMap = new HashMap<String,Sound>();
+    float soundVolume = PREF_SOUND_DEFAULT;
 
     /**
      * Set release mode. Release mode increases challenge delays to proper values.
@@ -279,7 +280,7 @@ public class YTSGame extends Game {
         prefs.flush();
         Sound soundEffect = soundMap.get(chr.getId());
         if (soundEffect != null) {
-            soundEffect.play();
+            soundEffect.play(getSoundVolume());
         }
     }
 
@@ -303,6 +304,14 @@ public class YTSGame extends Game {
      */
     public void setMusicVolume(float volume) {
         mainTheme.setVolume(volume);
+    }
+
+    public void setSoundVolume(float volume) {
+        soundVolume = volume;
+    }
+
+    public float getSoundVolume() {
+        return soundVolume;
     }
 
     /**
@@ -349,7 +358,7 @@ public class YTSGame extends Game {
 
         chl.complete(getPlayer());
         saveStats();
-        soundMap.get("completedChallenge").play();
+        soundMap.get("completedChallenge").play(getSoundVolume());
 
         if (challengeCompletedListener != null) {
             challengeCompletedListener.challengeCompleted(chl);
@@ -628,7 +637,7 @@ public class YTSGame extends Game {
             if (System.currentTimeMillis() >= nextChallengeTime) {
                 setNextChallengeTime(0);
                 setCurrentChallenge(getNextChallenge());
-                soundMap.get("notification").play();
+                soundMap.get("notification").play(getSoundVolume());
                 changed = true;
             }
         }
@@ -637,7 +646,7 @@ public class YTSGame extends Game {
             if (System.currentTimeMillis() >= nextDailyTime) {
                 setCurrentDaily(getNextDaily());
                 setNextDailyTime(0);
-                soundMap.get("notification").play();
+                soundMap.get("notification").play(getSoundVolume());
                 changed = true;
             }
         }
@@ -741,10 +750,10 @@ public class YTSGame extends Game {
     public void playSound(String soundName) {
         Sound soundEffect = soundMap.get(soundName);
         if (soundEffect != null) {
-            soundEffect.play();
+            soundEffect.play(getSoundVolume());
         }
         else {
-            soundMap.get("notThere").play();
+            soundMap.get("notThere").play(getSoundVolume());
         }
     }
 

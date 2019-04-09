@@ -59,6 +59,7 @@ class VolumeSlider extends Slider {
                     game.playSound("success");
                 }
                 else {
+                    game.setSoundVolume(getValue());
                     game.playSound("success");
                 }
             }
