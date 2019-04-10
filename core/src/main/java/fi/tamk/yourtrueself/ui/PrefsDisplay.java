@@ -53,6 +53,11 @@ class VolumeSlider extends Slider {
         this.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                VolumeSlider slider = (VolumeSlider) actor;
+                if (slider.isDragging()) {
+                    return;
+                }
+
                 updatePref();
                 if (prefName.equals(YTSGame.PREF_MUSIC)) {
                     game.setMusicVolume(getValue());

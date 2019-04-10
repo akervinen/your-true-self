@@ -189,6 +189,18 @@ public class YTSGame extends Game {
 
         assetManager.load("YourTrueSelf_MainthemeOGG.ogg", Music.class);
 
+        assetManager.load("sounds/SelectedCouchpotato.ogg", Sound.class);
+        assetManager.load("sounds/SelectedEnlightened.ogg", Sound.class);
+        assetManager.load("sounds/SelectedGraceful.ogg", Sound.class);
+        assetManager.load("sounds/SelectedSpider.ogg", Sound.class);
+        assetManager.load("sounds/SelectedStronkperson.ogg", Sound.class);
+        assetManager.load("sounds/SelectedCouchpotato.ogg", Sound.class);
+        assetManager.load("sounds/ButtonPress.ogg", Sound.class);
+        assetManager.load("sounds/CompletedChallenge.ogg", Sound.class);
+        assetManager.load("sounds/Notification.ogg", Sound.class);
+        assetManager.load("sounds/NotThere.ogg", Sound.class);
+        assetManager.load("sounds/Success.ogg", Sound.class);
+
         // Actually load assets
         // This can be split up if we need a loading screen
         assetManager.finishLoading();
@@ -734,17 +746,17 @@ public class YTSGame extends Game {
     }
 
     private void createSounds() {
-        soundMap.put("couchpotato", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
-        soundMap.put("enlightened", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedEnlightened.ogg")));
-        soundMap.put("graceful", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedGraceful.ogg")));
-        soundMap.put("thespider", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedSpider.ogg")));
-        soundMap.put("stronkman", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedStronkperson.ogg")));
-        soundMap.put("marathon", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
-        soundMap.put("buttonPress", Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonPress.ogg")));
-        soundMap.put("completedChallenge", Gdx.audio.newSound(Gdx.files.internal("sounds/CompletedChallenge.ogg")));
-        soundMap.put("notification", Gdx.audio.newSound(Gdx.files.internal("sounds/Notification.ogg")));
-        soundMap.put("notThere", Gdx.audio.newSound(Gdx.files.internal("sounds/NotThere.ogg")));
-        soundMap.put("success", Gdx.audio.newSound(Gdx.files.internal("sounds/Success.ogg")));
+        soundMap.put("couchpotato", assetManager.get("sounds/SelectedCouchpotato.ogg", Sound.class));
+        soundMap.put("enlightened", assetManager.get("sounds/SelectedEnlightened.ogg", Sound.class));
+        soundMap.put("graceful", assetManager.get("sounds/SelectedGraceful.ogg", Sound.class));
+        soundMap.put("thespider", assetManager.get("sounds/SelectedSpider.ogg", Sound.class));
+        soundMap.put("stronkman", assetManager.get("sounds/SelectedStronkperson.ogg", Sound.class));
+        soundMap.put("marathon", assetManager.get("sounds/SelectedCouchpotato.ogg", Sound.class));
+        soundMap.put("buttonPress", assetManager.get("sounds/ButtonPress.ogg", Sound.class));
+        soundMap.put("completedChallenge", assetManager.get("sounds/CompletedChallenge.ogg", Sound.class));
+        soundMap.put("notification", assetManager.get("sounds/Notification.ogg", Sound.class));
+        soundMap.put("notThere", assetManager.get("sounds/NotThere.ogg", Sound.class));
+        soundMap.put("success", assetManager.get("sounds/Success.ogg", Sound.class));
 
         setSoundVolume(prefs.getFloat(PREF_SOUND, PREF_SOUND_DEFAULT));
     }
