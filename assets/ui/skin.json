@@ -22,10 +22,20 @@
       titleFontColor: black,
       background: window-primary
     },
+    large: {
+      titleFont: title,
+      titleFontColor: black,
+      background: window-large-primary
+    },
     secondary: {
       titleFont: title,
       titleFontColor: black,
       background: window-secondary
+    },
+    secondary-large: {
+      titleFont: title,
+      titleFontColor: black,
+      background: window-large-secondary
     }
   },
   ScrollPaneStyle: {
