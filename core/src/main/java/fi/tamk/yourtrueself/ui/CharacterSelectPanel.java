@@ -29,11 +29,11 @@ public final class CharacterSelectPanel extends Table {
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
-        this.background(skin.getDrawable("panel-orange"));
+        this.background(skin.getDrawable("panel-primary"));
 
         this.defaults().grow();
 
-        Label name = new Label(bundle.get(characterId), skin, "white-bg");
+        Label name = new Label(bundle.get(characterId), skin, "with-bg");
         name.setAlignment(Align.center);
         CharacterImage disp = new CharacterImage(characterId, skin);
 

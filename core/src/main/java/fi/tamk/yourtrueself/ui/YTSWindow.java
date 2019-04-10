@@ -40,7 +40,7 @@ public class YTSWindow extends Window {
 
         if (addBackBtn) {
             Label titleLbl = getTitleLabel();
-            backBtn = new TextButton(bundle.get("back"), skin, "maroon");
+            backBtn = new TextButton(bundle.get("back"), skin, "secondary");
             backBtn.pad(dp(8)).addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -110,14 +110,14 @@ public class YTSWindow extends Window {
     /**
      * Get window style based on display DPI.
      *
-     * @param style style color ("default" or "maroon")
+     * @param style style color ("default" or "secondary")
      * @return name of the style to use
      */
     static String getWindowStyle(String style) {
         if (style.equals("default")) {
             return Gdx.graphics.getPpiY() > 200 ? "large" : "default";
-        } else if (style.equals("maroon")) {
-            return Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon";
+        } else if (style.equals("secondary")) {
+            return Gdx.graphics.getPpiY() > 200 ? "secondary-large" : "secondary";
         }
 
         return "default";

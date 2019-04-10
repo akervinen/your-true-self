@@ -46,7 +46,7 @@ public final class ChallengePanel extends YTSWindow {
                 .grow().row();
 
         // Button to complete challenge
-        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "secondary-small");
         doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
@@ -75,7 +75,7 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(DailyChallenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, getWindowStyle("maroon"));
+        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, getWindowStyle("secondary"));
 
         this.game = ytsGame;
 
@@ -94,7 +94,7 @@ public final class ChallengePanel extends YTSWindow {
 
 
         // Button to complete challenge
-        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "secondary-small");
         doneButton.pad(dp(15));
         this.add(doneButton).growY();
 

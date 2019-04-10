@@ -43,7 +43,7 @@ public final class CharacterSelectScreen implements Screen {
         main.defaults().pad(dp(5)).grow();
 
         Label title = new Label(game.getBundle().get("chooseYourTrueSelf"),
-                uiSkin, "title-white-bg");
+                uiSkin, "title-with-bg");
         title.setAlignment(Align.center);
 
         main.add(title).height(Value.percentHeight(.1f, main)).row();

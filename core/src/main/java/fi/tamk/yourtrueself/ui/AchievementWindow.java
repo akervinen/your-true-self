@@ -77,7 +77,7 @@ class AchievementPanel extends Table {
 
         this.achievement = achievement;
 
-        this.background(skin.getDrawable("panel-orange"));
+        this.background(skin.getDrawable("panel-primary"));
 
         left();
 

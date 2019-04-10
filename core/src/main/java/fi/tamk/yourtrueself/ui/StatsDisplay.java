@@ -34,9 +34,14 @@ final class StatBar extends ProgressBar {
         this.player = player;
         this.stat = stat;
 
+        ProgressBarStyle style = this.getStyle();
         // Change bar height
-        this.getStyle().knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
-        this.getStyle().background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+        if (style.knobBefore != null) {
+            style.knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+        }
+        if (style.background != null) {
+            style.background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+        }
 
         update();
     }
@@ -92,7 +97,7 @@ public final class StatsDisplay extends Table {
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         if (background) {
-            this.background(skin.getDrawable("panel-orange"));
+            this.background(skin.getDrawable("panel-primary"));
         }
 
         for (int i = 0; i < Player.STAT_ENUMS.length; i++) {

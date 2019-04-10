@@ -96,7 +96,7 @@ public class YTSGame extends Game {
     /**
      * Path to the Scene2D skin to use.
      */
-    private static final String SKIN_PATH = "ui/orange/skin.json";
+    private static final String SKIN_PATH = "ui/skin.json";
 
     private final AssetManager assetManager = new AssetManager();
     private I18NBundle bundle;
