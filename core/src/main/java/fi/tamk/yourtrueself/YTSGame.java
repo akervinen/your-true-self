@@ -733,7 +733,7 @@ public class YTSGame extends Game {
         return px * Gdx.graphics.getDensity();
     }
 
-    public void createSounds() {
+    private void createSounds() {
         soundMap.put("couchpotato", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedCouchpotato.ogg")));
         soundMap.put("enlightened", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedEnlightened.ogg")));
         soundMap.put("graceful", Gdx.audio.newSound(Gdx.files.internal("sounds/SelectedGraceful.ogg")));
@@ -745,6 +745,8 @@ public class YTSGame extends Game {
         soundMap.put("notification", Gdx.audio.newSound(Gdx.files.internal("sounds/Notification.ogg")));
         soundMap.put("notThere", Gdx.audio.newSound(Gdx.files.internal("sounds/NotThere.ogg")));
         soundMap.put("success", Gdx.audio.newSound(Gdx.files.internal("sounds/Success.ogg")));
+
+        setSoundVolume(prefs.getFloat(PREF_SOUND, PREF_SOUND_DEFAULT));
     }
 
     public void playSound(String soundName) {
@@ -784,6 +786,9 @@ public class YTSGame extends Game {
         }
 
         loadAssets();
+
+        createSounds();
+
         loadLanguage(locale);
 
         loadStats();
@@ -799,7 +804,6 @@ public class YTSGame extends Game {
         mainTheme.setLooping(true);
         mainTheme.setVolume(prefs.getFloat(PREF_MUSIC, PREF_MUSIC_DEFAULT));
         mainTheme.play();
-        createSounds();
 
         if (player.getCurrentCharacter() == null) {
             setScreen(selectScreen);
