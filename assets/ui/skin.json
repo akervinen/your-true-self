@@ -18,22 +18,22 @@
   },
   WindowStyle: {
     default: {
-      titleFont: title,
+      titleFont: default,
       titleFontColor: black,
       background: window-primary
     },
     large: {
-      titleFont: title,
+      titleFont: default,
       titleFontColor: black,
       background: window-large-primary
     },
     secondary: {
-      titleFont: title,
+      titleFont: default,
       titleFontColor: black,
       background: window-secondary
     },
     secondary-large: {
-      titleFont: title,
+      titleFont: default,
       titleFontColor: black,
       background: window-large-secondary
     }
@@ -79,6 +79,12 @@
       fontColor: black,
       up: button-secondary,
       down: button-secondary-down
+    },
+    good: {
+      font: default,
+      fontColor: black,
+      up: button-good,
+      down: button-good-down
     }
   },
   ListStyle: {
@@ -90,7 +96,9 @@
     }
   },
   ProgressBarStyle: {
-    default-horizontal: { }
+    default-horizontal: {
+      background: progress-bar
+    }
   },
   SelectBoxStyle: {
     default: {
