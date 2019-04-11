@@ -46,7 +46,7 @@ public final class ChallengePanel extends YTSWindow {
                 .grow().row();
 
         // Button to complete challenge
-        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "secondary-small");
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
         doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
@@ -94,7 +94,7 @@ public final class ChallengePanel extends YTSWindow {
 
 
         // Button to complete challenge
-        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "secondary-small");
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
         doneButton.pad(dp(15));
         this.add(doneButton).growY();
 

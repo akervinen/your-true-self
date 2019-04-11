@@ -34,14 +34,14 @@ public class YTSWindow extends Window {
     public YTSWindow(String title, boolean addBackBtn, Skin skin, String styleName) {
         super(title, skin, styleName);
 
-        this.setMovable(false);
+        setMovable(false);
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         if (addBackBtn) {
             Label titleLbl = getTitleLabel();
             backBtn = new TextButton(bundle.get("back"), skin, "secondary");
-            backBtn.pad(dp(8)).addListener(new ChangeListener() {
+            backBtn.pad(dp(12)).addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     remove();
@@ -52,6 +52,7 @@ public class YTSWindow extends Window {
                     .left()
                     .padLeft(dp(1))
                     .padRight(dp(10))
+                    .minHeight(dp(20))
                     .height(Value.percentHeight(.9f, getTitleTable()));
             getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
         }

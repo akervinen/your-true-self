@@ -1,6 +1,5 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -89,13 +88,13 @@ class VolumeSlider extends Slider {
 
         for (Drawable d : knobs) {
             if (d == null) continue;
-            float ratio = ((Gdx.graphics.getPpiY() * 0.125f) / d.getMinHeight());
+            float ratio = (YTSGame.dp(32) / d.getMinHeight());
             d.setMinHeight(d.getMinHeight() * ratio);
             d.setMinWidth(d.getMinWidth() * ratio);
         }
         for (Drawable d : sliderGfx) {
             if (d == null) continue;
-            float ratio = ((Gdx.graphics.getPpiY() * 0.05f) / d.getMinHeight());
+            float ratio = (YTSGame.dp(26) / d.getMinHeight());
             d.setMinHeight(d.getMinHeight() * ratio);
         }
     }
@@ -110,7 +109,7 @@ class VolumeSlider extends Slider {
 
     @Override
     public float getMinHeight() {
-        return Gdx.graphics.getPpiY() * 0.25f;
+        return YTSGame.dp(40);
     }
 }
 
@@ -270,7 +269,7 @@ public class PrefsDisplay extends YTSWindow {
      * Add "Change Character" button to open character selection screen.
      */
     private void addCharacterButton() {
-        TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin);
+        TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin, "good");
         button.pad(dp(10));
         button.getLabel().setWrap(true);
         button.addListener(new ClickListener() {
@@ -289,7 +288,7 @@ public class PrefsDisplay extends YTSWindow {
      * Add credits button to open credits window.
      */
     private void addCreditsButton() {
-        TextButton button = new TextButton(game.getBundle().get("credits"), skin);
+        TextButton button = new TextButton(game.getBundle().get("credits"), skin, "secondary");
         button.pad(dp(10));
         button.addListener(new ClickListener() {
             @Override

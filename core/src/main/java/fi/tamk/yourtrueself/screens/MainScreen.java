@@ -81,7 +81,7 @@ public class MainScreen implements Screen {
         currentDailyTimer = new ChallengeTimerPanel(true, game, uiSkin);
         achievementWindow = new AchievementWindow(game, uiSkin);
 
-        TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin);
+        TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin, "secondary");
         prefsBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -90,7 +90,7 @@ public class MainScreen implements Screen {
             }
         });
 
-        TextButton achBtn = new TextButton(game.getBundle().get("achievements"), uiSkin);
+        TextButton achBtn = new TextButton(game.getBundle().get("achievements"), uiSkin, "secondary");
         achBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

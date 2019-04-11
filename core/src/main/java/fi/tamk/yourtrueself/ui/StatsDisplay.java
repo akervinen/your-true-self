@@ -14,6 +14,8 @@ import java.text.DecimalFormat;
 
 import fi.tamk.yourtrueself.Player;
 
+import static fi.tamk.yourtrueself.YTSGame.dp;
+
 /**
  * Progress bar for a stat. Modifies normal ProgressBar by setting different width.
  */
@@ -25,8 +27,8 @@ final class StatBar extends ProgressBar {
      * Create new stat bar.
      *
      * @param player player whose stat points to use
-     * @param stat which stat to show
-     * @param skin skin to use
+     * @param stat   which stat to show
+     * @param skin   skin to use
      */
     StatBar(Player player, Player.Stat stat, Skin skin) {
         super(0, 100, .5f, false, skin);
@@ -37,10 +39,10 @@ final class StatBar extends ProgressBar {
         ProgressBarStyle style = this.getStyle();
         // Change bar height
         if (style.knobBefore != null) {
-            style.knobBefore.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+            style.knobBefore.setMinHeight(dp(16));
         }
         if (style.background != null) {
-            style.background.setMinHeight(Gdx.graphics.getPpiY() * 0.1f);
+            style.background.setMinHeight(dp(16));
         }
 
         update();
@@ -60,7 +62,7 @@ final class StatBar extends ProgressBar {
      */
     @Override
     public float getMinWidth() {
-        return 60;
+        return dp(60);
     }
 
     /**
@@ -70,7 +72,7 @@ final class StatBar extends ProgressBar {
      */
     @Override
     public float getPrefWidth() {
-        return 140;
+        return dp(140);
     }
 }
 
@@ -86,6 +88,7 @@ public final class StatsDisplay extends Table {
 
     /**
      * Create a stats panel with a bar for each stat.
+     * d
      *
      * @param player     player object
      * @param background whether to have a background
@@ -94,6 +97,11 @@ public final class StatsDisplay extends Table {
     public StatsDisplay(Player player, boolean background, Skin skin) {
         super(skin);
 
+        padLeft(dp(10));
+        padRight(getPadLeft());
+
+        defaults().space(dp(10));
+
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         if (background) {
@@ -101,11 +109,11 @@ public final class StatsDisplay extends Table {
         }
 
         for (int i = 0; i < Player.STAT_ENUMS.length; i++) {
-            this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left().padRight(2);
+            this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left();
 
             bars[i] = new StatBar(player, Player.STAT_ENUMS[i], skin);
             this.add(bars[i]).grow();
-            this.row().space(0);
+            this.row();
         }
     }
 
@@ -123,7 +131,7 @@ public final class StatsDisplay extends Table {
      * 3 seconds.
      *
      * @param statIdx index of stat according to STAT_ENUMS order
-     * @param amount how much stat changed
+     * @param amount  how much stat changed
      */
     private void createFloatingLabel(int statIdx, float amount) {
         Label lbl = new Label("+" + new DecimalFormat("#.#").format(amount), getSkin(), "black");
@@ -149,7 +157,7 @@ public final class StatsDisplay extends Table {
      * Show a floating number to visualize stat changes. If given stat is NONE, number is shown
      * on all stat bars.
      *
-     * @param stat stat to show number on
+     * @param stat   stat to show number on
      * @param amount how much stat changed
      */
     public void showFloatingNumber(Player.Stat stat, float amount) {
