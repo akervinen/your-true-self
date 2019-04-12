@@ -39,7 +39,7 @@ public final class CharacterSelectPanel extends Table {
 
         Label desc = new Label(bundle.get(characterId + "Story"), skin);
         desc.setWrap(true);
-        chooseBtn = new TextButton(bundle.get("choose"), skin);
+        chooseBtn = new TextButton(bundle.get("choose"), skin, "good");
 
         this.add(name).top().height(Value.percentHeight(.05f, this));
         this.row();

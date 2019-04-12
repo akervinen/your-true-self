@@ -89,13 +89,12 @@ class VolumeSlider extends Slider {
         for (Drawable d : knobs) {
             if (d == null) continue;
             float ratio = (YTSGame.dp(32) / d.getMinHeight());
-            d.setMinHeight(d.getMinHeight() * ratio);
-            d.setMinWidth(d.getMinWidth() * ratio);
+            d.setMinHeight((int) (d.getMinHeight() * ratio));
+            d.setMinWidth((int) (d.getMinWidth() * ratio));
         }
         for (Drawable d : sliderGfx) {
             if (d == null) continue;
-            float ratio = (YTSGame.dp(26) / d.getMinHeight());
-            d.setMinHeight(d.getMinHeight() * ratio);
+            d.setMinHeight(YTSGame.dp(26));
         }
     }
 

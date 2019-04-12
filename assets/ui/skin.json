@@ -4,6 +4,10 @@
       dpSize: 20,
       file: ui/Roboto-Regular.ttf
     },
+    medium: {
+      dpSize: 26,
+      file: ui/Roboto-Regular.ttf
+    },
     title: {
       dpSize: 32,
       file: ui/Roboto-Regular.ttf
@@ -18,23 +22,23 @@
   },
   WindowStyle: {
     default: {
-      titleFont: default,
-      titleFontColor: black,
+      titleFont: medium,
+      titleFontColor: white,
       background: window-primary
     },
     large: {
-      titleFont: default,
-      titleFontColor: black,
+      titleFont: medium,
+      titleFontColor: white,
       background: window-large-primary
     },
     secondary: {
-      titleFont: default,
-      titleFontColor: black,
+      titleFont: medium,
+      titleFontColor: white,
       background: window-secondary
     },
     secondary-large: {
-      titleFont: default,
-      titleFontColor: black,
+      titleFont: medium,
+      titleFontColor: white,
       background: window-large-secondary
     }
   },
@@ -75,25 +79,22 @@
       font: default,
       fontColor: black,
       up: button-primary,
-      down: button-primary
+      down: button-primary-down,
+      pressedOffsetY: -2
     },
     secondary: {
       font: default,
       fontColor: black,
       up: button-secondary,
-      down: button-secondary-down
-    },
-    secondary-small: {
-      font: default,
-      fontColor: black,
-      up: button-secondary,
-      down: button-secondary-down
+      down: button-secondary-down,
+      pressedOffsetY: -2
     },
     good: {
       font: default,
       fontColor: black,
       up: button-good,
-      down: button-good-down
+      down: button-good-down,
+      pressedOffsetY: -2
     }
   },
   ListStyle: {

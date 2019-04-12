@@ -134,7 +134,7 @@ public final class StatsDisplay extends Table {
      * @param amount  how much stat changed
      */
     private void createFloatingLabel(int statIdx, float amount) {
-        Label lbl = new Label("+" + new DecimalFormat("#.#").format(amount), getSkin(), "black");
+        Label lbl = new Label("+" + new DecimalFormat("#.#").format(amount), getSkin());
         lbl.getColor().a = 0;
 
         float x = bars[statIdx].getX(Align.center);
