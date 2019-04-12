@@ -46,7 +46,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         I18NBundle bundle = I18NBundle.createBundle(Gdx.files.internal("i18n/YourTrueSelf"), locale);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "your-true-self")
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(bundle.get("chlNotificationTitle"))
                 .setContentText(bundle.get("chlNotificationBody"))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
