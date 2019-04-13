@@ -350,7 +350,7 @@ public class YTSGame extends Game {
      *
      * @param chl challenge to complete
      */
-    public void completeChallenge(Challenge chl) {
+    public void completeChallenge(Challenge chl, boolean skipped) {
         // Check if challenge is valid (either normal, daily or MP challenge)
         if (chl != currentChallenge && chl != currentDaily) {
             // Player tried to complete an old or invalid challenge?
@@ -360,20 +360,29 @@ public class YTSGame extends Game {
         if (chl instanceof DailyChallenge) {
             setCurrentDaily((DailyChallenge) null);
             startNextDailyTimer();
-            achievementManager.increaseProgress("ach.Daily", 1);
+            if (!skipped) {
+                achievementManager.increaseProgress("ach.Daily", 1);
+            }
         } else {
             previousChallenge = chl;
             setCurrentChallenge((Challenge) null);
             startNextChallengeTimer();
-            achievementManager.increaseProgress("ach.Challenge", 1);
+            if (!skipped) {
+                achievementManager.increaseProgress("ach.Challenge", 1);
+            }
         }
 
-        chl.complete(getPlayer());
-        saveStats();
-        soundMap.get("completedChallenge").play(getSoundVolume());
+        if (!skipped) {
+            chl.complete(getPlayer());
+            saveStats();
+            soundMap.get("completedChallenge").play(getSoundVolume());
 
-        if (challengeCompletedListener != null) {
-            challengeCompletedListener.challengeCompleted(chl);
+            if (challengeCompletedListener != null) {
+                challengeCompletedListener.challengeCompleted(chl);
+            }
+        }
+        else {
+            soundMap.get("notThere").play(getSoundVolume());
         }
     }
 
