@@ -489,13 +489,20 @@ public class YTSGame extends Game {
         int idx;
 
         boolean pickOffStat = MathUtils.random() <= OFF_STAT_CHANCE;
-        boolean isOffStat = false;
+        boolean isOffStat;
 
         Character chr = player.getCurrentCharacter();
         if (chr == null) {
             return null;
         }
 
+        // Couchpotato (stat = NONE) only picks its own challenges.
+        if (chr.getMainStat() == Player.Stat.NONE) {
+            pickOffStat = false;
+        }
+
+        // If only one main stat challenge exists, force-enable off-stat challenges to avoid
+        // an infinite loop.
         int mainStatChls = 0;
         for (Challenge chl : CHALLENGES) {
             if (chl.mainStat == chr.getMainStat()) {
@@ -509,9 +516,7 @@ public class YTSGame extends Game {
         // Avoid getting the exact same challenge as last
         do {
             idx = MathUtils.random(0, CHALLENGES.length - 1);
-            if (chr.getMainStat() != Player.Stat.NONE) {
-                isOffStat = CHALLENGES[idx].mainStat != chr.getMainStat();
-            }
+            isOffStat = CHALLENGES[idx].mainStat != chr.getMainStat();
         } while ((isOffStat && !pickOffStat) ||
                 (previousChallenge != null &&
                         CHALLENGES[idx].getId().equals(previousChallenge.getId())));
