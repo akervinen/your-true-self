@@ -41,7 +41,7 @@ public class YTSWindow extends Window {
         if (addBackBtn) {
             Label titleLbl = getTitleLabel();
             backBtn = new TextButton(bundle.get("back"), skin, "secondary");
-            backBtn.pad(dp(12)).addListener(new ChangeListener() {
+            backBtn.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     remove();
@@ -50,9 +50,7 @@ public class YTSWindow extends Window {
             getTitleTable().clearChildren();
             getTitleTable().add(backBtn)
                     .left()
-                    .padLeft(dp(1))
                     .padRight(dp(10))
-                    .minHeight(dp(20))
                     .height(Value.percentHeight(.9f, getTitleTable()));
             getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
         }
