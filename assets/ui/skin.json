@@ -22,22 +22,22 @@
   },
   WindowStyle: {
     default: {
-      titleFont: medium,
+      titleFont: default,
       titleFontColor: white,
       background: window-primary
     },
     large: {
-      titleFont: medium,
+      titleFont: default,
       titleFontColor: white,
       background: window-large-primary
     },
     secondary: {
-      titleFont: medium,
+      titleFont: default,
       titleFontColor: white,
       background: window-secondary
     },
     secondary-large: {
-      titleFont: medium,
+      titleFont: default,
       titleFontColor: white,
       background: window-large-secondary
     }

@@ -57,6 +57,8 @@ public class YTSWindow extends Window {
             getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
         }
 
+        padTop(32);
+
         padLeft(dp(5));
         padRight(dp(5));
 
