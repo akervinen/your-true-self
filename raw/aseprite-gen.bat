@@ -12,8 +12,8 @@ aseprite -b ui-ase/panel.9.aseprite --palette palette-secondary.ase --save-as ui
 
 REM scrollbar
 
-aseprite -b ui-ase/scrollbar.9.aseprite --layer background --palette palette-primary.pal --save-as ui/scrollbar.9.png
-aseprite -b ui-ase/scrollbar.9.aseprite --layer knob --palette palette-primary.pal --save-as ui/scrollbar-knob.9.png
+aseprite -b ui-ase/scrollbar.9.aseprite --layer background --palette palette-primary.ase --save-as ui/scrollbar.9.png
+aseprite -b ui-ase/scrollbar.9.aseprite --layer knob --palette palette-primary.ase --save-as ui/scrollbar-knob.9.png
 
 REM window
 
@@ -36,16 +36,16 @@ aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-good.ase --s
 
 REM progress bar
 
-aseprite -b ui-ase/progress-bar.9.aseprite --layer background --palette palette-primary.pal --save-as ui/progress-bar-background.9.png
-aseprite -b ui-ase/progress-bar.9.aseprite --layer knobBefore --palette palette-primary.pal --save-as ui/progress-bar-knobBefore.9.png
+aseprite -b ui-ase/progress-bar.9.aseprite --layer background --palette palette-primary.ase --save-as ui/progress-bar-background.9.png
+aseprite -b ui-ase/progress-bar.9.aseprite --layer knobBefore --palette palette-primary.ase --save-as ui/progress-bar-knobBefore.9.png
 
 REM slider
 
-aseprite -b ui-ase/slider.9.aseprite --layer background --palette palette-primary.pal --save-as ui/slider-background.9.png
-aseprite -b ui-ase/slider.9.aseprite --layer knobBefore --palette palette-primary.pal --save-as ui/slider-knobBefore.9.png
-aseprite -b ui-ase/slider.9.aseprite --layer knob --palette palette-primary.pal --save-as ui/slider-knob.9.png
+aseprite -b ui-ase/slider.9.aseprite --layer background --palette palette-primary.ase --save-as ui/slider-background.9.png
+aseprite -b ui-ase/slider.9.aseprite --layer knobBefore --palette palette-primary.ase --save-as ui/slider-knobBefore.9.png
+aseprite -b ui-ase/slider.9.aseprite --layer knob --palette palette-primary.ase --save-as ui/slider-knob.9.png
 
 REM selectbox
 
-aseprite -b ui-ase/selectbox.9.aseprite --layer default --palette palette-primary.pal --save-as ui/selectbox.9.png
-aseprite -b ui-ase/selectbox.9.aseprite --layer open --palette palette-primary.pal --save-as ui/selectbox-open.9.png
+aseprite -b ui-ase/selectbox.9.aseprite --layer default --palette palette-primary.ase --save-as ui/selectbox.9.png
+aseprite -b ui-ase/selectbox.9.aseprite --layer open --palette palette-primary.ase --save-as ui/selectbox-open.9.png
