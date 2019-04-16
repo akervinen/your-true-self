@@ -5,6 +5,9 @@ REM basic color drawable
 aseprite -b ui-ase/color.9.aseprite --palette palette-primary.ase --save-as ui/primary.9.png
 aseprite -b ui-ase/color.9.aseprite --palette palette-secondary.ase --save-as ui/secondary.9.png
 
+aseprite -b ui-ase/color-light.9.aseprite --palette palette-primary.ase --save-as ui/primary-light.9.png
+aseprite -b ui-ase/color-light.9.aseprite --palette palette-secondary.ase --save-as ui/secondary-light.9.png
+
 REM panel
 
 aseprite -b ui-ase/panel.9.aseprite --palette palette-primary.ase --save-as ui/panel-primary.9.png

@@ -82,30 +82,30 @@
       fontColor: black,
       up: button-primary,
       down: button-primary-down,
-      pressedOffsetY: -2
+      pressedOffsetY: -4
     },
     secondary: {
       font: default,
       fontColor: black,
       up: button-secondary,
       down: button-secondary-down,
-      pressedOffsetY: -2
+      pressedOffsetY: -4
     },
     good: {
       font: default,
       fontColor: black,
       up: button-good,
       down: button-good-down,
-      pressedOffsetY: -2
+      pressedOffsetY: -4
     }
   },
   ListStyle: {
     default: {
-      font: default,
+      font: medium,
       fontColorSelected: black,
       fontColorUnselected: black,
-      background: primary,
-      selection: secondary
+      background: primary-light,
+      selection: primary
     }
   },
   ProgressBarStyle: {

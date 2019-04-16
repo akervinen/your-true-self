@@ -35,13 +35,13 @@ public final class ChallengePanel extends YTSWindow {
         final Challenge challenge = chl;
 
         this.setMovable(false);
-        this.padLeft(dp(20)).padRight(dp(20));
+        this.padLeft(dp(10)).padRight(dp(10));
 
         // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
         this.add(chlText)
-                .padTop(dp(15))
+                .padTop(dp(5))
                 .padBottom(dp(15))
                 .grow()
                 .colspan(2)
@@ -49,7 +49,7 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
-        doneButton.pad(dp(15));
+//        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -69,7 +69,7 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to skip challenge
         TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "secondary");
-        skipButton.pad(dp(15));
+//        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
         skipButton.addListener(new ChangeListener() {
@@ -105,13 +105,13 @@ public final class ChallengePanel extends YTSWindow {
         final Challenge challenge = chl;
 
         this.setMovable(false);
-        this.padLeft(dp(20)).padRight(dp(20));
+        this.padLeft(dp(10)).padRight(dp(10));
 
         // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
         this.add(chlText)
-                .padTop(dp(15))
+                .padTop(dp(5))
                 .padBottom(dp(15))
                 .colspan(2)
                 .grow()
@@ -120,7 +120,7 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
-        doneButton.pad(dp(15));
+//        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -140,7 +140,7 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to skip challenge
         TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "secondary");
-        skipButton.pad(dp(15));
+//        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
         skipButton.addListener(new ChangeListener() {

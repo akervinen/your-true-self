@@ -4,6 +4,10 @@
       dpSize: 20,
       file: ui/Roboto-Regular.ttf
     },
+    medium: {
+      dpSize: 26,
+      file: ui/Roboto-Regular.ttf
+    },
     title: {
       dpSize: 32,
       file: ui/Roboto-Regular.ttf
@@ -19,22 +23,22 @@
   WindowStyle: {
     default: {
       titleFont: default,
-      titleFontColor: black,
+      titleFontColor: white,
       background: window-primary
     },
     large: {
       titleFont: default,
-      titleFontColor: black,
+      titleFontColor: white,
       background: window-large-primary
     },
     secondary: {
       titleFont: default,
-      titleFontColor: black,
+      titleFontColor: white,
       background: window-secondary
     },
     secondary-large: {
       titleFont: default,
-      titleFontColor: black,
+      titleFontColor: white,
       background: window-large-secondary
     }
   },
@@ -63,11 +67,13 @@
     },
     with-bg: {
       font: default,
-      fontColor: black
+      fontColor: white,
+      background: primary
     },
     title-with-bg: {
       font: title,
-      fontColor: black
+      fontColor: white,
+      background: primary
     }
   },
   TextButtonStyle: {
@@ -75,34 +81,31 @@
       font: default,
       fontColor: black,
       up: button-primary,
-      down: button-primary
+      down: button-primary-down,
+      pressedOffsetY: -4
     },
     secondary: {
       font: default,
       fontColor: black,
       up: button-secondary,
-      down: button-secondary-down
-    },
-    secondary-small: {
-      font: default,
-      fontColor: black,
-      up: button-secondary,
-      down: button-secondary-down
+      down: button-secondary-down,
+      pressedOffsetY: -4
     },
     good: {
       font: default,
       fontColor: black,
       up: button-good,
-      down: button-good-down
+      down: button-good-down,
+      pressedOffsetY: -4
     }
   },
   ListStyle: {
     default: {
-      font: default,
+      font: medium,
       fontColorSelected: black,
       fontColorUnselected: black,
-      background: primary,
-      selection: secondary
+      background: primary-light,
+      selection: primary
     }
   },
   ProgressBarStyle: {

@@ -26,7 +26,7 @@ public class AchievementWindow extends YTSWindow {
             achievementList.addActor(new AchievementPanel(ach, skin));
         }
 
-        achievementList.grow().space(dp(20));
+        achievementList.grow().space(dp(10));
 
         ScrollPane scroller = new ScrollPane(achievementList);
 

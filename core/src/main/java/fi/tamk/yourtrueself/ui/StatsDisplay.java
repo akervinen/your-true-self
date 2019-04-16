@@ -38,12 +38,12 @@ final class StatBar extends ProgressBar {
 
         ProgressBarStyle style = this.getStyle();
         // Change bar height
-        if (style.knobBefore != null) {
-            style.knobBefore.setMinHeight(dp(16));
-        }
-        if (style.background != null) {
-            style.background.setMinHeight(dp(16));
-        }
+//        if (style.knobBefore != null) {
+//            style.knobBefore.setMinHeight(dp(16));
+//        }
+//        if (style.background != null) {
+//            style.background.setMinHeight(dp(16));
+//        }
 
         update();
     }

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
@@ -78,25 +77,25 @@ class VolumeSlider extends Slider {
      */
     static void changeStyle(SliderStyle style) {
         // Change bar height (otherwise it's however many pixels the assets are high)
-        Drawable[] knobs = new Drawable[]{
-                style.knob, style.knobAfter, style.knobOver, style.knobDown, style.disabledKnob,
-                style.disabledKnobAfter
-        };
-
-        Drawable[] sliderGfx = new Drawable[]{
-                style.background, style.disabledBackground, style.knobBefore, style.disabledKnobBefore
-        };
-
-        for (Drawable d : knobs) {
-            if (d == null) continue;
-            float ratio = (YTSGame.dp(32) / d.getMinHeight());
-            d.setMinHeight((int) (d.getMinHeight() * ratio));
-            d.setMinWidth((int) (d.getMinWidth() * ratio));
-        }
-        for (Drawable d : sliderGfx) {
-            if (d == null) continue;
-            d.setMinHeight(YTSGame.dp(26));
-        }
+//        Drawable[] knobs = new Drawable[]{
+//                style.knob, style.knobAfter, style.knobOver, style.knobDown, style.disabledKnob,
+//                style.disabledKnobAfter
+//        };
+//
+//        Drawable[] sliderGfx = new Drawable[]{
+//                style.background, style.disabledBackground, style.knobBefore, style.disabledKnobBefore
+//        };
+//
+//        for (Drawable d : knobs) {
+//            if (d == null) continue;
+//            float ratio = (YTSGame.dp(32) / d.getMinHeight());
+//            d.setMinHeight((int) (d.getMinHeight() * ratio));
+//            d.setMinWidth((int) (d.getMinWidth() * ratio));
+//        }
+//        for (Drawable d : sliderGfx) {
+//            if (d == null) continue;
+//            d.setMinHeight(YTSGame.dp(26));
+//        }
     }
 
     /**
@@ -106,11 +105,11 @@ class VolumeSlider extends Slider {
         preferences.putFloat(prefName, getValue());
         preferences.flush();
     }
-
-    @Override
-    public float getMinHeight() {
-        return YTSGame.dp(40);
-    }
+//
+//    @Override
+//    public float getMinHeight() {
+//        return YTSGame.dp(40);
+//    }
 }
 
 /**
@@ -161,8 +160,8 @@ public class PrefsDisplay extends YTSWindow {
         addLanguageSelect();
         addCharacterButton();
         addCreditsButton();
-
-        padLeft(dp(5)).padRight(dp(5));
+//
+//        padLeft(dp(5)).padRight(dp(5));
         pack();
     }
 
@@ -218,7 +217,7 @@ public class PrefsDisplay extends YTSWindow {
         });
 
         row().padTop(dp(10));
-        add(new Label(game.getBundle().get("noBother"), skin));
+        add(new Label(game.getBundle().get("noBother"), skin)).colspan(2);
         row().padBottom(dp(5));
         add(new Label(game.getBundle().get("noBotherStart"), skin)).center();
         add(select).center();
@@ -270,7 +269,7 @@ public class PrefsDisplay extends YTSWindow {
      */
     private void addCharacterButton() {
         TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin, "good");
-        button.pad(dp(10));
+//        button.pad(dp(10));
         button.getLabel().setWrap(true);
         button.addListener(new ClickListener() {
             @Override
@@ -289,7 +288,7 @@ public class PrefsDisplay extends YTSWindow {
      */
     private void addCreditsButton() {
         TextButton button = new TextButton(game.getBundle().get("credits"), skin, "secondary");
-        button.pad(dp(10));
+//        button.pad(dp(10));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
