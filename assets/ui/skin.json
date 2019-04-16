@@ -97,7 +97,15 @@
   },
   ProgressBarStyle: {
     default-horizontal: {
-      background: progress-bar
+      background: progress-bar-background,
+      knobBefore: progress-bar-knobBefore
+    }
+  },
+  SliderStyle: {
+    default-horizontal: {
+      background: slider-background,
+      knobBefore: slider-knobBefore,
+      knob: slider-knob
     }
   },
   SelectBoxStyle: {
@@ -108,8 +116,4 @@
       listStyle: default,
     }
   },
-  SliderStyle: {
-    default-horizontal: {
-    }
-  }
 }

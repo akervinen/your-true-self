@@ -31,4 +31,11 @@ aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-good.pal --s
 
 REM progress bar
 
-aseprite -b ui-ase/progress-bar.9.aseprite --palette palette-primary.pal --save-as ui/progress-bar.9.png
+aseprite -b ui-ase/progress-bar.9.aseprite --layer background --palette palette-primary.pal --save-as ui/progress-bar-background.9.png
+aseprite -b ui-ase/progress-bar.9.aseprite --layer knobBefore --palette palette-primary.pal --save-as ui/progress-bar-knobBefore.9.png
+
+REM slider
+
+aseprite -b ui-ase/slider.9.aseprite --layer background --palette palette-primary.pal --save-as ui/slider-background.9.png
+aseprite -b ui-ase/slider.9.aseprite --layer knobBefore --palette palette-primary.pal --save-as ui/slider-knobBefore.9.png
+aseprite -b ui-ase/slider.9.aseprite --layer knob --palette palette-primary.pal --save-as ui/slider-knob.9.png

@@ -82,14 +82,14 @@ close-button-alt
   index: -1
 close-button-alt-down
   rotate: false
-  xy: 413, 114
+  xy: 473, 140
   size: 12, 13
   orig: 18, 18
   offset: 3, 3
   index: -1
 close-button-alt-highlight
   rotate: false
-  xy: 310, 102
+  xy: 398, 114
   size: 12, 13
   orig: 18, 18
   offset: 3, 3
@@ -110,7 +110,7 @@ close-button-highlight
   index: -1
 cursor
   rotate: false
-  xy: 473, 118
+  xy: 283, 102
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -139,7 +139,7 @@ dark-secondary
   index: -1
 dim-primary
   rotate: false
-  xy: 426, 125
+  xy: 320, 113
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
@@ -237,7 +237,7 @@ image-minus
   index: -1
 image-minus-down
   rotate: false
-  xy: 336, 108
+  xy: 411, 123
   size: 16, 4
   orig: 16, 4
   offset: 0, 0
@@ -512,7 +512,7 @@ panel-tertiary
   index: -1
 plus
   rotate: false
-  xy: 473, 122
+  xy: 473, 124
   size: 15, 15
   orig: 15, 15
   offset: 0, 0
@@ -526,41 +526,25 @@ primary
   index: -1
 primary
   rotate: false
-  xy: 486, 138
+  xy: 238, 83
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
-progress-bar
+progress-bar-knobBefore
   rotate: false
-  xy: 488, 138
+  xy: 238, 83
   size: 1, 1
+  split: 0, 0, 0, 0
   orig: 1, 1
   offset: 0, 0
   index: -1
-progress-bar-before-knob
+progress-bar-background
   rotate: false
-  xy: 1014, 211
-  size: 9, 12
-  split: 0, 6, 0, 0
-  orig: 9, 12
-  offset: 0, 0
-  index: -1
-progress-bar-vertical
-  rotate: false
-  xy: 473, 138
-  size: 12, 15
-  split: 5, 5, 4, 6
-  pad: 0, 0, 0, 6
-  orig: 12, 15
-  offset: 0, 0
-  index: -1
-progress-bar-vertical-before-knob
-  rotate: false
-  xy: 323, 103
-  size: 12, 9
-  split: 0, 0, 6, 0
-  orig: 12, 9
+  xy: 282, 100
+  size: 1, 1
+  split: 0, 0, 0, 0
+  orig: 1, 1
   offset: 0, 0
   index: -1
 radio-button
@@ -638,7 +622,7 @@ scrollbar-android-knob
   index: -1
 scrollbar-android-vertical
   rotate: false
-  xy: 228, 71
+  xy: 489, 129
   size: 5, 10
   split: 2, 2, 2, 2
   pad: 0, 0, 0, 0
@@ -674,14 +658,14 @@ scrollbar-vertical
   index: -1
 secondary
   rotate: false
-  xy: 426, 122
+  xy: 7, 1
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
   index: -1
 secondary
   rotate: false
-  xy: 238, 83
+  xy: 535, 167
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -704,11 +688,28 @@ select-box-down
   orig: 50, 50
   offset: 0, 0
   index: -1
-slider-bar-knob
+slider-background
   rotate: false
-  xy: 398, 113
-  size: 14, 14
-  orig: 14, 14
+  xy: 411, 116
+  size: 2, 6
+  split: 0, 0, 2, 1
+  orig: 2, 6
+  offset: 0, 0
+  index: -1
+slider-knob
+  rotate: false
+  xy: 930, 207
+  size: 2, 6
+  split: 1, 0, 2, 1
+  orig: 2, 6
+  offset: 0, 0
+  index: -1
+slider-knobBefore
+  rotate: false
+  xy: 317, 109
+  size: 2, 6
+  split: 0, 0, 2, 1
+  orig: 2, 6
   offset: 0, 0
   index: -1
 spinner-minus
@@ -767,7 +768,7 @@ spinner-text-field-down
   index: -1
 splitpane
   rotate: false
-  xy: 228, 64
+  xy: 310, 109
   size: 6, 6
   split: 2, 2, 2, 2
   pad: 0, 0, 0, 0
@@ -804,7 +805,7 @@ switch-text-off
   index: -1
 tertiary
   rotate: false
-  xy: 7, 1
+  xy: 10, 1
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
@@ -899,7 +900,7 @@ touchpad-knob
   index: -1
 white
   rotate: false
-  xy: 426, 119
+  xy: 13, 1
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
