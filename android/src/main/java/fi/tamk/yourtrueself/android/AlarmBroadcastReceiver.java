@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 import java.util.Locale;
 
+import fi.tamk.yourtrueself.DefaultPreferences;
 import fi.tamk.yourtrueself.R;
 import fi.tamk.yourtrueself.YTSGame;
 
@@ -29,7 +30,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, AndroidLauncher.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Load preferences manually, since Gdx.app isn't set
-        Preferences pref = new AndroidPreferences(context.getSharedPreferences(YTSGame.PREF_NAME, Context.MODE_PRIVATE));
+        Preferences pref = new AndroidPreferences(context.getSharedPreferences(DefaultPreferences.PREF_NAME, Context.MODE_PRIVATE));
 
         // Use preferences locale or default if none is set
         Locale locale;

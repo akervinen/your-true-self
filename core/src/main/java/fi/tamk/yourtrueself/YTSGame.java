@@ -29,63 +29,6 @@ import fi.tamk.yourtrueself.screens.MainScreen;
  */
 public class YTSGame extends Game {
     /**
-     * Name of the preferences file.
-     */
-    public static final String PREF_NAME = "YTSPreferences";
-
-    /**
-     * Language preference key.
-     */
-    public static final String PREF_LANGUAGE = "lang";
-
-    /**
-     * Music volume preference key.
-     */
-    public static final String PREF_MUSIC = "music";
-
-    /**
-     * Default value of music volume.
-     */
-    public static final float PREF_MUSIC_DEFAULT = 1.0f;
-
-    /**
-     * Sound volume preference key.
-     */
-    public static final String PREF_SOUND = "sound";
-
-    /**
-     * Default value of sound volume.
-     */
-    public static final float PREF_SOUND_DEFAULT = 1.0f;
-
-    /**
-     * DND start time preference key.
-     */
-    public static final String PREF_DND_START = "noBotherStart";
-
-    /**
-     * Default value of DND start time.
-     */
-    public static final int PREF_DND_START_DEFAULT = 22;
-
-    /**
-     * DND end time preference key.
-     */
-    public static final String PREF_DND_END = "noBotherEnd";
-
-    /**
-     * DND end time default value.
-     */
-    public static final int PREF_DND_END_DEFAULT = 8;
-
-    private static final String PREF_CHARACTER = "playerCharacter";
-    private static final String PREF_CHL_CURRENT = "currentChallenge";
-    private static final String PREF_CHL_NEXT = "nextChallengeTime";
-    private static final String PREF_DAILY_CURRENT = "currentDaily";
-    private static final String PREF_DAILY_STARTED = "currentDailyStart";
-    private static final String PREF_DAILY_NEXT = "nextDailyTime";
-
-    /**
      * List of characters in the game.
      */
     public static final Character[] CHARACTERS = {
@@ -200,7 +143,7 @@ public class YTSGame extends Game {
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
     private Map<String, Sound> soundMap = new HashMap<String, Sound>();
-    private float soundVolume = PREF_SOUND_DEFAULT;
+    private float soundVolume = DefaultPreferences.PREF_SOUND_DEFAULT;
 
     /**
      * Set release mode. Release mode increases challenge delays to proper values.
@@ -329,7 +272,7 @@ public class YTSGame extends Game {
      */
     public void setPlayerCharacter(Character chr) {
         player.setCurrentCharacter(chr);
-        prefs.putString(PREF_CHARACTER, chr.getId());
+        prefs.putString(DefaultPreferences.PREF_CHARACTER, chr.getId());
         prefs.flush();
         Sound soundEffect = soundMap.get(chr.getId());
         if (soundEffect != null) {
@@ -399,7 +342,7 @@ public class YTSGame extends Game {
      * Complete the given active challenge. Checks if the challenge is valid,
      * i.e. if it's one of the currently active challenges.
      *
-     * @param chl challenge to complete
+     * @param chl     challenge to complete
      * @param skipped whether challenge was skipped
      */
     public void completeChallenge(Challenge chl, boolean skipped) {
@@ -432,8 +375,7 @@ public class YTSGame extends Game {
             if (challengeCompletedListener != null) {
                 challengeCompletedListener.challengeCompleted(chl);
             }
-        }
-        else {
+        } else {
             soundMap.get("notThere").play(getSoundVolume());
         }
     }
@@ -456,9 +398,9 @@ public class YTSGame extends Game {
     private void setCurrentChallenge(Challenge challenge) {
         currentChallenge = challenge;
         if (challenge != null) {
-            prefs.putString(PREF_CHL_CURRENT, challenge.getId());
+            prefs.putString(DefaultPreferences.PREF_CHL_CURRENT, challenge.getId());
         } else {
-            prefs.remove(PREF_CHL_CURRENT);
+            prefs.remove(DefaultPreferences.PREF_CHL_CURRENT);
         }
         prefs.flush();
     }
@@ -498,9 +440,9 @@ public class YTSGame extends Game {
         this.nextDailyTime = nextDailyTime;
 
         if (nextDailyTime == 0) {
-            prefs.remove(PREF_DAILY_NEXT);
+            prefs.remove(DefaultPreferences.PREF_DAILY_NEXT);
         } else {
-            prefs.putLong(PREF_DAILY_NEXT, nextDailyTime);
+            prefs.putLong(DefaultPreferences.PREF_DAILY_NEXT, nextDailyTime);
         }
         prefs.flush();
     }
@@ -525,9 +467,9 @@ public class YTSGame extends Game {
         this.nextChallengeTime = nextChallengeTime;
 
         if (nextChallengeTime == 0) {
-            prefs.remove(PREF_CHL_NEXT);
+            prefs.remove(DefaultPreferences.PREF_CHL_NEXT);
         } else {
-            prefs.putLong(PREF_CHL_NEXT, nextChallengeTime);
+            prefs.putLong(DefaultPreferences.PREF_CHL_NEXT, nextChallengeTime);
         }
         prefs.flush();
     }
@@ -598,8 +540,8 @@ public class YTSGame extends Game {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.SECOND, delay);
 
-        int dndStart = prefs.getInteger(PREF_DND_START, PREF_DND_START_DEFAULT);
-        int dndEnd = prefs.getInteger(PREF_DND_END, PREF_DND_END_DEFAULT);
+        int dndStart = prefs.getInteger(DefaultPreferences.PREF_DND_START, DefaultPreferences.PREF_DND_START_DEFAULT);
+        int dndEnd = prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT);
 
         int possibleHour = c.get(Calendar.HOUR_OF_DAY);
         if (dndStart < dndEnd) {
@@ -636,7 +578,7 @@ public class YTSGame extends Game {
             }
 
             c.add(Calendar.DAY_OF_MONTH, 1);
-            c.set(Calendar.HOUR_OF_DAY, prefs.getInteger(PREF_DND_END, PREF_DND_END_DEFAULT));
+            c.set(Calendar.HOUR_OF_DAY, prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT));
             c.set(Calendar.MINUTE, 0);
             c.set(Calendar.SECOND, 0);
 
@@ -663,13 +605,13 @@ public class YTSGame extends Game {
     private void setCurrentDaily(DailyChallenge daily) {
         currentDaily = daily;
         if (daily != null) {
-            prefs.putString(PREF_DAILY_CURRENT, daily.getId());
-            if (!prefs.contains(PREF_DAILY_STARTED)) {
-                prefs.putLong(PREF_DAILY_STARTED, System.currentTimeMillis());
+            prefs.putString(DefaultPreferences.PREF_DAILY_CURRENT, daily.getId());
+            if (!prefs.contains(DefaultPreferences.PREF_DAILY_STARTED)) {
+                prefs.putLong(DefaultPreferences.PREF_DAILY_STARTED, System.currentTimeMillis());
             }
         } else {
-            prefs.remove(PREF_DAILY_CURRENT);
-            prefs.remove(PREF_DAILY_STARTED);
+            prefs.remove(DefaultPreferences.PREF_DAILY_CURRENT);
+            prefs.remove(DefaultPreferences.PREF_DAILY_STARTED);
         }
         prefs.flush();
     }
@@ -694,11 +636,11 @@ public class YTSGame extends Game {
      * and make sure that the player has a challenge if there's no active timer.
      */
     private void refreshChallenges() {
-        setCurrentChallenge(prefs.getString(PREF_CHL_CURRENT));
-        nextChallengeTime = prefs.getLong(PREF_CHL_NEXT, 0);
-        setCurrentDaily(prefs.getString(PREF_DAILY_CURRENT));
-        currentDailyStartTime = prefs.getLong(PREF_DAILY_STARTED);
-        nextDailyTime = prefs.getLong(PREF_DAILY_NEXT);
+        setCurrentChallenge(prefs.getString(DefaultPreferences.PREF_CHL_CURRENT));
+        nextChallengeTime = prefs.getLong(DefaultPreferences.PREF_CHL_NEXT, 0);
+        setCurrentDaily(prefs.getString(DefaultPreferences.PREF_DAILY_CURRENT));
+        currentDailyStartTime = prefs.getLong(DefaultPreferences.PREF_DAILY_STARTED);
+        nextDailyTime = prefs.getLong(DefaultPreferences.PREF_DAILY_NEXT);
 
         checkChallenges();
     }
@@ -824,15 +766,14 @@ public class YTSGame extends Game {
         soundMap.put("notThere", assetManager.get("sounds/NotThere.ogg", Sound.class));
         soundMap.put("success", assetManager.get("sounds/Success.ogg", Sound.class));
 
-        setSoundVolume(prefs.getFloat(PREF_SOUND, PREF_SOUND_DEFAULT));
+        setSoundVolume(prefs.getFloat(DefaultPreferences.PREF_SOUND, DefaultPreferences.PREF_SOUND_DEFAULT));
     }
 
     public void playSound(String soundName) {
         Sound soundEffect = soundMap.get(soundName);
         if (soundEffect != null) {
             soundEffect.play(getSoundVolume());
-        }
-        else {
+        } else {
             soundMap.get("notThere").play(getSoundVolume());
         }
     }
@@ -842,25 +783,25 @@ public class YTSGame extends Game {
      */
     @Override
     public void create() {
-        prefs = Gdx.app.getPreferences(PREF_NAME);
+        prefs = Gdx.app.getPreferences(DefaultPreferences.PREF_NAME);
 
-        if (prefs.contains(PREF_CHARACTER)) {
-            setPlayerCharacter(prefs.getString(PREF_CHARACTER));
+        if (prefs.contains(DefaultPreferences.PREF_CHARACTER)) {
+            setPlayerCharacter(prefs.getString(DefaultPreferences.PREF_CHARACTER));
         }
 
         // If no language is set, set it according to platform's default locale
         Locale locale;
-        if (!prefs.contains(PREF_LANGUAGE)) {
+        if (!prefs.contains(DefaultPreferences.PREF_LANGUAGE)) {
             if (Locale.getDefault().getLanguage().equals(new Locale("fi").getLanguage())) {
                 locale = localeFromPref("fi");
-                prefs.putString(PREF_LANGUAGE, "fi");
+                prefs.putString(DefaultPreferences.PREF_LANGUAGE, "fi");
             } else {
                 locale = localeFromPref("en");
-                prefs.putString(PREF_LANGUAGE, "en");
+                prefs.putString(DefaultPreferences.PREF_LANGUAGE, "en");
             }
             prefs.flush();
         } else {
-            locale = localeFromPref(prefs.getString(PREF_LANGUAGE, "en"));
+            locale = localeFromPref(prefs.getString(DefaultPreferences.PREF_LANGUAGE, "en"));
         }
 
         loadAssets();
@@ -880,7 +821,7 @@ public class YTSGame extends Game {
 
         mainTheme = assetManager.get("YourTrueSelf_MainthemeOGG.ogg");
         mainTheme.setLooping(true);
-        mainTheme.setVolume(prefs.getFloat(PREF_MUSIC, PREF_MUSIC_DEFAULT));
+        mainTheme.setVolume(prefs.getFloat(DefaultPreferences.PREF_MUSIC, DefaultPreferences.PREF_MUSIC_DEFAULT));
         mainTheme.play();
 
         if (player.getCurrentCharacter() == null) {

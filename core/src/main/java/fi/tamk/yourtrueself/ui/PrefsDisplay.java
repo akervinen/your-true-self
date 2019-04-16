@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Calendar;
 
+import fi.tamk.yourtrueself.DefaultPreferences;
 import fi.tamk.yourtrueself.YTSGame;
 
 /**
@@ -44,10 +45,10 @@ class VolumeSlider extends Slider {
         this.preferences = preferences;
         this.prefName = prefName;
 
-        if (prefName.equals(YTSGame.PREF_MUSIC)) {
-            setValue(preferences.getFloat(prefName, YTSGame.PREF_MUSIC_DEFAULT));
-        } else if (prefName.equals(YTSGame.PREF_SOUND)) {
-            setValue(preferences.getFloat(prefName, YTSGame.PREF_SOUND_DEFAULT));
+        if (prefName.equals(DefaultPreferences.PREF_MUSIC)) {
+            setValue(preferences.getFloat(prefName, DefaultPreferences.PREF_MUSIC_DEFAULT));
+        } else if (prefName.equals(DefaultPreferences.PREF_SOUND)) {
+            setValue(preferences.getFloat(prefName, DefaultPreferences.PREF_SOUND_DEFAULT));
         }
 
         this.addListener(new ChangeListener() {
@@ -59,7 +60,7 @@ class VolumeSlider extends Slider {
                 }
 
                 updatePref();
-                if (prefName.equals(YTSGame.PREF_MUSIC)) {
+                if (prefName.equals(DefaultPreferences.PREF_MUSIC)) {
                     game.setMusicVolume(getValue());
                     game.playSound("success");
                 }
@@ -151,12 +152,12 @@ public class PrefsDisplay extends YTSWindow {
 
         VolumeSlider.changeStyle(skin.get("default-horizontal", Slider.SliderStyle.class));
 
-        lang = prefs.getString(YTSGame.PREF_LANGUAGE, "en");
-        noBotherStart = prefs.getInteger(YTSGame.PREF_DND_START, YTSGame.PREF_DND_START_DEFAULT);
-        noBotherEnd = prefs.getInteger(YTSGame.PREF_DND_END, YTSGame.PREF_DND_END_DEFAULT);
+        lang = prefs.getString(DefaultPreferences.PREF_LANGUAGE, "en");
+        noBotherStart = prefs.getInteger(DefaultPreferences.PREF_DND_START, DefaultPreferences.PREF_DND_START_DEFAULT);
+        noBotherEnd = prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT);
 
-        addSetting("musicSlider", new VolumeSlider(prefs, YTSGame.PREF_MUSIC, game, skin));
-        addSetting("soundSlider", new VolumeSlider(prefs, YTSGame.PREF_SOUND, game, skin));
+        addSetting("musicSlider", new VolumeSlider(prefs, DefaultPreferences.PREF_MUSIC, game, skin));
+        addSetting("soundSlider", new VolumeSlider(prefs, DefaultPreferences.PREF_SOUND, game, skin));
         addStartSelect();
         addEndSelect();
         addLanguageSelect();
@@ -212,7 +213,7 @@ public class PrefsDisplay extends YTSWindow {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 noBotherStart = select.getSelectedIndex();
-                prefs.putInteger(YTSGame.PREF_DND_START, noBotherStart);
+                prefs.putInteger(DefaultPreferences.PREF_DND_START, noBotherStart);
                 prefs.flush();
                 game.playSound("success");
             }
@@ -236,7 +237,7 @@ public class PrefsDisplay extends YTSWindow {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 noBotherEnd = select.getSelectedIndex();
-                prefs.putInteger(YTSGame.PREF_DND_END, noBotherEnd);
+                prefs.putInteger(DefaultPreferences.PREF_DND_END, noBotherEnd);
                 prefs.flush();
                 game.playSound("success");
             }
@@ -256,7 +257,7 @@ public class PrefsDisplay extends YTSWindow {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 lang = select.getSelected();
-                prefs.putString(YTSGame.PREF_LANGUAGE, lang);
+                prefs.putString(DefaultPreferences.PREF_LANGUAGE, lang);
                 prefs.flush();
                 game.changeLanguage(lang);
                 game.playSound("success");
