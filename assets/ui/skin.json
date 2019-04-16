@@ -39,8 +39,17 @@
     }
   },
   ScrollPaneStyle: {
-    default: { },
+    default: {
+      vScroll: scrollbar,
+      vScrollKnob: scrollbar-knob,
+      hScroll: scrollbar,
+      hScrollKnob: scrollbar-knob
+    },
     no-bg: {
+      vScroll: scrollbar,
+      vScrollKnob: scrollbar-knob,
+      hScroll: scrollbar,
+      hScrollKnob: scrollbar-knob
     }
   },
   LabelStyle: {

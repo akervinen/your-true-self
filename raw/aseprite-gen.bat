@@ -10,6 +10,11 @@ REM panel
 aseprite -b ui-ase/panel.9.aseprite --palette palette-primary.pal --save-as ui/panel-primary.9.png
 aseprite -b ui-ase/panel.9.aseprite --palette palette-secondary.pal --save-as ui/panel-secondary.9.png
 
+REM scrollbar
+
+aseprite -b ui-ase/scrollbar.9.aseprite --layer background --palette palette-primary.pal --save-as ui/scrollbar.9.png
+aseprite -b ui-ase/scrollbar.9.aseprite --layer knob --palette palette-primary.pal --save-as ui/scrollbar-knob.9.png
+
 REM window
 
 aseprite -b ui-ase/window.9.aseprite --palette palette-primary.pal --save-as ui/window-primary.9.png
