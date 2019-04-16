@@ -68,7 +68,7 @@ public final class ChallengePanel extends YTSWindow {
         });
 
         // Button to skip challenge
-        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "orange-small");
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "secondary");
         skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
@@ -139,7 +139,7 @@ public final class ChallengePanel extends YTSWindow {
         });
 
         // Button to skip challenge
-        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "orange-small");
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "secondary");
         skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
