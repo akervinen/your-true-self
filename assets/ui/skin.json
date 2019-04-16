@@ -92,6 +92,7 @@
       font: default,
       fontColorSelected: black,
       fontColorUnselected: black,
+      background: primary,
       selection: secondary
     }
   },
