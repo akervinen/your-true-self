@@ -1,0 +1,131 @@
+{
+  BitmapFont: {
+    default: {
+      dpSize: 20,
+      file: ui/Roboto-Regular.ttf
+    },
+    title: {
+      dpSize: 32,
+      file: ui/Roboto-Regular.ttf
+    }
+  },
+  Color: {
+    primary: { r: .5, g: .5, b: 1, a: 1 },
+    secondary: { r: 1, g: .67, b: .5, a: 1 },
+    tertiary: { r: 1, g: .2, b: .8, a: 1 },
+    black: { r: 0, g: 0, b: 0, a: 1 },
+    white: { r: 1, g: 1, b: 1, a: 1 },
+  },
+  WindowStyle: {
+    default: {
+      titleFont: default,
+      titleFontColor: black,
+      background: window-primary
+    },
+    large: {
+      titleFont: default,
+      titleFontColor: black,
+      background: window-large-primary
+    },
+    secondary: {
+      titleFont: default,
+      titleFontColor: black,
+      background: window-secondary
+    },
+    secondary-large: {
+      titleFont: default,
+      titleFontColor: black,
+      background: window-large-secondary
+    }
+  },
+  ScrollPaneStyle: {
+    default: {
+      vScroll: scrollbar,
+      vScrollKnob: scrollbar-knob,
+      hScroll: scrollbar,
+      hScrollKnob: scrollbar-knob
+    },
+    no-bg: {
+      vScroll: scrollbar,
+      vScrollKnob: scrollbar-knob,
+      hScroll: scrollbar,
+      hScrollKnob: scrollbar-knob
+    }
+  },
+  LabelStyle: {
+    default: {
+      font: default,
+      fontColor: black
+    },
+    title: {
+      font: title,
+      fontColor: black
+    },
+    with-bg: {
+      font: default,
+      fontColor: black
+    },
+    title-with-bg: {
+      font: title,
+      fontColor: black
+    }
+  },
+  TextButtonStyle: {
+    default: {
+      font: default,
+      fontColor: black,
+      up: button-primary,
+      down: button-primary
+    },
+    secondary: {
+      font: default,
+      fontColor: black,
+      up: button-secondary,
+      down: button-secondary-down
+    },
+    secondary-small: {
+      font: default,
+      fontColor: black,
+      up: button-secondary,
+      down: button-secondary-down
+    },
+    good: {
+      font: default,
+      fontColor: black,
+      up: button-good,
+      down: button-good-down
+    }
+  },
+  ListStyle: {
+    default: {
+      font: default,
+      fontColorSelected: black,
+      fontColorUnselected: black,
+      background: primary,
+      selection: secondary
+    }
+  },
+  ProgressBarStyle: {
+    default-horizontal: {
+      background: progress-bar-background,
+      knobBefore: progress-bar-knobBefore
+    }
+  },
+  SliderStyle: {
+    default-horizontal: {
+      background: slider-background,
+      knobBefore: slider-knobBefore,
+      knob: slider-knob
+    }
+  },
+  SelectBoxStyle: {
+    default: {
+      font: default,
+      fontColor: black,
+      scrollStyle: default,
+      listStyle: default,
+      background: selectbox,
+      backgroundOpen: selectbox-open
+    }
+  },
+}

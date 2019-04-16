@@ -97,6 +97,7 @@ public class YTSGame extends Game {
      * Path to the Scene2D skin to use.
      */
     private static final String SKIN_PATH = "ui/skin.json";
+    private static final String SKIN_PATH_HIDPI = "ui/skin-hidpi.json";
 
     private final AssetManager assetManager = new AssetManager();
     private I18NBundle bundle;
@@ -185,7 +186,11 @@ public class YTSGame extends Game {
 
         // Add assets to load
         assetManager.load("characters.atlas", TextureAtlas.class);
-        assetManager.load(SKIN_PATH, Skin.class);
+        if (Gdx.graphics.getDensity() > 1.25) {
+            assetManager.load(SKIN_PATH_HIDPI, Skin.class);
+        } else {
+            assetManager.load(SKIN_PATH, Skin.class);
+        }
 
         assetManager.load("YourTrueSelf_MainthemeOGG.ogg", Music.class);
 
@@ -205,7 +210,11 @@ public class YTSGame extends Game {
         // This can be split up if we need a loading screen
         assetManager.finishLoading();
 
-        uiSkin = assetManager.get(SKIN_PATH);
+        if (Gdx.graphics.getDensity() > 1.25) {
+            uiSkin = assetManager.get(SKIN_PATH_HIDPI);
+        } else {
+            uiSkin = assetManager.get(SKIN_PATH);
+        }
         uiSkin.addRegions(assetManager.get("characters.atlas", TextureAtlas.class));
     }
 
