@@ -43,7 +43,9 @@ public final class ChallengePanel extends YTSWindow {
         this.add(chlText)
                 .padTop(dp(15))
                 .padBottom(dp(15))
-                .grow().row();
+                .grow()
+                .colspan(2)
+                .row();
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
@@ -57,13 +59,34 @@ public final class ChallengePanel extends YTSWindow {
                 completeAction.setRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        game.completeChallenge(challenge);
+                        game.completeChallenge(challenge, false);
                     }
                 });
 
                 addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
             }
         });
+
+        // Button to skip challenge
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "orange-small");
+        skipButton.pad(dp(15));
+        this.add(skipButton).growY();
+
+        skipButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                RunnableAction completeAction = new RunnableAction();
+                completeAction.setRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.completeChallenge(challenge, true);
+                    }
+                });
+
+                addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
+            }
+        });
+
     }
 
     /**
@@ -90,7 +113,9 @@ public final class ChallengePanel extends YTSWindow {
         this.add(chlText)
                 .padTop(dp(15))
                 .padBottom(dp(15))
-                .grow().row();
+                .colspan(2)
+                .grow()
+                .row();
 
 
         // Button to complete challenge
@@ -105,7 +130,27 @@ public final class ChallengePanel extends YTSWindow {
                 completeAction.setRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        game.completeChallenge(challenge);
+                        game.completeChallenge(challenge, false);
+                    }
+                });
+
+                addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
+            }
+        });
+
+        // Button to skip challenge
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "orange-small");
+        skipButton.pad(dp(15));
+        this.add(skipButton).growY();
+
+        skipButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                RunnableAction completeAction = new RunnableAction();
+                completeAction.setRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.completeChallenge(challenge, true);
                     }
                 });
 

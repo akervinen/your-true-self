@@ -25,44 +25,13 @@ import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
 
 /**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ * Container class for the game's challenges
  */
-public class YTSGame extends Game {
-    public static final String PREF_NAME = "YTSPreferences";
-
-    public static final String PREF_LANGUAGE = "lang";
-    public static final String PREF_MUSIC = "music";
-    public static final float PREF_MUSIC_DEFAULT = 1.0f;
-    public static final String PREF_SOUND = "sound";
-    public static final float PREF_SOUND_DEFAULT = 1.0f;
-    public static final String PREF_DND_START = "noBotherStart";
-    public static final int PREF_DND_START_DEFAULT = 22;
-    public static final String PREF_DND_END = "noBotherEnd";
-    public static final int PREF_DND_END_DEFAULT = 8;
-
-    private static final String PREF_CHARACTER = "playerCharacter";
-    private static final String PREF_CHL_CURRENT = "currentChallenge";
-    private static final String PREF_CHL_NEXT = "nextChallengeTime";
-    private static final String PREF_DAILY_CURRENT = "currentDaily";
-    private static final String PREF_DAILY_STARTED = "currentDailyStart";
-    private static final String PREF_DAILY_NEXT = "nextDailyTime";
-
-    /**
-     * List of characters in the game.
-     */
-    public static final Character[] CHARACTERS = {
-            new Character("couchpotato", Player.Stat.NONE),
-            new Character("stronkman", Player.Stat.STRENGTH),
-            new Character("enlightened", Player.Stat.FLEXIBILITY),
-            new Character("thespider", Player.Stat.AGILITY),
-            new Character("marathon", Player.Stat.STAMINA),
-            new Character("graceful", Player.Stat.BALANCE)
-    };
-
+class YTSChallenges {
     /**
      * List of challenges in the game.
      */
-    public static final Challenge[] CHALLENGES = {
+    static final Challenge[] CHALLENGES = {
             new Challenge("chlStrPushups", Player.Stat.STRENGTH, 8),
             new Challenge("chlStrSquats", Player.Stat.STRENGTH, 6),
             new Challenge("chlStrBagCurl", Player.Stat.STRENGTH, 10),
@@ -78,9 +47,44 @@ public class YTSGame extends Game {
     /**
      * List of daily challenges in the game.
      */
-    public static final DailyChallenge[] DAILY_CHALLENGES = {
+    static final DailyChallenge[] DAILY_CHALLENGES = {
             new DailyChallenge("dchlStairs", Player.Stat.NONE, false),
-            new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true)
+            new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true),
+            new DailyChallenge("dchlNewSport", Player.Stat.NONE, true),
+            new DailyChallenge("dchlWalkSchool", Player.Stat.NONE, true),
+            new DailyChallenge("dchlStand", Player.Stat.NONE, false),
+            new DailyChallenge("dchlStretch", Player.Stat.NONE, false),
+            new DailyChallenge("dchlWaterBottle", Player.Stat.NONE, false),
+            new DailyChallenge("dchlShoulders", Player.Stat.NONE, false),
+            new DailyChallenge("dchlSkipping", Player.Stat.NONE, false),
+            new DailyChallenge("dchlFace2Face", Player.Stat.NONE, false),
+            new DailyChallenge("dchlNextWeek", Player.Stat.NONE, true),
+            new DailyChallenge("dchlOutside", Player.Stat.NONE, false),
+            new DailyChallenge("dchlCleaning", Player.Stat.NONE, false),
+            new DailyChallenge("dchlSquatting", Player.Stat.NONE, false),
+            new DailyChallenge("dchlMorning", Player.Stat.NONE, true),
+            new DailyChallenge("dchlAskFriend", Player.Stat.NONE, true),
+            new DailyChallenge("dchlSleep", Player.Stat.NONE, false),
+            new DailyChallenge("dchlDance", Player.Stat.NONE, false),
+            new DailyChallenge("dchlShopping", Player.Stat.NONE, true),
+            new DailyChallenge("dchlPomodoro", Player.Stat.NONE, false)
+    };
+}
+
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
+public class YTSGame extends Game {
+    /**
+     * List of characters in the game.
+     */
+    public static final Character[] CHARACTERS = {
+            new Character("couchpotato", Player.Stat.NONE),
+            new Character("stronkman", Player.Stat.STRENGTH),
+            new Character("enlightened", Player.Stat.FLEXIBILITY),
+            new Character("thespider", Player.Stat.AGILITY),
+            new Character("marathon", Player.Stat.STAMINA),
+            new Character("graceful", Player.Stat.BALANCE)
     };
 
     /**
@@ -91,6 +95,9 @@ public class YTSGame extends Game {
             new TieredAchievement("ach.Daily", 10, new int[]{1, 3, 6, 10}),
     };
 
+    /**
+     * Chance of picking an off-stat challenge.
+     */
     private static final float OFF_STAT_CHANCE = 0.3f;
 
     /**
@@ -122,7 +129,7 @@ public class YTSGame extends Game {
     /**
      * Player's information and stats.
      */
-    private final Player player = new Player(achievementManager);
+    private final Player player = new Player();
 
     /**
      * Last completed challenge, used to avoid generating the same challenge twice in a row.
@@ -159,8 +166,8 @@ public class YTSGame extends Game {
      */
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
-    Map<String,Sound> soundMap = new HashMap<String,Sound>();
-    float soundVolume = PREF_SOUND_DEFAULT;
+    private Map<String, Sound> soundMap = new HashMap<String, Sound>();
+    private float soundVolume = DefaultPreferences.PREF_SOUND_DEFAULT;
 
     /**
      * Set release mode. Release mode increases challenge delays to proper values.
@@ -297,7 +304,7 @@ public class YTSGame extends Game {
      */
     public void setPlayerCharacter(Character chr) {
         player.setCurrentCharacter(chr);
-        prefs.putString(PREF_CHARACTER, chr.getId());
+        prefs.putString(DefaultPreferences.PREF_CHARACTER, chr.getId());
         prefs.flush();
         Sound soundEffect = soundMap.get(chr.getId());
         if (soundEffect != null) {
@@ -321,16 +328,26 @@ public class YTSGame extends Game {
     /**
      * Set volume of the background music.
      *
-     * @param volume new music volume
+     * @param volume new music volume, 0 = mute, 1 = full
      */
     public void setMusicVolume(float volume) {
         mainTheme.setVolume(volume);
     }
 
+    /**
+     * Set volume of sound effects.
+     *
+     * @param volume new sound volume, 0 = mute, 1 = full
+     */
     public void setSoundVolume(float volume) {
         soundVolume = volume;
     }
 
+    /**
+     * Get current sound volume.
+     *
+     * @return current sound volume
+     */
     public float getSoundVolume() {
         return soundVolume;
     }
@@ -357,9 +374,10 @@ public class YTSGame extends Game {
      * Complete the given active challenge. Checks if the challenge is valid,
      * i.e. if it's one of the currently active challenges.
      *
-     * @param chl challenge to complete
+     * @param chl     challenge to complete
+     * @param skipped whether challenge was skipped
      */
-    public void completeChallenge(Challenge chl) {
+    public void completeChallenge(Challenge chl, boolean skipped) {
         // Check if challenge is valid (either normal, daily or MP challenge)
         if (chl != currentChallenge && chl != currentDaily) {
             // Player tried to complete an old or invalid challenge?
@@ -369,20 +387,28 @@ public class YTSGame extends Game {
         if (chl instanceof DailyChallenge) {
             setCurrentDaily((DailyChallenge) null);
             startNextDailyTimer();
-            achievementManager.increaseProgress("ach.Daily", 1);
+            if (!skipped) {
+                achievementManager.increaseProgress("ach.Daily", 1);
+            }
         } else {
             previousChallenge = chl;
             setCurrentChallenge((Challenge) null);
             startNextChallengeTimer();
-            achievementManager.increaseProgress("ach.Challenge", 1);
+            if (!skipped) {
+                achievementManager.increaseProgress("ach.Challenge", 1);
+            }
         }
 
-        chl.complete(getPlayer());
-        saveStats();
-        soundMap.get("completedChallenge").play(getSoundVolume());
+        if (!skipped) {
+            chl.complete(getPlayer());
+            saveStats();
+            soundMap.get("completedChallenge").play(getSoundVolume());
 
-        if (challengeCompletedListener != null) {
-            challengeCompletedListener.challengeCompleted(chl);
+            if (challengeCompletedListener != null) {
+                challengeCompletedListener.challengeCompleted(chl);
+            }
+        } else {
+            soundMap.get("notThere").play(getSoundVolume());
         }
     }
 
@@ -404,9 +430,9 @@ public class YTSGame extends Game {
     private void setCurrentChallenge(Challenge challenge) {
         currentChallenge = challenge;
         if (challenge != null) {
-            prefs.putString(PREF_CHL_CURRENT, challenge.getId());
+            prefs.putString(DefaultPreferences.PREF_CHL_CURRENT, challenge.getId());
         } else {
-            prefs.remove(PREF_CHL_CURRENT);
+            prefs.remove(DefaultPreferences.PREF_CHL_CURRENT);
         }
         prefs.flush();
     }
@@ -418,7 +444,7 @@ public class YTSGame extends Game {
      */
     private void setCurrentChallenge(String challengeId) {
         if (challengeId != null) {
-            for (Challenge chl : CHALLENGES) {
+            for (Challenge chl : YTSChallenges.CHALLENGES) {
                 if (chl.getId().equals(challengeId)) {
                     setCurrentChallenge(chl);
                 }
@@ -446,9 +472,9 @@ public class YTSGame extends Game {
         this.nextDailyTime = nextDailyTime;
 
         if (nextDailyTime == 0) {
-            prefs.remove(PREF_DAILY_NEXT);
+            prefs.remove(DefaultPreferences.PREF_DAILY_NEXT);
         } else {
-            prefs.putLong(PREF_DAILY_NEXT, nextDailyTime);
+            prefs.putLong(DefaultPreferences.PREF_DAILY_NEXT, nextDailyTime);
         }
         prefs.flush();
     }
@@ -473,9 +499,9 @@ public class YTSGame extends Game {
         this.nextChallengeTime = nextChallengeTime;
 
         if (nextChallengeTime == 0) {
-            prefs.remove(PREF_CHL_NEXT);
+            prefs.remove(DefaultPreferences.PREF_CHL_NEXT);
         } else {
-            prefs.putLong(PREF_CHL_NEXT, nextChallengeTime);
+            prefs.putLong(DefaultPreferences.PREF_CHL_NEXT, nextChallengeTime);
         }
         prefs.flush();
     }
@@ -489,15 +515,22 @@ public class YTSGame extends Game {
         int idx;
 
         boolean pickOffStat = MathUtils.random() <= OFF_STAT_CHANCE;
-        boolean isOffStat = false;
+        boolean isOffStat;
 
         Character chr = player.getCurrentCharacter();
         if (chr == null) {
             return null;
         }
 
+        // Couchpotato (stat = NONE) only picks its own challenges.
+        if (chr.getMainStat() == Player.Stat.NONE) {
+            pickOffStat = false;
+        }
+
+        // If only one main stat challenge exists, force-enable off-stat challenges to avoid
+        // an infinite loop.
         int mainStatChls = 0;
-        for (Challenge chl : CHALLENGES) {
+        for (Challenge chl : YTSChallenges.CHALLENGES) {
             if (chl.mainStat == chr.getMainStat()) {
                 mainStatChls += 1;
             }
@@ -508,15 +541,13 @@ public class YTSGame extends Game {
 
         // Avoid getting the exact same challenge as last
         do {
-            idx = MathUtils.random(0, CHALLENGES.length - 1);
-            if (chr.getMainStat() != Player.Stat.NONE) {
-                isOffStat = CHALLENGES[idx].mainStat != chr.getMainStat();
-            }
+            idx = MathUtils.random(0, YTSChallenges.CHALLENGES.length - 1);
+            isOffStat = YTSChallenges.CHALLENGES[idx].mainStat != chr.getMainStat();
         } while ((isOffStat && !pickOffStat) ||
                 (previousChallenge != null &&
-                        CHALLENGES[idx].getId().equals(previousChallenge.getId())));
+                        YTSChallenges.CHALLENGES[idx].getId().equals(previousChallenge.getId())));
 
-        return CHALLENGES[idx];
+        return YTSChallenges.CHALLENGES[idx];
     }
 
     /**
@@ -525,8 +556,8 @@ public class YTSGame extends Game {
      * @return random daily challenge
      */
     private DailyChallenge getNextDaily() {
-        int idx = MathUtils.random(0, DAILY_CHALLENGES.length - 1);
-        return DAILY_CHALLENGES[idx];
+        int idx = MathUtils.random(0, YTSChallenges.DAILY_CHALLENGES.length - 1);
+        return YTSChallenges.DAILY_CHALLENGES[idx];
     }
 
     /**
@@ -541,22 +572,24 @@ public class YTSGame extends Game {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.SECOND, delay);
 
-        int dndStart = prefs.getInteger(PREF_DND_START, PREF_DND_START_DEFAULT);
-        int dndEnd = prefs.getInteger(PREF_DND_END, PREF_DND_END_DEFAULT);
+        if (releaseMode) {
+            int dndStart = prefs.getInteger(DefaultPreferences.PREF_DND_START, DefaultPreferences.PREF_DND_START_DEFAULT);
+            int dndEnd = prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT);
 
-        int possibleHour = c.get(Calendar.HOUR_OF_DAY);
-        if (dndStart < dndEnd) {
-            if (possibleHour >= dndStart && possibleHour < dndEnd) {
-                c.set(Calendar.HOUR_OF_DAY, dndEnd);
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
-            }
-        } else {
-            if (possibleHour >= dndStart || possibleHour < dndEnd) {
-                c.add(Calendar.DAY_OF_MONTH, 1);
-                c.set(Calendar.HOUR_OF_DAY, dndEnd);
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
+            int possibleHour = c.get(Calendar.HOUR_OF_DAY);
+            if (dndStart < dndEnd) {
+                if (possibleHour >= dndStart && possibleHour < dndEnd) {
+                    c.set(Calendar.HOUR_OF_DAY, dndEnd);
+                    c.set(Calendar.MINUTE, 0);
+                    c.set(Calendar.SECOND, 0);
+                }
+            } else {
+                if (possibleHour >= dndStart || possibleHour < dndEnd) {
+                    c.add(Calendar.DAY_OF_MONTH, 1);
+                    c.set(Calendar.HOUR_OF_DAY, dndEnd);
+                    c.set(Calendar.MINUTE, 0);
+                    c.set(Calendar.SECOND, 0);
+                }
             }
         }
 
@@ -579,7 +612,7 @@ public class YTSGame extends Game {
             }
 
             c.add(Calendar.DAY_OF_MONTH, 1);
-            c.set(Calendar.HOUR_OF_DAY, prefs.getInteger(PREF_DND_END, PREF_DND_END_DEFAULT));
+            c.set(Calendar.HOUR_OF_DAY, prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT));
             c.set(Calendar.MINUTE, 0);
             c.set(Calendar.SECOND, 0);
 
@@ -606,13 +639,13 @@ public class YTSGame extends Game {
     private void setCurrentDaily(DailyChallenge daily) {
         currentDaily = daily;
         if (daily != null) {
-            prefs.putString(PREF_DAILY_CURRENT, daily.getId());
-            if (!prefs.contains(PREF_DAILY_STARTED)) {
-                prefs.putLong(PREF_DAILY_STARTED, System.currentTimeMillis());
+            prefs.putString(DefaultPreferences.PREF_DAILY_CURRENT, daily.getId());
+            if (!prefs.contains(DefaultPreferences.PREF_DAILY_STARTED)) {
+                prefs.putLong(DefaultPreferences.PREF_DAILY_STARTED, System.currentTimeMillis());
             }
         } else {
-            prefs.remove(PREF_DAILY_CURRENT);
-            prefs.remove(PREF_DAILY_STARTED);
+            prefs.remove(DefaultPreferences.PREF_DAILY_CURRENT);
+            prefs.remove(DefaultPreferences.PREF_DAILY_STARTED);
         }
         prefs.flush();
     }
@@ -624,7 +657,7 @@ public class YTSGame extends Game {
      */
     private void setCurrentDaily(String challengeId) {
         if (challengeId != null) {
-            for (DailyChallenge chl : DAILY_CHALLENGES) {
+            for (DailyChallenge chl : YTSChallenges.DAILY_CHALLENGES) {
                 if (chl.getId().equals(challengeId)) {
                     setCurrentDaily(chl);
                 }
@@ -637,11 +670,11 @@ public class YTSGame extends Game {
      * and make sure that the player has a challenge if there's no active timer.
      */
     private void refreshChallenges() {
-        setCurrentChallenge(prefs.getString(PREF_CHL_CURRENT));
-        nextChallengeTime = prefs.getLong(PREF_CHL_NEXT, 0);
-        setCurrentDaily(prefs.getString(PREF_DAILY_CURRENT));
-        currentDailyStartTime = prefs.getLong(PREF_DAILY_STARTED);
-        nextDailyTime = prefs.getLong(PREF_DAILY_NEXT);
+        setCurrentChallenge(prefs.getString(DefaultPreferences.PREF_CHL_CURRENT));
+        nextChallengeTime = prefs.getLong(DefaultPreferences.PREF_CHL_NEXT, 0);
+        setCurrentDaily(prefs.getString(DefaultPreferences.PREF_DAILY_CURRENT));
+        currentDailyStartTime = prefs.getLong(DefaultPreferences.PREF_DAILY_STARTED);
+        nextDailyTime = prefs.getLong(DefaultPreferences.PREF_DAILY_NEXT);
 
         checkChallenges();
     }
@@ -767,15 +800,14 @@ public class YTSGame extends Game {
         soundMap.put("notThere", assetManager.get("sounds/NotThere.ogg", Sound.class));
         soundMap.put("success", assetManager.get("sounds/Success.ogg", Sound.class));
 
-        setSoundVolume(prefs.getFloat(PREF_SOUND, PREF_SOUND_DEFAULT));
+        setSoundVolume(prefs.getFloat(DefaultPreferences.PREF_SOUND, DefaultPreferences.PREF_SOUND_DEFAULT));
     }
 
     public void playSound(String soundName) {
         Sound soundEffect = soundMap.get(soundName);
         if (soundEffect != null) {
             soundEffect.play(getSoundVolume());
-        }
-        else {
+        } else {
             soundMap.get("notThere").play(getSoundVolume());
         }
     }
@@ -785,25 +817,25 @@ public class YTSGame extends Game {
      */
     @Override
     public void create() {
-        prefs = Gdx.app.getPreferences(PREF_NAME);
+        prefs = Gdx.app.getPreferences(DefaultPreferences.PREF_NAME);
 
-        if (prefs.contains(PREF_CHARACTER)) {
-            setPlayerCharacter(prefs.getString(PREF_CHARACTER));
+        if (prefs.contains(DefaultPreferences.PREF_CHARACTER)) {
+            setPlayerCharacter(prefs.getString(DefaultPreferences.PREF_CHARACTER));
         }
 
         // If no language is set, set it according to platform's default locale
         Locale locale;
-        if (!prefs.contains(PREF_LANGUAGE)) {
+        if (!prefs.contains(DefaultPreferences.PREF_LANGUAGE)) {
             if (Locale.getDefault().getLanguage().equals(new Locale("fi").getLanguage())) {
                 locale = localeFromPref("fi");
-                prefs.putString(PREF_LANGUAGE, "fi");
+                prefs.putString(DefaultPreferences.PREF_LANGUAGE, "fi");
             } else {
                 locale = localeFromPref("en");
-                prefs.putString(PREF_LANGUAGE, "en");
+                prefs.putString(DefaultPreferences.PREF_LANGUAGE, "en");
             }
             prefs.flush();
         } else {
-            locale = localeFromPref(prefs.getString(PREF_LANGUAGE, "en"));
+            locale = localeFromPref(prefs.getString(DefaultPreferences.PREF_LANGUAGE, "en"));
         }
 
         loadAssets();
@@ -823,7 +855,7 @@ public class YTSGame extends Game {
 
         mainTheme = assetManager.get("YourTrueSelf_MainthemeOGG.ogg");
         mainTheme.setLooping(true);
-        mainTheme.setVolume(prefs.getFloat(PREF_MUSIC, PREF_MUSIC_DEFAULT));
+        mainTheme.setVolume(prefs.getFloat(DefaultPreferences.PREF_MUSIC, DefaultPreferences.PREF_MUSIC_DEFAULT));
         mainTheme.play();
 
         if (player.getCurrentCharacter() == null) {

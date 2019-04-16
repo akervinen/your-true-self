@@ -18,7 +18,7 @@ import fi.tamk.yourtrueself.YTSGame;
  */
 public class ChallengeTimerPanel extends YTSWindow {
     private final YTSGame game;
-    private boolean isDaily = false;
+    private boolean isDaily;
     private boolean isCongratulating = false;
 
     private Label timerText;

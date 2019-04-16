@@ -7,7 +7,6 @@ public class Character {
 
     /**
      * Main stat of the character.
-     * TODO: Used to pick challenges for the player.
      */
     private final Player.Stat mainStat;
 

@@ -6,43 +6,43 @@ filter: Nearest,Nearest
 repeat: none
 char-couchpotato
   rotate: false
-  xy: 825, 77
+  xy: 485, 69
   size: 92, 124
-  orig: 128, 128
-  offset: 24, 0
+  orig: 92, 128
+  offset: 0, 0
   index: -1
 char-enlightened
   rotate: false
-  xy: 1, 1
-  size: 256, 200
-  orig: 256, 200
+  xy: 251, 1
+  size: 96, 192
+  orig: 96, 192
   offset: 0, 0
   index: -1
 char-graceful
   rotate: false
-  xy: 420, 1
-  size: 150, 200
-  orig: 150, 200
+  xy: 134, 5
+  size: 116, 188
+  orig: 116, 188
   offset: 0, 0
   index: -1
 char-marathon
   rotate: false
-  xy: 571, 1
-  size: 139, 200
-  orig: 139, 200
+  xy: 578, 21
+  size: 80, 172
+  orig: 80, 200
   offset: 0, 0
   index: -1
 char-stronkman
   rotate: false
-  xy: 711, 1
-  size: 113, 200
-  orig: 113, 200
+  xy: 348, 57
+  size: 136, 136
+  orig: 136, 136
   offset: 0, 0
   index: -1
 char-thespider
   rotate: false
-  xy: 258, 1
-  size: 161, 200
-  orig: 161, 200
+  xy: 1, 9
+  size: 132, 184
+  orig: 132, 184
   offset: 0, 0
   index: -1
