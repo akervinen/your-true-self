@@ -563,22 +563,24 @@ public class YTSGame extends Game {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.SECOND, delay);
 
-        int dndStart = prefs.getInteger(DefaultPreferences.PREF_DND_START, DefaultPreferences.PREF_DND_START_DEFAULT);
-        int dndEnd = prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT);
+        if (releaseMode) {
+            int dndStart = prefs.getInteger(DefaultPreferences.PREF_DND_START, DefaultPreferences.PREF_DND_START_DEFAULT);
+            int dndEnd = prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT);
 
-        int possibleHour = c.get(Calendar.HOUR_OF_DAY);
-        if (dndStart < dndEnd) {
-            if (possibleHour >= dndStart && possibleHour < dndEnd) {
-                c.set(Calendar.HOUR_OF_DAY, dndEnd);
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
-            }
-        } else {
-            if (possibleHour >= dndStart || possibleHour < dndEnd) {
-                c.add(Calendar.DAY_OF_MONTH, 1);
-                c.set(Calendar.HOUR_OF_DAY, dndEnd);
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
+            int possibleHour = c.get(Calendar.HOUR_OF_DAY);
+            if (dndStart < dndEnd) {
+                if (possibleHour >= dndStart && possibleHour < dndEnd) {
+                    c.set(Calendar.HOUR_OF_DAY, dndEnd);
+                    c.set(Calendar.MINUTE, 0);
+                    c.set(Calendar.SECOND, 0);
+                }
+            } else {
+                if (possibleHour >= dndStart || possibleHour < dndEnd) {
+                    c.add(Calendar.DAY_OF_MONTH, 1);
+                    c.set(Calendar.HOUR_OF_DAY, dndEnd);
+                    c.set(Calendar.MINUTE, 0);
+                    c.set(Calendar.SECOND, 0);
+                }
             }
         }
 
