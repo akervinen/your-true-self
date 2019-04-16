@@ -39,3 +39,8 @@ REM slider
 aseprite -b ui-ase/slider.9.aseprite --layer background --palette palette-primary.pal --save-as ui/slider-background.9.png
 aseprite -b ui-ase/slider.9.aseprite --layer knobBefore --palette palette-primary.pal --save-as ui/slider-knobBefore.9.png
 aseprite -b ui-ase/slider.9.aseprite --layer knob --palette palette-primary.pal --save-as ui/slider-knob.9.png
+
+REM selectbox
+
+aseprite -b ui-ase/selectbox.9.aseprite --layer default --palette palette-primary.pal --save-as ui/selectbox.9.png
+aseprite -b ui-ase/selectbox.9.aseprite --layer open --palette palette-primary.pal --save-as ui/selectbox-open.9.png

@@ -114,6 +114,8 @@
       fontColor: black,
       scrollStyle: default,
       listStyle: default,
+      background: selectbox,
+      backgroundOpen: selectbox-open
     }
   },
 }
