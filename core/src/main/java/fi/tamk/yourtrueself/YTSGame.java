@@ -49,7 +49,25 @@ class YTSChallenges {
      */
     static final DailyChallenge[] DAILY_CHALLENGES = {
             new DailyChallenge("dchlStairs", Player.Stat.NONE, false),
-            new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true)
+            new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true),
+            new DailyChallenge("dchlNewSport", Player.Stat.NONE, true),
+            new DailyChallenge("dchlWalkSchool", Player.Stat.NONE, true),
+            new DailyChallenge("dchlStand", Player.Stat.NONE, false),
+            new DailyChallenge("dchlStretch", Player.Stat.NONE, false),
+            new DailyChallenge("dchlWaterBottle", Player.Stat.NONE, false),
+            new DailyChallenge("dchlShoulders", Player.Stat.NONE, false),
+            new DailyChallenge("dchlSkipping", Player.Stat.NONE, false),
+            new DailyChallenge("dchlFace2Face", Player.Stat.NONE, false),
+            new DailyChallenge("dchlNextWeek", Player.Stat.NONE, true),
+            new DailyChallenge("dchlOutside", Player.Stat.NONE, false),
+            new DailyChallenge("dchlCleaning", Player.Stat.NONE, false),
+            new DailyChallenge("dchlSquatting", Player.Stat.NONE, false),
+            new DailyChallenge("dchlMorning", Player.Stat.NONE, true),
+            new DailyChallenge("dchlAskFriend", Player.Stat.NONE, true),
+            new DailyChallenge("dchlSleep", Player.Stat.NONE, false),
+            new DailyChallenge("dchlDance", Player.Stat.NONE, false),
+            new DailyChallenge("dchlShopping", Player.Stat.NONE, true),
+            new DailyChallenge("dchlPomodoro", Player.Stat.NONE, false)
     };
 }
 

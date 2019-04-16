@@ -1,48 +1,48 @@
 
 characters.png
-size: 256,256
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 char-couchpotato
   rotate: false
-  xy: 1, 124
+  xy: 485, 69
   size: 92, 124
-  orig: 128, 128
-  offset: 24, 0
+  orig: 92, 128
+  offset: 0, 0
   index: -1
 char-enlightened
   rotate: false
-  xy: 129, 1
-  size: 72, 144
-  orig: 150, 150
-  offset: 36, 0
+  xy: 251, 1
+  size: 96, 192
+  orig: 96, 192
+  offset: 0, 0
   index: -1
 char-graceful
   rotate: false
-  xy: 197, 154
-  size: 58, 94
-  orig: 100, 100
-  offset: 22, 0
+  xy: 134, 5
+  size: 116, 188
+  orig: 116, 188
+  offset: 0, 0
   index: -1
 char-marathon
   rotate: false
-  xy: 1, 6
-  size: 60, 117
-  orig: 150, 150
-  offset: 42, 0
+  xy: 578, 21
+  size: 80, 172
+  orig: 80, 200
+  offset: 0, 0
   index: -1
 char-stronkman
   rotate: false
-  xy: 94, 146
-  size: 102, 102
-  orig: 150, 150
-  offset: 21, 0
+  xy: 348, 57
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
   index: -1
 char-thespider
   rotate: false
-  xy: 62, 31
-  size: 66, 92
-  orig: 100, 100
-  offset: 2, 4
+  xy: 1, 9
+  size: 132, 184
+  orig: 132, 184
+  offset: 0, 0
   index: -1
