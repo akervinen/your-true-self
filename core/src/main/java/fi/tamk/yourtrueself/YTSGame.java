@@ -25,25 +25,13 @@ import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
 
 /**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ * Container class for the game's challenges
  */
-public class YTSGame extends Game {
-    /**
-     * List of characters in the game.
-     */
-    public static final Character[] CHARACTERS = {
-            new Character("couchpotato", Player.Stat.NONE),
-            new Character("stronkman", Player.Stat.STRENGTH),
-            new Character("enlightened", Player.Stat.FLEXIBILITY),
-            new Character("thespider", Player.Stat.AGILITY),
-            new Character("marathon", Player.Stat.STAMINA),
-            new Character("graceful", Player.Stat.BALANCE)
-    };
-
+class YTSChallenges {
     /**
      * List of challenges in the game.
      */
-    public static final Challenge[] CHALLENGES = {
+    static final Challenge[] CHALLENGES = {
             new Challenge("chlStrPushups", Player.Stat.STRENGTH, 8),
             new Challenge("chlStrSquats", Player.Stat.STRENGTH, 6),
             new Challenge("chlStrBagCurl", Player.Stat.STRENGTH, 10),
@@ -59,9 +47,26 @@ public class YTSGame extends Game {
     /**
      * List of daily challenges in the game.
      */
-    public static final DailyChallenge[] DAILY_CHALLENGES = {
+    static final DailyChallenge[] DAILY_CHALLENGES = {
             new DailyChallenge("dchlStairs", Player.Stat.NONE, false),
             new DailyChallenge("dchlLongWalk", Player.Stat.NONE, true)
+    };
+}
+
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
+public class YTSGame extends Game {
+    /**
+     * List of characters in the game.
+     */
+    public static final Character[] CHARACTERS = {
+            new Character("couchpotato", Player.Stat.NONE),
+            new Character("stronkman", Player.Stat.STRENGTH),
+            new Character("enlightened", Player.Stat.FLEXIBILITY),
+            new Character("thespider", Player.Stat.AGILITY),
+            new Character("marathon", Player.Stat.STAMINA),
+            new Character("graceful", Player.Stat.BALANCE)
     };
 
     /**
@@ -412,7 +417,7 @@ public class YTSGame extends Game {
      */
     private void setCurrentChallenge(String challengeId) {
         if (challengeId != null) {
-            for (Challenge chl : CHALLENGES) {
+            for (Challenge chl : YTSChallenges.CHALLENGES) {
                 if (chl.getId().equals(challengeId)) {
                     setCurrentChallenge(chl);
                 }
@@ -498,7 +503,7 @@ public class YTSGame extends Game {
         // If only one main stat challenge exists, force-enable off-stat challenges to avoid
         // an infinite loop.
         int mainStatChls = 0;
-        for (Challenge chl : CHALLENGES) {
+        for (Challenge chl : YTSChallenges.CHALLENGES) {
             if (chl.mainStat == chr.getMainStat()) {
                 mainStatChls += 1;
             }
@@ -509,13 +514,13 @@ public class YTSGame extends Game {
 
         // Avoid getting the exact same challenge as last
         do {
-            idx = MathUtils.random(0, CHALLENGES.length - 1);
-            isOffStat = CHALLENGES[idx].mainStat != chr.getMainStat();
+            idx = MathUtils.random(0, YTSChallenges.CHALLENGES.length - 1);
+            isOffStat = YTSChallenges.CHALLENGES[idx].mainStat != chr.getMainStat();
         } while ((isOffStat && !pickOffStat) ||
                 (previousChallenge != null &&
-                        CHALLENGES[idx].getId().equals(previousChallenge.getId())));
+                        YTSChallenges.CHALLENGES[idx].getId().equals(previousChallenge.getId())));
 
-        return CHALLENGES[idx];
+        return YTSChallenges.CHALLENGES[idx];
     }
 
     /**
@@ -524,8 +529,8 @@ public class YTSGame extends Game {
      * @return random daily challenge
      */
     private DailyChallenge getNextDaily() {
-        int idx = MathUtils.random(0, DAILY_CHALLENGES.length - 1);
-        return DAILY_CHALLENGES[idx];
+        int idx = MathUtils.random(0, YTSChallenges.DAILY_CHALLENGES.length - 1);
+        return YTSChallenges.DAILY_CHALLENGES[idx];
     }
 
     /**
@@ -623,7 +628,7 @@ public class YTSGame extends Game {
      */
     private void setCurrentDaily(String challengeId) {
         if (challengeId != null) {
-            for (DailyChallenge chl : DAILY_CHALLENGES) {
+            for (DailyChallenge chl : YTSChallenges.DAILY_CHALLENGES) {
                 if (chl.getId().equals(challengeId)) {
                     setCurrentDaily(chl);
                 }
