@@ -67,11 +67,13 @@
     },
     with-bg: {
       font: default,
-      fontColor: black
+      fontColor: white,
+      background: primary
     },
     title-with-bg: {
       font: title,
-      fontColor: black
+      fontColor: white,
+      background: primary
     }
   },
   TextButtonStyle: {
