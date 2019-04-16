@@ -28,16 +28,54 @@ import fi.tamk.yourtrueself.screens.MainScreen;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class YTSGame extends Game {
+    /**
+     * Name of the preferences file.
+     */
     public static final String PREF_NAME = "YTSPreferences";
 
+    /**
+     * Language preference key.
+     */
     public static final String PREF_LANGUAGE = "lang";
+
+    /**
+     * Music volume preference key.
+     */
     public static final String PREF_MUSIC = "music";
+
+    /**
+     * Default value of music volume.
+     */
     public static final float PREF_MUSIC_DEFAULT = 1.0f;
+
+    /**
+     * Sound volume preference key.
+     */
     public static final String PREF_SOUND = "sound";
+
+    /**
+     * Default value of sound volume.
+     */
     public static final float PREF_SOUND_DEFAULT = 1.0f;
+
+    /**
+     * DND start time preference key.
+     */
     public static final String PREF_DND_START = "noBotherStart";
+
+    /**
+     * Default value of DND start time.
+     */
     public static final int PREF_DND_START_DEFAULT = 22;
+
+    /**
+     * DND end time preference key.
+     */
     public static final String PREF_DND_END = "noBotherEnd";
+
+    /**
+     * DND end time default value.
+     */
     public static final int PREF_DND_END_DEFAULT = 8;
 
     private static final String PREF_CHARACTER = "playerCharacter";
@@ -91,6 +129,9 @@ public class YTSGame extends Game {
             new TieredAchievement("ach.Daily", 10, new int[]{1, 3, 6, 10}),
     };
 
+    /**
+     * Chance of picking an off-stat challenge.
+     */
     private static final float OFF_STAT_CHANCE = 0.3f;
 
     /**
@@ -121,7 +162,7 @@ public class YTSGame extends Game {
     /**
      * Player's information and stats.
      */
-    private final Player player = new Player(achievementManager);
+    private final Player player = new Player();
 
     /**
      * Last completed challenge, used to avoid generating the same challenge twice in a row.
@@ -158,8 +199,8 @@ public class YTSGame extends Game {
      */
     private ChallengeCompletedListener challengeCompletedListener;
     private Music mainTheme;
-    Map<String,Sound> soundMap = new HashMap<String,Sound>();
-    float soundVolume = PREF_SOUND_DEFAULT;
+    private Map<String, Sound> soundMap = new HashMap<String, Sound>();
+    private float soundVolume = PREF_SOUND_DEFAULT;
 
     /**
      * Set release mode. Release mode increases challenge delays to proper values.
@@ -312,16 +353,26 @@ public class YTSGame extends Game {
     /**
      * Set volume of the background music.
      *
-     * @param volume new music volume
+     * @param volume new music volume, 0 = mute, 1 = full
      */
     public void setMusicVolume(float volume) {
         mainTheme.setVolume(volume);
     }
 
+    /**
+     * Set volume of sound effects.
+     *
+     * @param volume new sound volume, 0 = mute, 1 = full
+     */
     public void setSoundVolume(float volume) {
         soundVolume = volume;
     }
 
+    /**
+     * Get current sound volume.
+     *
+     * @return current sound volume
+     */
     public float getSoundVolume() {
         return soundVolume;
     }
@@ -349,6 +400,7 @@ public class YTSGame extends Game {
      * i.e. if it's one of the currently active challenges.
      *
      * @param chl challenge to complete
+     * @param skipped whether challenge was skipped
      */
     public void completeChallenge(Challenge chl, boolean skipped) {
         // Check if challenge is valid (either normal, daily or MP challenge)

@@ -9,6 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  * Custom Skin loader that creates a YTSSkin.
  */
 public class YTSSkinLoader extends SkinLoader {
+    /**
+     * Create a custom skin object.
+     *
+     * @param resolver file resolver to use
+     */
     public YTSSkinLoader(FileHandleResolver resolver) {
         super(resolver);
     }
