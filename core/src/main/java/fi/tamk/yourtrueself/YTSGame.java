@@ -99,7 +99,27 @@ class YTSChallenges {
             new Challenge("chlFlxHandBreathing", Player.Stat.FLEXIBILITY),
             new Challenge("chlFlxWarrior", Player.Stat.FLEXIBILITY),
             new Challenge("chlFlxCobra", Player.Stat.FLEXIBILITY),
-            new Challenge("chlFlxDownwardDog", Player.Stat.FLEXIBILITY)
+            new Challenge("chlFlxDownwardDog", Player.Stat.FLEXIBILITY),
+            new Challenge("chlAgiClimbTree", Player.Stat.AGILITY),
+            new Challenge("chlAgiPlankClapping", Player.Stat.AGILITY),
+            new Challenge("chlAgiTwoSteps", Player.Stat.AGILITY),
+            new Challenge("chlAgiCartwheel", Player.Stat.AGILITY),
+            new Challenge("chlAgiHopscotch", Player.Stat.AGILITY),
+            new Challenge("chlAgiRollForward", Player.Stat.AGILITY),
+            new Challenge("chlAgiPrecisionJump", Player.Stat.AGILITY),
+            new Challenge("chlAgiHandFootSwitch", Player.Stat.AGILITY),
+            new Challenge("chlAgiPlayCatch", Player.Stat.AGILITY),
+            new Challenge("chlAgiLetkajenkka", Player.Stat.AGILITY),
+            new Challenge("chlAgiZigzag", Player.Stat.AGILITY),
+            new Challenge("chlAgiSpider", Player.Stat.AGILITY),
+            new Challenge("chlAgiFouette", Player.Stat.AGILITY),
+            new Challenge("chlAgiWallJump", Player.Stat.AGILITY),
+            new Challenge("chlAgiTowelPull", Player.Stat.AGILITY),
+            new Challenge("chlAgiWallWalk", Player.Stat.AGILITY),
+            new Challenge("chlAgiCrawl", Player.Stat.AGILITY),
+            new Challenge("chlAgiRollBackward", Player.Stat.AGILITY),
+            new Challenge("chlAgiLeap", Player.Stat.AGILITY),
+            new Challenge("chlAgiFalling", Player.Stat.AGILITY)
     };
 
     /**
