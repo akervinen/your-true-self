@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -34,14 +33,14 @@ public class YTSWindow extends Window {
     public YTSWindow(String title, boolean addBackBtn, Skin skin, String styleName) {
         super(title, skin, styleName);
 
-        this.setMovable(false);
+        setMovable(false);
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         if (addBackBtn) {
             Label titleLbl = getTitleLabel();
-            backBtn = new TextButton(bundle.get("back"), skin, "maroon");
-            backBtn.pad(dp(8)).addListener(new ChangeListener() {
+            backBtn = new TextButton(bundle.get("back"), skin, "bad");
+            backBtn.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     remove();
@@ -50,14 +49,17 @@ public class YTSWindow extends Window {
             getTitleTable().clearChildren();
             getTitleTable().add(backBtn)
                     .left()
-                    .padLeft(dp(1))
-                    .padRight(dp(10))
-                    .height(Value.percentHeight(.9f, getTitleTable()));
+                    .padRight(dp(10));
             getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
         }
 
-        padLeft(dp(5));
-        padRight(dp(5));
+        if (Gdx.graphics.getDensity() > 2.5) {
+            padTop(56 * 3);
+        } else if (Gdx.graphics.getDensity() > 1.5) {
+            padTop(56 * 2);
+        } else {
+            padTop(56);
+        }
 
         addListener(new InputListener() {
             @Override
@@ -105,21 +107,5 @@ public class YTSWindow extends Window {
      */
     static float dp(float px) {
         return YTSGame.dp(px);
-    }
-
-    /**
-     * Get window style based on display DPI.
-     *
-     * @param style style color ("default" or "maroon")
-     * @return name of the style to use
-     */
-    static String getWindowStyle(String style) {
-        if (style.equals("default")) {
-            return Gdx.graphics.getPpiY() > 200 ? "large" : "default";
-        } else if (style.equals("maroon")) {
-            return Gdx.graphics.getPpiY() > 200 ? "maroon-large" : "maroon";
-        }
-
-        return "default";
     }
 }

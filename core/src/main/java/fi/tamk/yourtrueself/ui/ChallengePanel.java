@@ -28,28 +28,28 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("challengeTitle"), false, skin, getWindowStyle("default"));
+        super(ytsGame.getBundle().get("challengeTitle"), false, skin, "default");
 
         this.game = ytsGame;
 
         final Challenge challenge = chl;
 
         this.setMovable(false);
-        this.padLeft(dp(20)).padRight(dp(20));
+        this.padLeft(dp(10)).padRight(dp(10));
 
         // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
         this.add(chlText)
-                .padTop(dp(15))
+                .padTop(dp(5))
                 .padBottom(dp(15))
                 .grow()
                 .colspan(2)
                 .row();
 
         // Button to complete challenge
-        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
-        doneButton.pad(dp(15));
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
+//        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -68,8 +68,8 @@ public final class ChallengePanel extends YTSWindow {
         });
 
         // Button to skip challenge
-        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "orange-small");
-        skipButton.pad(dp(15));
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "bad");
+//        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
         skipButton.addListener(new ChangeListener() {
@@ -98,20 +98,20 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(DailyChallenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, getWindowStyle("maroon"));
+        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, "secondary");
 
         this.game = ytsGame;
 
         final Challenge challenge = chl;
 
         this.setMovable(false);
-        this.padLeft(dp(20)).padRight(dp(20));
+        this.padLeft(dp(10)).padRight(dp(10));
 
         // Challenge text
         Label chlText = new Label(game.getBundle().format(chl.getId(), chl.getModifier()), skin);
         chlText.setWrap(true);
         this.add(chlText)
-                .padTop(dp(15))
+                .padTop(dp(5))
                 .padBottom(dp(15))
                 .colspan(2)
                 .grow()
@@ -119,8 +119,8 @@ public final class ChallengePanel extends YTSWindow {
 
 
         // Button to complete challenge
-        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "orange-small");
-        doneButton.pad(dp(15));
+        TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
+//        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -139,8 +139,8 @@ public final class ChallengePanel extends YTSWindow {
         });
 
         // Button to skip challenge
-        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "orange-small");
-        skipButton.pad(dp(15));
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "bad");
+//        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
         skipButton.addListener(new ChangeListener() {
@@ -157,15 +157,5 @@ public final class ChallengePanel extends YTSWindow {
                 addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
             }
         });
-    }
-
-    /**
-     * Convert given pixel value to dp (Density Independent Pixel) value.
-     *
-     * @param px pixel value to convert
-     * @return given pixel value in dp
-     */
-    static float dp(float px) {
-        return YTSGame.dp(px);
     }
 }

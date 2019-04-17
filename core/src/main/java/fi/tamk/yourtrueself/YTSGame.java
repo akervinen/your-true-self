@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -123,7 +124,7 @@ public class YTSGame extends Game {
     /**
      * Path to the Scene2D skin to use.
      */
-    private static final String SKIN_PATH = "ui/orange/skin.json";
+    private static final String SKIN_PATH = "ui/skin.json";
 
     private final AssetManager assetManager = new AssetManager();
     private I18NBundle bundle;
@@ -212,7 +213,15 @@ public class YTSGame extends Game {
 
         // Add assets to load
         assetManager.load("characters.atlas", TextureAtlas.class);
-        assetManager.load(SKIN_PATH, Skin.class);
+
+        String atlasPath = "ui/skin-mdpi.atlas";
+        if (Gdx.graphics.getDensity() > 2.5) {
+            atlasPath = "ui/skin-xxhdpi.atlas";
+        } else if (Gdx.graphics.getDensity() > 1.5) {
+            atlasPath = "ui/skin-xhdpi.atlas";
+        }
+
+        assetManager.load(SKIN_PATH, Skin.class, new SkinLoader.SkinParameter(atlasPath));
 
         assetManager.load("YourTrueSelf_MainthemeOGG.ogg", Music.class);
 

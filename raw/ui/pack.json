@@ -1,0 +1,22 @@
+{
+  duplicatePadding: false,
+  paddingX: 1,
+  paddingY: 1,
+  stripWhitespaceX: true,
+  stripWhitespaceY: true,
+  scale: [
+    1,
+    2,
+    3
+  ],
+  scaleSuffix: [
+    "-mdpi",
+    "-xhdpi",
+    "-xxhdpi"
+  ],
+  scaleResampling: [
+    nearest,
+    nearest,
+    nearest
+  ]
+}

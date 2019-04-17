@@ -23,11 +23,11 @@ public final class CharacterMainPanel extends Table {
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
-        this.background(skin.getDrawable("panel-orange"));
+        this.background(skin.getDrawable("panel-primary"));
 
         this.defaults().grow();
 
-        Label name = new Label(bundle.get(characterId), skin, "white-bg");
+        Label name = new Label(bundle.get(characterId), skin, "minititle-bg");
         name.setAlignment(Align.center);
         CharacterImage img = new CharacterImage(characterId, skin);
 

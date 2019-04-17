@@ -1,6 +1,5 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,7 +18,7 @@ public class CreditsDisplay extends YTSWindow {
      * @param skin skin to use
      */
     public CreditsDisplay(YTSGame game, Skin skin) {
-        super(game.getBundle().get("credits"), true, skin, Gdx.graphics.getPpiY() > 200 ? "large" : "default");
+        super(game.getBundle().get("credits"), true, skin, "default");
 
         this.defaults().grow();
         this.setModal(true);
@@ -28,6 +27,7 @@ public class CreditsDisplay extends YTSWindow {
         creditsText.setWrap(true);
 
         ScrollPane scroller = new ScrollPane(creditsText, skin, "no-bg");
+        scroller.setOverscroll(false, false);
         scroller.setScrollingDisabled(true, false);
         scroller.setFadeScrollBars(false);
 

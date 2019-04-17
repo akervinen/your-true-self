@@ -17,6 +17,8 @@ import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterSelectPanel;
 
+import static fi.tamk.yourtrueself.YTSGame.dp;
+
 /**
  * Character selection screen.
  */
@@ -43,7 +45,7 @@ public final class CharacterSelectScreen implements Screen {
         main.defaults().pad(dp(5)).grow();
 
         Label title = new Label(game.getBundle().get("chooseYourTrueSelf"),
-                uiSkin, "title-white-bg");
+                uiSkin, "title-with-bg");
         title.setAlignment(Align.center);
 
         main.add(title).height(Value.percentHeight(.1f, main)).row();
@@ -95,23 +97,13 @@ public final class CharacterSelectScreen implements Screen {
     }
 
     /**
-     * Convert given pixel value to dp (Density Independent Pixel) value.
-     *
-     * @param px pixel value to convert
-     * @return given pixel value in dp
-     */
-    static float dp(float px) {
-        return YTSGame.dp(px);
-    }
-
-    /**
      * Render screen.
      *
      * @param delta time passed since last render call in seconds
      */
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(201 / 255f, 221 / 255f, 255 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);

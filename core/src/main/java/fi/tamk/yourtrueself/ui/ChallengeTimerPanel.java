@@ -35,12 +35,12 @@ public class ChallengeTimerPanel extends YTSWindow {
         super(ytsGame.getBundle().get(daily ? "dailyTimerTitle" : "challengeTimerTitle"),
                 false,
                 skin,
-                getWindowStyle(daily ? "maroon" : "default"));
+                daily ? "secondary" : "default");
 
         this.game = ytsGame;
         isDaily = daily;
 
-        this.padLeft(dp(20)).padRight(dp(20));
+        this.padLeft(dp(10)).padRight(dp(10));
 
         timerText = new Label("", skin);
         timerText.setWrap(true);
@@ -94,7 +94,7 @@ public class ChallengeTimerPanel extends YTSWindow {
         changeStyle.setRunnable(new Runnable() {
             @Override
             public void run() {
-                timerText.setStyle(getSkin().get("title-black", Label.LabelStyle.class));
+                timerText.setStyle(getSkin().get("title", Label.LabelStyle.class));
                 timerText.setText(bundle.get("challengeCongratulation"));
             }
         });

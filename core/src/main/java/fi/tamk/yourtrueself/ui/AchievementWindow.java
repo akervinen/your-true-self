@@ -16,7 +16,7 @@ public class AchievementWindow extends YTSWindow {
     private VerticalGroup achievementList;
 
     public AchievementWindow(YTSGame ytsGame, Skin skin) {
-        super(ytsGame.getBundle().get("achievements"), true, skin, getWindowStyle("default"));
+        super(ytsGame.getBundle().get("achievements"), true, skin, "default");
 
         setModal(true);
 
@@ -26,11 +26,11 @@ public class AchievementWindow extends YTSWindow {
             achievementList.addActor(new AchievementPanel(ach, skin));
         }
 
-        achievementList.grow().space(dp(20));
+        achievementList.grow().space(dp(10));
 
         ScrollPane scroller = new ScrollPane(achievementList);
 
-        add(scroller).grow();
+        add(scroller).grow().padTop(dp(5));
 
         pack();
     }
@@ -77,7 +77,7 @@ class AchievementPanel extends Table {
 
         this.achievement = achievement;
 
-        this.background(skin.getDrawable("panel-orange"));
+        this.background(skin.getDrawable("panel-primary"));
 
         left();
 
