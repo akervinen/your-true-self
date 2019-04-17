@@ -62,7 +62,27 @@ class YTSChallenges {
             new Challenge("chlNonSway", Player.Stat.NONE),
             new Challenge("chlNonListen", Player.Stat.NONE),
             new Challenge("chlNonStand", Player.Stat.NONE),
-            new Challenge("chlNonFruit", Player.Stat.NONE)
+            new Challenge("chlNonFruit", Player.Stat.NONE),
+            new Challenge("chlStrPushups", Player.Stat.STRENGTH),
+            new Challenge("chlStrSquats", Player.Stat.STRENGTH),
+            new Challenge("chlStrBiceps", Player.Stat.STRENGTH),
+            new Challenge("chlStrLiftBag", Player.Stat.STRENGTH),
+            new Challenge("chlStrLiftFriend", Player.Stat.STRENGTH),
+            new Challenge("chlStrLiftSelf", Player.Stat.STRENGTH),
+            new Challenge("chlStrDip", Player.Stat.STRENGTH),
+            new Challenge("chlStrAbsHold", Player.Stat.STRENGTH, 1),
+            new Challenge("chlStrPushPalms", Player.Stat.STRENGTH),
+            new Challenge("chlStrSuperhero", Player.Stat.STRENGTH),
+            new Challenge("chlStrLunges", Player.Stat.STRENGTH, 10),
+            new Challenge("chlStrMoveWall", Player.Stat.STRENGTH),
+            new Challenge("chlStrElbowLift", Player.Stat.STRENGTH),
+            new Challenge("chlStrBicycleCrunch", Player.Stat.STRENGTH),
+            new Challenge("chlStrSideways", Player.Stat.STRENGTH),
+            new Challenge("chlStrPlank", Player.Stat.STRENGTH, 1),
+            new Challenge("chlStrThighSqueeze", Player.Stat.STRENGTH),
+            new Challenge("chlStrLegHold", Player.Stat.STRENGTH, 1),
+            new Challenge("chlStrLiftSide", Player.Stat.STRENGTH),
+            new Challenge("chlStrArmWrestle", Player.Stat.STRENGTH)
     };
 
     /**
