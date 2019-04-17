@@ -100,7 +100,7 @@ public final class StatsDisplay extends Table {
         }
 
 
-        Label name = new Label("Your stats", skin, "minititle-bg");
+        Label name = new Label(bundle.get("yourStats"), skin, "minititle-bg");
         name.setAlignment(Align.center);
 
         add(name).colspan(2).top().grow(); //.height(Value.percentHeight(.1f, this));
