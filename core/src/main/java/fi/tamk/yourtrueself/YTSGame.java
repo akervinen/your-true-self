@@ -41,7 +41,27 @@ class YTSChallenges {
             new Challenge("chlAgiHang", Player.Stat.AGILITY),
             new Challenge("chlStaPlank", Player.Stat.STAMINA, 10),
             new Challenge("chlBalOneFoot", Player.Stat.BALANCE, 10),
-            new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15)
+            new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15),
+            new Challenge("chlNonFridge", Player.Stat.NONE),
+            new Challenge("chlNonVacuum", Player.Stat.NONE),
+            new Challenge("chlNonChair", Player.Stat.NONE),
+            new Challenge("chlNonCrunch", Player.Stat.NONE),
+            new Challenge("chlNonPushup", Player.Stat.NONE),
+            new Challenge("chlNonSquat", Player.Stat.NONE),
+            new Challenge("chlNonLowerLegs", Player.Stat.NONE),
+            new Challenge("chlNonHands", Player.Stat.NONE),
+            new Challenge("chlNonNeck", Player.Stat.NONE),
+            new Challenge("chlNonFlap", Player.Stat.NONE),
+            new Challenge("chlNonNextFloor", Player.Stat.NONE),
+            new Challenge("chlNonRemote", Player.Stat.NONE),
+            new Challenge("chlNonShoulders", Player.Stat.NONE),
+            new Challenge("chlNonWrists", Player.Stat.NONE),
+            new Challenge("chlNonShake", Player.Stat.NONE),
+            new Challenge("chlNonLaugh", Player.Stat.NONE),
+            new Challenge("chlNonSway", Player.Stat.NONE),
+            new Challenge("chlNonListen", Player.Stat.NONE),
+            new Challenge("chlNonStand", Player.Stat.NONE),
+            new Challenge("chlNonFruit", Player.Stat.NONE)
     };
 
     /**
