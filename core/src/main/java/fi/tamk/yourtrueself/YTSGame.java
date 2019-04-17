@@ -183,10 +183,6 @@ public class YTSGame extends Game {
         UI Stuff
      */
 
-    public static boolean isHighDPI() {
-        return Gdx.graphics.getDensity() > 1.5;
-    }
-
     /**
      * Load game assets.
      */

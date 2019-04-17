@@ -17,6 +17,8 @@ import fi.tamk.yourtrueself.Character;
 import fi.tamk.yourtrueself.YTSGame;
 import fi.tamk.yourtrueself.ui.CharacterSelectPanel;
 
+import static fi.tamk.yourtrueself.YTSGame.dp;
+
 /**
  * Character selection screen.
  */
@@ -92,16 +94,6 @@ public final class CharacterSelectScreen implements Screen {
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
-    }
-
-    /**
-     * Convert given pixel value to dp (Density Independent Pixel) value.
-     *
-     * @param px pixel value to convert
-     * @return given pixel value in dp
-     */
-    static float dp(float px) {
-        return YTSGame.dp(px);
     }
 
     /**

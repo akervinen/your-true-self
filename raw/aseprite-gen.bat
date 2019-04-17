@@ -34,6 +34,9 @@ aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-secondary.as
 aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-good.ase --save-as ui/button-good.9.png
 aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-good.ase --save-as ui/button-good-down.9.png
 
+aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-bad.ase --save-as ui/button-bad.9.png
+aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-bad.ase --save-as ui/button-bad-down.9.png
+
 aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-misc.ase --save-as ui/button-misc.9.png
 aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-misc.ase --save-as ui/button-misc-down.9.png
 

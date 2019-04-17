@@ -36,15 +36,6 @@ final class StatBar extends ProgressBar {
         this.player = player;
         this.stat = stat;
 
-        ProgressBarStyle style = this.getStyle();
-        // Change bar height
-//        if (style.knobBefore != null) {
-//            style.knobBefore.setMinHeight(dp(16));
-//        }
-//        if (style.background != null) {
-//            style.background.setMinHeight(dp(16));
-//        }
-
         update();
     }
 
@@ -97,7 +88,7 @@ public final class StatsDisplay extends Table {
     public StatsDisplay(Player player, boolean background, Skin skin) {
         super(skin);
 
-        padLeft(dp(10));
+        padLeft(dp(5));
         padRight(getPadLeft());
 
         defaults().space(dp(10));
@@ -105,15 +96,22 @@ public final class StatsDisplay extends Table {
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
         if (background) {
-            this.background(skin.getDrawable("panel-primary"));
+            background(skin.getDrawable("panel-primary"));
         }
 
+
+        Label name = new Label("Your stats", skin, "minititle-bg");
+        name.setAlignment(Align.center);
+
+        add(name).colspan(2).top().grow(); //.height(Value.percentHeight(.1f, this));
+        row();
+
         for (int i = 0; i < Player.STAT_ENUMS.length; i++) {
-            this.add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left();
+            add(new Label(bundle.get(Player.STAT_NAMES[i]), skin)).left();
 
             bars[i] = new StatBar(player, Player.STAT_ENUMS[i], skin);
-            this.add(bars[i]).grow();
-            this.row();
+            add(bars[i]).grow();
+            row();
         }
     }
 

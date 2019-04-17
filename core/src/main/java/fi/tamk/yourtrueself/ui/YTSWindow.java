@@ -39,7 +39,7 @@ public class YTSWindow extends Window {
 
         if (addBackBtn) {
             Label titleLbl = getTitleLabel();
-            backBtn = new TextButton(bundle.get("back"), skin, "secondary");
+            backBtn = new TextButton(bundle.get("back"), skin, "bad");
             backBtn.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {

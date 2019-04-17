@@ -68,7 +68,7 @@ public final class ChallengePanel extends YTSWindow {
         });
 
         // Button to skip challenge
-        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "secondary");
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "bad");
 //        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
@@ -139,7 +139,7 @@ public final class ChallengePanel extends YTSWindow {
         });
 
         // Button to skip challenge
-        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "secondary");
+        TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "bad");
 //        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
@@ -157,15 +157,5 @@ public final class ChallengePanel extends YTSWindow {
                 addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
             }
         });
-    }
-
-    /**
-     * Convert given pixel value to dp (Density Independent Pixel) value.
-     *
-     * @param px pixel value to convert
-     * @return given pixel value in dp
-     */
-    static float dp(float px) {
-        return YTSGame.dp(px);
     }
 }

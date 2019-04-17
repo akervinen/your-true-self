@@ -4,13 +4,17 @@
       dpSize: 20,
       file: ui/Roboto-Regular.ttf
     },
+    default-medium: {
+      dpSize: 20,
+      file: ui/Roboto-Medium.ttf
+    },
     medium: {
       dpSize: 26,
-      file: ui/Roboto-Regular.ttf
+      file: ui/Roboto-Medium.ttf
     },
     title: {
       dpSize: 32,
-      file: ui/Roboto-Regular.ttf
+      file: ui/Roboto-Bold.ttf
     }
   },
   Color: {
@@ -64,6 +68,16 @@
       font: title,
       fontColor: white,
       background: primary
+    },
+    minititle-bg: {
+      font: default-medium,
+      fontColor: white,
+      background: primary
+    },
+    minititle-bg-secondary: {
+      font: default-medium,
+      fontColor: black,
+      background: secondary
     }
   },
   TextButtonStyle: {
@@ -86,6 +100,13 @@
       fontColor: black,
       up: button-good,
       down: button-good-down,
+      pressedOffsetY: -4
+    },
+    bad: {
+      font: default,
+      fontColor: black,
+      up: button-bad,
+      down: button-bad-down,
       pressedOffsetY: -4
     },
     misc: {

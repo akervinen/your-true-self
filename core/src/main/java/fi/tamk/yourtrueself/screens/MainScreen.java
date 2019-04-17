@@ -30,15 +30,15 @@ import fi.tamk.yourtrueself.ui.CharacterMainPanel;
 import fi.tamk.yourtrueself.ui.PrefsDisplay;
 import fi.tamk.yourtrueself.ui.StatsDisplay;
 
+import static fi.tamk.yourtrueself.YTSGame.dp;
+
 /**
  * Main screen of the game. Player spends almost all of their time here.
  */
 public class MainScreen implements Screen {
     private final YTSGame game;
-
-    private Skin uiSkin;
-
     private final Stage stage;
+    private Skin uiSkin;
     private Table challengeTable;
     private PrefsDisplay prefsDisplay;
     private StatsDisplay statsDisplay;
@@ -74,7 +74,7 @@ public class MainScreen implements Screen {
         table.setFillParent(true);
         table.pad(5);
 
-        table.defaults().width(Value.percentWidth(.45f, table));
+        table.defaults().width(Value.percentWidth(.46f, table));
 
         prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
         currentChallengeTimer = new ChallengeTimerPanel(false, game, uiSkin);
@@ -115,7 +115,7 @@ public class MainScreen implements Screen {
         // - Main screen player info (image and stats)
 
         Table playerInfo = new Table();
-        playerInfo.defaults().grow();
+        playerInfo.defaults().grow().space(dp(20));
 
         // - Challenge list
 
@@ -213,22 +213,12 @@ public class MainScreen implements Screen {
     }
 
     /**
-     * Convert given pixel value to dp (Density Independent Pixel) value.
-     *
-     * @param px pixel value to convert
-     * @return given pixel value in dp
-     */
-    static float dp(float px) {
-        return YTSGame.dp(px);
-    }
-
-    /**
      * Clear challenge list and add active challenges if some exist.
      */
     private void refreshChallengeList() {
         challengeTable.clearChildren();
         challengeTable.top();
-        challengeTable.defaults().top().growX().padBottom(dp(40));
+        challengeTable.defaults().top().growX().space(dp(20));
 
         currentDaily = game.getCurrentDaily();
         if (currentDaily != null) {
@@ -239,10 +229,10 @@ public class MainScreen implements Screen {
 
         currentChallenge = game.getCurrentChallenge();
         if (currentChallenge != null) {
-            challengeTable.row().padTop(dp(40));
+            challengeTable.row();
             challengeTable.add(new ChallengePanel(currentChallenge, game, uiSkin));
         } else {
-            challengeTable.row().padTop(dp(40));
+            challengeTable.row();
             challengeTable.add(currentChallengeTimer);
         }
     }

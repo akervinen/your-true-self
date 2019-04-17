@@ -27,7 +27,7 @@ public final class CharacterMainPanel extends Table {
 
         this.defaults().grow();
 
-        Label name = new Label(bundle.get(characterId), skin, "with-bg");
+        Label name = new Label(bundle.get(characterId), skin, "minititle-bg");
         name.setAlignment(Align.center);
         CharacterImage img = new CharacterImage(characterId, skin);
 
