@@ -33,9 +33,6 @@ class YTSChallenges {
      * List of challenges in the game.
      */
     static final Challenge[] CHALLENGES = {
-            new Challenge("chlStrPushups", Player.Stat.STRENGTH, 8),
-            new Challenge("chlStrSquats", Player.Stat.STRENGTH, 6),
-            new Challenge("chlStrBagCurl", Player.Stat.STRENGTH, 10),
             new Challenge("chlFlxStretch", Player.Stat.FLEXIBILITY),
             new Challenge("chlFlxToes", Player.Stat.FLEXIBILITY, 8),
             new Challenge("chlFlxClaspHands", Player.Stat.FLEXIBILITY, 5),
