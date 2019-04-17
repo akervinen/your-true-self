@@ -4,6 +4,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -61,41 +62,12 @@ class VolumeSlider extends Slider {
                 if (prefName.equals(DefaultPreferences.PREF_MUSIC)) {
                     game.setMusicVolume(getValue());
                     game.playSound("success");
-                }
-                else {
+                } else {
                     game.setSoundVolume(getValue());
                     game.playSound("success");
                 }
             }
         });
-    }
-
-    /**
-     * Edit the given Slider style for better scaling.
-     *
-     * @param style Style to edit
-     */
-    static void changeStyle(SliderStyle style) {
-        // Change bar height (otherwise it's however many pixels the assets are high)
-//        Drawable[] knobs = new Drawable[]{
-//                style.knob, style.knobAfter, style.knobOver, style.knobDown, style.disabledKnob,
-//                style.disabledKnobAfter
-//        };
-//
-//        Drawable[] sliderGfx = new Drawable[]{
-//                style.background, style.disabledBackground, style.knobBefore, style.disabledKnobBefore
-//        };
-//
-//        for (Drawable d : knobs) {
-//            if (d == null) continue;
-//            float ratio = (YTSGame.dp(32) / d.getMinHeight());
-//            d.setMinHeight((int) (d.getMinHeight() * ratio));
-//            d.setMinWidth((int) (d.getMinWidth() * ratio));
-//        }
-//        for (Drawable d : sliderGfx) {
-//            if (d == null) continue;
-//            d.setMinHeight(YTSGame.dp(26));
-//        }
     }
 
     /**
@@ -105,11 +77,6 @@ class VolumeSlider extends Slider {
         preferences.putFloat(prefName, getValue());
         preferences.flush();
     }
-//
-//    @Override
-//    public float getMinHeight() {
-//        return YTSGame.dp(40);
-//    }
 }
 
 /**
@@ -130,11 +97,11 @@ public class PrefsDisplay extends YTSWindow {
     /**
      * Create new preferences window.
      *
-     * @param prefs preferences object to use
-     * @param skin skin to use
+     * @param prefs   preferences object to use
+     * @param skin    skin to use
      * @param ytsGame game object
      */
-    public PrefsDisplay(Preferences prefs, Skin skin, YTSGame ytsGame) {
+    public PrefsDisplay(final Preferences prefs, Skin skin, YTSGame ytsGame) {
         super(ytsGame.getBundle().get("prefs"), true, skin, "default");
 
         this.game = ytsGame;
@@ -147,21 +114,33 @@ public class PrefsDisplay extends YTSWindow {
 
         defaults().grow().minWidth(Value.percentWidth(.45f, this));
 
-        VolumeSlider.changeStyle(skin.get("default-horizontal", Slider.SliderStyle.class));
-
         lang = prefs.getString(DefaultPreferences.PREF_LANGUAGE, "en");
         noBotherStart = prefs.getInteger(DefaultPreferences.PREF_DND_START, DefaultPreferences.PREF_DND_START_DEFAULT);
         noBotherEnd = prefs.getInteger(DefaultPreferences.PREF_DND_END, DefaultPreferences.PREF_DND_END_DEFAULT);
 
         addSetting("musicSlider", new VolumeSlider(prefs, DefaultPreferences.PREF_MUSIC, game, skin));
         addSetting("soundSlider", new VolumeSlider(prefs, DefaultPreferences.PREF_SOUND, game, skin));
+
+        CheckBox notifBox = new CheckBox("", skin);
+        notifBox.setChecked(prefs.getBoolean(DefaultPreferences.PREF_NOTIFICATIONS,
+                DefaultPreferences.PREF_NOTIFICATIONS_DEFAULT));
+        notifBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                prefs.putBoolean(DefaultPreferences.PREF_NOTIFICATIONS,
+                        !prefs.getBoolean(DefaultPreferences.PREF_NOTIFICATIONS,
+                                DefaultPreferences.PREF_NOTIFICATIONS_DEFAULT));
+                prefs.flush();
+            }
+        });
+
+        addSetting("notifications", notifBox).expand(false, false).fill(false);
         addStartSelect();
         addEndSelect();
         addLanguageSelect();
         addCharacterButton();
         addCreditsButton();
-//
-//        padLeft(dp(5)).padRight(dp(5));
+
         pack();
     }
 
@@ -172,9 +151,10 @@ public class PrefsDisplay extends YTSWindow {
 
     /**
      * Add setting row with a label and given actor.
+     *
      * @param lblProp label of the property
-     * @param actor actor to add
-     * @param <T> type of the actor to add
+     * @param actor   actor to add
+     * @param <T>     type of the actor to add
      * @return Cell of added actor
      */
     private <T extends Actor> Cell<T> addSetting(String lblProp, T actor) {
@@ -269,7 +249,6 @@ public class PrefsDisplay extends YTSWindow {
      */
     private void addCharacterButton() {
         TextButton button = new TextButton(game.getBundle().get("changeCharacter"), skin, "good");
-//        button.pad(dp(10));
         button.getLabel().setWrap(true);
         button.addListener(new ClickListener() {
             @Override
@@ -288,7 +267,6 @@ public class PrefsDisplay extends YTSWindow {
      */
     private void addCreditsButton() {
         TextButton button = new TextButton(game.getBundle().get("credits"), skin, "misc");
-//        button.pad(dp(10));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

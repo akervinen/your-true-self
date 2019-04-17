@@ -40,6 +40,10 @@ aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-bad.ase --sa
 aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-misc.ase --save-as ui/button-misc.9.png
 aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-misc.ase --save-as ui/button-misc-down.9.png
 
+aseprite -b ui-ase/checkbox.9.aseprite --layer off --palette palette-primary.ase --save-as ui/checkbox-off.9.png
+aseprite -b ui-ase/checkbox.9.aseprite --layer over --palette palette-primary.ase --save-as ui/checkbox-over.9.png
+aseprite -b ui-ase/checkbox.9.aseprite --layer on --palette palette-primary.ase --save-as ui/checkbox-on.9.png
+
 REM progress bar
 
 aseprite -b ui-ase/progress-bar.9.aseprite --layer background --palette palette-primary.ase --save-as ui/progress-bar-background.9.png

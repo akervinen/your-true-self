@@ -149,4 +149,13 @@
       backgroundOpen: selectbox-open
     }
   },
+  CheckBoxStyle: {
+    default: {
+      checkboxOff: checkbox-off,
+      checkboxOver: checkbox-over,
+      checkboxOn: checkbox-on,
+      font: default,
+      fontColor: black
+    }
+  }
 }

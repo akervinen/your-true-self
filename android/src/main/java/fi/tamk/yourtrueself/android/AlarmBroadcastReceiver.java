@@ -32,10 +32,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         // Load preferences manually, since Gdx.app isn't set
         Preferences pref = new AndroidPreferences(context.getSharedPreferences(DefaultPreferences.PREF_NAME, Context.MODE_PRIVATE));
 
+        if (!pref.getBoolean(DefaultPreferences.PREF_NOTIFICATIONS, DefaultPreferences.PREF_NOTIFICATIONS_DEFAULT)) {
+            return;
+        }
+
         // Use preferences locale or default if none is set
         Locale locale;
-        if (pref.contains("lang")) {
-            String lang = pref.getString("lang");
+        if (pref.contains(DefaultPreferences.PREF_LANGUAGE)) {
+            String lang = pref.getString(DefaultPreferences.PREF_LANGUAGE);
             locale = YTSGame.localeFromPref(lang);
         } else {
             locale = Locale.getDefault();

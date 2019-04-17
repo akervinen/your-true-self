@@ -635,6 +635,10 @@ public class YTSGame extends Game {
 
         setNextChallengeTime(c.getTimeInMillis());
 
+        if (!prefs.getBoolean(DefaultPreferences.PREF_NOTIFICATIONS, DefaultPreferences.PREF_NOTIFICATIONS_DEFAULT)) {
+            return;
+        }
+
         if (alarmHelper != null) {
             alarmHelper.startTimer(c.getTimeInMillis());
         }

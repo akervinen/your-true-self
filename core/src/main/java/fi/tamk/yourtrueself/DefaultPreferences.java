@@ -35,6 +35,16 @@ public class DefaultPreferences {
     public static final float PREF_SOUND_DEFAULT = 1.0f;
 
     /**
+     * Notification toggle preference key.
+     */
+    public static final String PREF_NOTIFICATIONS = "notifications";
+
+    /**
+     * Default value of notification toggle.
+     */
+    public static final boolean PREF_NOTIFICATIONS_DEFAULT = true;
+
+    /**
      * DND start time preference key.
      */
     public static final String PREF_DND_START = "noBotherStart";
