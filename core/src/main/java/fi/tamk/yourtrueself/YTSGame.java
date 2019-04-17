@@ -33,8 +33,6 @@ class YTSChallenges {
      * List of challenges in the game.
      */
     static final Challenge[] CHALLENGES = {
-            new Challenge("chlBalOneFoot", Player.Stat.BALANCE, 10),
-            new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15),
             new Challenge("chlNonFridge", Player.Stat.NONE),
             new Challenge("chlNonVacuum", Player.Stat.NONE),
             new Challenge("chlNonChair", Player.Stat.NONE),
@@ -134,7 +132,27 @@ class YTSChallenges {
             new Challenge("chlStaKneeclap", Player.Stat.STAMINA, 1),
             new Challenge("chlStaGorilla", Player.Stat.STAMINA,5),
             new Challenge("chlStaSwim", Player.Stat.STAMINA,5),
-            new Challenge("chlStaTwerk", Player.Stat.STAMINA,5)
+            new Challenge("chlStaTwerk", Player.Stat.STAMINA,5),
+            new Challenge("chlBalGrapLeg", Player.Stat.BALANCE,1),
+            new Challenge("chlBalToesHeels", Player.Stat.BALANCE,15),
+            new Challenge("chlBalShoulderstand", Player.Stat.BALANCE),
+            new Challenge("chlBalBookHead", Player.Stat.BALANCE),
+            new Challenge("chlBalHandLeg", Player.Stat.BALANCE),
+            new Challenge("chlBalRound", Player.Stat.BALANCE),
+            new Challenge("chlBalTightrope", Player.Stat.BALANCE),
+            new Challenge("chlBalPick", Player.Stat.BALANCE),
+            new Challenge("chlBalEyesClosed", Player.Stat.BALANCE),
+            new Challenge("chlBalSquat", Player.Stat.BALANCE),
+            new Challenge("chlBalElbowKnee", Player.Stat.BALANCE),
+            new Challenge("chlBalPlank", Player.Stat.BALANCE),
+            new Challenge("chlBalSock", Player.Stat.BALANCE),
+            new Challenge("chlBalFingers", Player.Stat.BALANCE),
+            new Challenge("chlBalBackwards", Player.Stat.BALANCE),
+            new Challenge("chlBalLunge", Player.Stat.BALANCE),
+            new Challenge("chlBalTiptoe", Player.Stat.BALANCE),
+            new Challenge("chlBalMoonwalk", Player.Stat.BALANCE),
+            new Challenge("chlBalCrab", Player.Stat.BALANCE),
+            new Challenge("chlBalJuggling", Player.Stat.BALANCE)
     };
 
     /**
