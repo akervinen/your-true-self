@@ -23,7 +23,7 @@ public class AchievementPopup extends YTSWindow {
         title.setAlignment(Align.center);
         title.setWrap(true);
 
-        add(title);
+        add(title).grow();
 
         pack();
     }

@@ -35,7 +35,7 @@ public class ChallengeTimerPanel extends YTSWindow {
         super(ytsGame.getBundle().get(daily ? "dailyTimerTitle" : "challengeTimerTitle"),
                 false,
                 skin,
-                getWindowStyle(daily ? "secondary" : "default"));
+                daily ? "secondary" : "default");
 
         this.game = ytsGame;
         isDaily = daily;

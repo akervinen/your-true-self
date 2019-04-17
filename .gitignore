@@ -66,5 +66,5 @@ nb-configuration.xml
 .DS_Store
 
 ## libgdx skin generated files
-assets/ui/skin.atlas
-assets/ui/skin.png
+assets/ui/skin*.atlas
+assets/ui/skin*.png

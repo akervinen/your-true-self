@@ -28,7 +28,7 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(Challenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("challengeTitle"), false, skin, getWindowStyle("default"));
+        super(ytsGame.getBundle().get("challengeTitle"), false, skin, "default");
 
         this.game = ytsGame;
 
@@ -98,7 +98,7 @@ public final class ChallengePanel extends YTSWindow {
      */
     public ChallengePanel(DailyChallenge chl, YTSGame ytsGame, Skin skin) {
         // Show thinner title on less dense displays (e.g. desktop)
-        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, getWindowStyle("secondary"));
+        super(ytsGame.getBundle().get("dailyChallengeTitle"), false, skin, "secondary");
 
         this.game = ytsGame;
 

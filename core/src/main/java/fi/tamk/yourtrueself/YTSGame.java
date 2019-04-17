@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -104,7 +105,6 @@ public class YTSGame extends Game {
      * Path to the Scene2D skin to use.
      */
     private static final String SKIN_PATH = "ui/skin.json";
-    private static final String SKIN_PATH_HIDPI = "ui/skin-hidpi.json";
 
     private final AssetManager assetManager = new AssetManager();
     private I18NBundle bundle;
@@ -183,6 +183,10 @@ public class YTSGame extends Game {
         UI Stuff
      */
 
+    public static boolean isHighDPI() {
+        return Gdx.graphics.getDensity() > 1.5;
+    }
+
     /**
      * Load game assets.
      */
@@ -193,11 +197,15 @@ public class YTSGame extends Game {
 
         // Add assets to load
         assetManager.load("characters.atlas", TextureAtlas.class);
-        if (Gdx.graphics.getDensity() > 1.25) {
-            assetManager.load(SKIN_PATH_HIDPI, Skin.class);
-        } else {
-            assetManager.load(SKIN_PATH, Skin.class);
+
+        String atlasPath = "ui/skin-mdpi.atlas";
+        if (Gdx.graphics.getDensity() > 2.5) {
+            atlasPath = "ui/skin-xxhdpi.atlas";
+        } else if (Gdx.graphics.getDensity() > 1.5) {
+            atlasPath = "ui/skin-xhdpi.atlas";
         }
+
+        assetManager.load(SKIN_PATH, Skin.class, new SkinLoader.SkinParameter(atlasPath));
 
         assetManager.load("YourTrueSelf_MainthemeOGG.ogg", Music.class);
 
@@ -217,11 +225,7 @@ public class YTSGame extends Game {
         // This can be split up if we need a loading screen
         assetManager.finishLoading();
 
-        if (Gdx.graphics.getDensity() > 1.25) {
-            uiSkin = assetManager.get(SKIN_PATH_HIDPI);
-        } else {
-            uiSkin = assetManager.get(SKIN_PATH);
-        }
+        uiSkin = assetManager.get(SKIN_PATH);
         uiSkin.addRegions(assetManager.get("characters.atlas", TextureAtlas.class));
     }
 

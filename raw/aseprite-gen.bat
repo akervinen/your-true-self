@@ -23,9 +23,6 @@ REM window
 aseprite -b ui-ase/window.9.aseprite --palette palette-primary.ase --save-as ui/window-primary.9.png
 aseprite -b ui-ase/window.9.aseprite --palette palette-secondary.ase --save-as ui/window-secondary.9.png
 
-aseprite -b ui-ase/window-large.9.aseprite --palette palette-primary.ase --save-as ui/window-large-primary.9.png
-aseprite -b ui-ase/window-large.9.aseprite --palette palette-secondary.ase --save-as ui/window-large-secondary.9.png
-
 REM button
 
 aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-primary.ase --save-as ui/button-primary.9.png
@@ -36,6 +33,9 @@ aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-secondary.as
 
 aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-good.ase --save-as ui/button-good.9.png
 aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-good.ase --save-as ui/button-good-down.9.png
+
+aseprite -b ui-ase/button.9.aseprite --layer up --palette palette-misc.ase --save-as ui/button-misc.9.png
+aseprite -b ui-ase/button.9.aseprite --layer down --palette palette-misc.ase --save-as ui/button-misc-down.9.png
 
 REM progress bar
 

@@ -26,20 +26,10 @@
       titleFontColor: white,
       background: window-primary
     },
-    large: {
-      titleFont: default,
-      titleFontColor: white,
-      background: window-large-primary
-    },
     secondary: {
       titleFont: default,
       titleFontColor: white,
       background: window-secondary
-    },
-    secondary-large: {
-      titleFont: default,
-      titleFontColor: white,
-      background: window-large-secondary
     }
   },
   ScrollPaneStyle: {
@@ -96,6 +86,13 @@
       fontColor: black,
       up: button-good,
       down: button-good-down,
+      pressedOffsetY: -4
+    },
+    misc: {
+      font: default,
+      fontColor: black,
+      up: button-misc,
+      down: button-misc-down,
       pressedOffsetY: -4
     }
   },

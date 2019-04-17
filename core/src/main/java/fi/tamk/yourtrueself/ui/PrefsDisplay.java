@@ -135,7 +135,7 @@ public class PrefsDisplay extends YTSWindow {
      * @param ytsGame game object
      */
     public PrefsDisplay(Preferences prefs, Skin skin, YTSGame ytsGame) {
-        super(ytsGame.getBundle().get("prefs"), true, skin, getWindowStyle("default"));
+        super(ytsGame.getBundle().get("prefs"), true, skin, "default");
 
         this.game = ytsGame;
         this.skin = skin;
@@ -287,7 +287,7 @@ public class PrefsDisplay extends YTSWindow {
      * Add credits button to open credits window.
      */
     private void addCreditsButton() {
-        TextButton button = new TextButton(game.getBundle().get("credits"), skin, "secondary");
+        TextButton button = new TextButton(game.getBundle().get("credits"), skin, "misc");
 //        button.pad(dp(10));
         button.addListener(new ClickListener() {
             @Override

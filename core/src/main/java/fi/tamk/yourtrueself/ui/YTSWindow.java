@@ -53,7 +53,13 @@ public class YTSWindow extends Window {
             getTitleTable().add(titleLbl).expandX().fillX().minWidth(0);
         }
 
-        padTop(52);
+        if (Gdx.graphics.getDensity() > 2.5) {
+            padTop(56 * 3);
+        } else if (Gdx.graphics.getDensity() > 1.5) {
+            padTop(56 * 2);
+        } else {
+            padTop(56);
+        }
 
         addListener(new InputListener() {
             @Override
@@ -101,21 +107,5 @@ public class YTSWindow extends Window {
      */
     static float dp(float px) {
         return YTSGame.dp(px);
-    }
-
-    /**
-     * Get window style based on display DPI.
-     *
-     * @param style style color ("default" or "secondary")
-     * @return name of the style to use
-     */
-    static String getWindowStyle(String style) {
-        if (style.equals("default")) {
-            return Gdx.graphics.getPpiY() > 200 ? "large" : "default";
-        } else if (style.equals("secondary")) {
-            return Gdx.graphics.getPpiY() > 200 ? "secondary-large" : "secondary";
-        }
-
-        return "default";
     }
 }
