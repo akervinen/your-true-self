@@ -79,7 +79,27 @@ class YTSChallenges {
             new Challenge("chlStrThighSqueeze", Player.Stat.STRENGTH),
             new Challenge("chlStrLegHold", Player.Stat.STRENGTH, 1),
             new Challenge("chlStrLiftSide", Player.Stat.STRENGTH),
-            new Challenge("chlStrArmWrestle", Player.Stat.STRENGTH)
+            new Challenge("chlStrArmWrestle", Player.Stat.STRENGTH),
+            new Challenge("chlFlxCatCow", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxBendForward", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxGrapHands", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxFloorRotation", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxArch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxSitStanding", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxSway", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxSideStretch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxSitRotation", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxSitStretch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxThighStretch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxWallStretch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxSplit", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxBendDown", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxMeditation", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxBottomStretch", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxHandBreathing", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxWarrior", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxCobra", Player.Stat.FLEXIBILITY),
+            new Challenge("chlFlxDownwardDog", Player.Stat.FLEXIBILITY)
     };
 
     /**
