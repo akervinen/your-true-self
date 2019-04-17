@@ -33,11 +33,6 @@ class YTSChallenges {
      * List of challenges in the game.
      */
     static final Challenge[] CHALLENGES = {
-            new Challenge("chlFlxStretch", Player.Stat.FLEXIBILITY),
-            new Challenge("chlFlxToes", Player.Stat.FLEXIBILITY, 8),
-            new Challenge("chlFlxClaspHands", Player.Stat.FLEXIBILITY, 5),
-            new Challenge("chlAgiHang", Player.Stat.AGILITY),
-            new Challenge("chlStaPlank", Player.Stat.STAMINA, 10),
             new Challenge("chlBalOneFoot", Player.Stat.BALANCE, 10),
             new Challenge("chlBalHeelToe", Player.Stat.BALANCE, 15),
             new Challenge("chlNonFridge", Player.Stat.NONE),
@@ -119,7 +114,27 @@ class YTSChallenges {
             new Challenge("chlAgiCrawl", Player.Stat.AGILITY),
             new Challenge("chlAgiRollBackward", Player.Stat.AGILITY),
             new Challenge("chlAgiLeap", Player.Stat.AGILITY),
-            new Challenge("chlAgiFalling", Player.Stat.AGILITY)
+            new Challenge("chlAgiFalling", Player.Stat.AGILITY),
+            new Challenge("chlStaWalk", Player.Stat.STAMINA),
+            new Challenge("chlStaSkipRope", Player.Stat.STAMINA,5),
+            new Challenge("chlStaJumpingJack", Player.Stat.STAMINA,20),
+            new Challenge("chlStaTopFloor", Player.Stat.STAMINA),
+            new Challenge("chlStaButtocksRun", Player.Stat.STAMINA, 1),
+            new Challenge("chlStaKneeRun", Player.Stat.STAMINA,1),
+            new Challenge("chlStaMountainClimber", Player.Stat.STAMINA),
+            new Challenge("chlStaShadowBoxing", Player.Stat.STAMINA,5),
+            new Challenge("chlStaStick", Player.Stat.STAMINA),
+            new Challenge("chlStaStarJump", Player.Stat.STAMINA,10),
+            new Challenge("chlStaDance", Player.Stat.STAMINA),
+            new Challenge("chlStaChair", Player.Stat.STAMINA,20),
+            new Challenge("chlStaBurpee", Player.Stat.STAMINA,10),
+            new Challenge("chlStaHandWalk", Player.Stat.STAMINA,10),
+            new Challenge("chlStaFrog", Player.Stat.STAMINA),
+            new Challenge("chlStaRace", Player.Stat.STAMINA),
+            new Challenge("chlStaKneeclap", Player.Stat.STAMINA, 1),
+            new Challenge("chlStaGorilla", Player.Stat.STAMINA,5),
+            new Challenge("chlStaSwim", Player.Stat.STAMINA,5),
+            new Challenge("chlStaTwerk", Player.Stat.STAMINA,5)
     };
 
     /**
