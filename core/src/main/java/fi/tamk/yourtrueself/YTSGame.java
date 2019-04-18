@@ -211,13 +211,13 @@ public class YTSGame extends Game {
      * List of characters in the game.
      */
     public static final Character[] CHARACTERS = {
-            new Character("couchpotato", Player.Stat.NONE),
-            new Character("stronkman", Player.Stat.STRENGTH),
-            new Character("enlightened", Player.Stat.FLEXIBILITY),
-            new Character("thespider", Player.Stat.AGILITY),
-            new Character("marathon", Player.Stat.STAMINA),
-            new Character("graceful", Player.Stat.BALANCE),
-            new Character("nuckchorris", Player.Stat.NONE)
+            new Character("couchpotato", Player.Stat.NONE, true),
+            new Character("stronkman", Player.Stat.STRENGTH, true),
+            new Character("enlightened", Player.Stat.FLEXIBILITY, true),
+            new Character("thespider", Player.Stat.AGILITY, true),
+            new Character("marathon", Player.Stat.STAMINA, true),
+            new Character("graceful", Player.Stat.BALANCE, true),
+            new Character("nuckchorris", Player.Stat.NONE, false)
     };
 
     /**

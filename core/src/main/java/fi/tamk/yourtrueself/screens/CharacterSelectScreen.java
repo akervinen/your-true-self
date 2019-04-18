@@ -59,15 +59,17 @@ public final class CharacterSelectScreen implements Screen {
         characters.defaults().pad(dp(10));
 
         for (final Character chr : YTSGame.CHARACTERS) {
-            CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), uiSkin);
-            characters.add(det);
-            det.addButtonListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    game.setPlayerCharacter(chr);
-                    game.goToMainScreen();
-                }
-            });
+            if(chr.getVisibility()) {
+                CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), uiSkin);
+                characters.add(det);
+                det.addButtonListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        game.setPlayerCharacter(chr);
+                        game.goToMainScreen();
+                    }
+                });
+            }
         }
 
         ScrollPane scroller = new ScrollPane(characters, uiSkin, "no-bg");

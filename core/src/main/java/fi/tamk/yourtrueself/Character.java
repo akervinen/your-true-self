@@ -15,6 +15,8 @@ public class Character {
      */
     private final String id;
 
+    private boolean visible;
+
     /**
      * Create a new character with given ID and main stat. ID must exist in i18n bundle and
      * character atlas.
@@ -22,9 +24,10 @@ public class Character {
      * @param id       internal ID of the character
      * @param mainStat main stat of the character
      */
-    Character(String id, Player.Stat mainStat) {
+    Character(String id, Player.Stat mainStat, boolean visible) {
         this.id = id;
         this.mainStat = mainStat;
+        setVisibility(visible);
     }
 
     /**
@@ -43,6 +46,14 @@ public class Character {
      */
     public String getId() {
         return id;
+    }
+
+    public boolean getVisibility() {
+        return visible;
+    }
+
+    public void setVisibility(boolean visible) {
+        this.visible = visible;
     }
 
 }
