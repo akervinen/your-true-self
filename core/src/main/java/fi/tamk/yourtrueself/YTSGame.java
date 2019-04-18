@@ -438,6 +438,8 @@ public class YTSGame extends Game {
      */
     public void setPlayerCharacter(Character chr) {
         player.setCurrentCharacter(chr);
+        setCurrentChallenge((Challenge) null);
+        setNextChallengeTime(0);
         prefs.putString(DefaultPreferences.PREF_CHARACTER, chr.getId());
         prefs.flush();
         Sound soundEffect = soundMap.get(chr.getId());
@@ -520,8 +522,8 @@ public class YTSGame extends Game {
 
         if (chl instanceof DailyChallenge) {
             setCurrentDaily((DailyChallenge) null);
-            startNextDailyTimer();
             if (!skipped) {
+                startNextDailyTimer();
                 achievementManager.increaseProgress("ach.Daily", 1);
             }
             else {
@@ -530,8 +532,8 @@ public class YTSGame extends Game {
         } else {
             previousChallenge = chl;
             setCurrentChallenge((Challenge) null);
-            startNextChallengeTimer();
             if (!skipped) {
+                startNextChallengeTimer();
                 achievementManager.increaseProgress("ach.Challenge", 1);
             }
             else {
