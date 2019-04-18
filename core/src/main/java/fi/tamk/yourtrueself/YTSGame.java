@@ -524,12 +524,18 @@ public class YTSGame extends Game {
             if (!skipped) {
                 achievementManager.increaseProgress("ach.Daily", 1);
             }
+            else {
+                setNextDailyTime(0);
+            }
         } else {
             previousChallenge = chl;
             setCurrentChallenge((Challenge) null);
             startNextChallengeTimer();
             if (!skipped) {
                 achievementManager.increaseProgress("ach.Challenge", 1);
+            }
+            else {
+                setNextChallengeTime(0);
             }
         }
 
