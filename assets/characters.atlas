@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 char-couchpotato
   rotate: false
-  xy: 485, 69
+  xy: 651, 69
   size: 92, 124
   orig: 92, 128
   offset: 0, 0
@@ -27,9 +27,16 @@ char-graceful
   index: -1
 char-marathon
   rotate: false
-  xy: 578, 21
+  xy: 570, 21
   size: 80, 172
   orig: 80, 200
+  offset: 0, 0
+  index: -1
+char-nuckchorris
+  rotate: false
+  xy: 485, 37
+  size: 84, 156
+  orig: 84, 156
   offset: 0, 0
   index: -1
 char-stronkman

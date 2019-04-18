@@ -152,7 +152,28 @@ class YTSChallenges {
             new Challenge("chlBalTiptoe", Player.Stat.BALANCE),
             new Challenge("chlBalMoonwalk", Player.Stat.BALANCE),
             new Challenge("chlBalCrab", Player.Stat.BALANCE),
-            new Challenge("chlBalJuggling", Player.Stat.BALANCE)
+            new Challenge("chlBalJuggling", Player.Stat.BALANCE),
+            new Challenge("chlSecHandwalk", Player.Stat.NONE),
+            new Challenge("chlSecPullup", Player.Stat.NONE),
+            new Challenge("chlSecLiftOverhead", Player.Stat.NONE),
+            new Challenge("chlSecLizard", Player.Stat.NONE),
+            new Challenge("chlSecSomersault", Player.Stat.NONE),
+            new Challenge("chlSecDragon", Player.Stat.NONE),
+            new Challenge("chlSecPeacock", Player.Stat.NONE),
+            new Challenge("chlSecLocust", Player.Stat.NONE),
+            new Challenge("chlSecIronCross", Player.Stat.NONE),
+            new Challenge("chlSecCrunch", Player.Stat.NONE),
+            new Challenge("chlSecFlag", Player.Stat.NONE),
+            new Challenge("chlSecClap", Player.Stat.NONE),
+            new Challenge("chlSecPushup", Player.Stat.NONE),
+            new Challenge("chlSecSquat", Player.Stat.NONE),
+            new Challenge("chlSecRun", Player.Stat.NONE),
+            new Challenge("chlSecHeadstand", Player.Stat.NONE),
+            new Challenge("chlSecLunge", Player.Stat.NONE),
+            new Challenge("chlSecClimb", Player.Stat.NONE),
+            new Challenge("chlSecJuggling", Player.Stat.NONE),
+            new Challenge("chlSecExerciseBall", Player.Stat.NONE)
+
     };
 
     /**
@@ -195,7 +216,8 @@ public class YTSGame extends Game {
             new Character("enlightened", Player.Stat.FLEXIBILITY),
             new Character("thespider", Player.Stat.AGILITY),
             new Character("marathon", Player.Stat.STAMINA),
-            new Character("graceful", Player.Stat.BALANCE)
+            new Character("graceful", Player.Stat.BALANCE),
+            new Character("nuckchorris", Player.Stat.NONE)
     };
 
     /**
@@ -321,6 +343,8 @@ public class YTSGame extends Game {
         assetManager.load("sounds/SelectedSpider.ogg", Sound.class);
         assetManager.load("sounds/SelectedStronkperson.ogg", Sound.class);
         assetManager.load("sounds/SelectedCouchpotato.ogg", Sound.class);
+        assetManager.load("sounds/SelectedMarathon.ogg", Sound.class);
+        assetManager.load("sounds/SelectedNuckChorris.ogg", Sound.class);
         assetManager.load("sounds/ButtonPress.ogg", Sound.class);
         assetManager.load("sounds/CompletedChallenge.ogg", Sound.class);
         assetManager.load("sounds/Notification.ogg", Sound.class);
@@ -907,7 +931,8 @@ public class YTSGame extends Game {
         soundMap.put("graceful", assetManager.get("sounds/SelectedGraceful.ogg", Sound.class));
         soundMap.put("thespider", assetManager.get("sounds/SelectedSpider.ogg", Sound.class));
         soundMap.put("stronkman", assetManager.get("sounds/SelectedStronkperson.ogg", Sound.class));
-        soundMap.put("marathon", assetManager.get("sounds/SelectedCouchpotato.ogg", Sound.class));
+        soundMap.put("marathon", assetManager.get("sounds/SelectedMarathon.ogg", Sound.class));
+        soundMap.put("nuckchorris", assetManager.get("sounds/SelectedNuckChorris.ogg", Sound.class));
         soundMap.put("buttonPress", assetManager.get("sounds/ButtonPress.ogg", Sound.class));
         soundMap.put("completedChallenge", assetManager.get("sounds/CompletedChallenge.ogg", Sound.class));
         soundMap.put("notification", assetManager.get("sounds/Notification.ogg", Sound.class));
