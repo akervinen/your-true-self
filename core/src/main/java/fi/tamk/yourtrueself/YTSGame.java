@@ -546,7 +546,7 @@ public class YTSGame extends Game {
 
         if (!skipped) {
             if(getPlayer().getByEnum(chl.getMainStat()) >= 99) {
-                achievementManager.increaseProgress("ach.Stat", 1);
+                increaseStatAchievement();
             }
             chl.complete(getPlayer());
             saveStats();
@@ -554,6 +554,17 @@ public class YTSGame extends Game {
 
             if (challengeCompletedListener != null) {
                 challengeCompletedListener.challengeCompleted(chl);
+            }
+        }
+    }
+
+    private void increaseStatAchievement() {
+        achievementManager.increaseProgress("ach.Stat", 1);
+        if(achievementManager.getProgress("ach.Stat") == 2) {
+            for (Character c : CHARACTERS) {
+                if (c.getId().equals("nuckchorris")) {
+                    c.setVisibility(true);
+                }
             }
         }
     }
