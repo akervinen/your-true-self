@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.xml.stream.events.Characters;
+
 import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
 
@@ -226,6 +228,7 @@ public class YTSGame extends Game {
     public static final Achievement[] ACHIEVEMENTS = {
             new TieredAchievement("ach.Challenge", 100, new int[]{1, 5, 15, 25, 50, 100}),
             new TieredAchievement("ach.Daily", 10, new int[]{1, 3, 6, 10}),
+            new TieredAchievement("ach.Stat", 5, new int[]{1, 2, 3, 4, 5})
     };
 
     /**
@@ -542,6 +545,9 @@ public class YTSGame extends Game {
         }
 
         if (!skipped) {
+            if(getPlayer().getByEnum(chl.getMainStat()) >= 99) {
+                achievementManager.increaseProgress("ach.Stat", 1);
+            }
             chl.complete(getPlayer());
             saveStats();
             soundMap.get("completedChallenge").play(getSoundVolume());
@@ -549,8 +555,6 @@ public class YTSGame extends Game {
             if (challengeCompletedListener != null) {
                 challengeCompletedListener.challengeCompleted(chl);
             }
-        } else {
-            soundMap.get("notThere").play(getSoundVolume());
         }
     }
 
