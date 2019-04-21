@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.xml.stream.events.Characters;
-
 import fi.tamk.yourtrueself.screens.CharacterSelectScreen;
 import fi.tamk.yourtrueself.screens.MainScreen;
 
@@ -116,27 +114,27 @@ class YTSChallenges {
             new Challenge("chlAgiLeap", Player.Stat.AGILITY),
             new Challenge("chlAgiFalling", Player.Stat.AGILITY),
             new Challenge("chlStaWalk", Player.Stat.STAMINA),
-            new Challenge("chlStaSkipRope", Player.Stat.STAMINA,5),
-            new Challenge("chlStaJumpingJack", Player.Stat.STAMINA,20),
+            new Challenge("chlStaSkipRope", Player.Stat.STAMINA, 5),
+            new Challenge("chlStaJumpingJack", Player.Stat.STAMINA, 20),
             new Challenge("chlStaTopFloor", Player.Stat.STAMINA),
             new Challenge("chlStaButtocksRun", Player.Stat.STAMINA, 1),
-            new Challenge("chlStaKneeRun", Player.Stat.STAMINA,1),
+            new Challenge("chlStaKneeRun", Player.Stat.STAMINA, 1),
             new Challenge("chlStaMountainClimber", Player.Stat.STAMINA),
-            new Challenge("chlStaShadowBoxing", Player.Stat.STAMINA,5),
+            new Challenge("chlStaShadowBoxing", Player.Stat.STAMINA, 5),
             new Challenge("chlStaStick", Player.Stat.STAMINA),
-            new Challenge("chlStaStarJump", Player.Stat.STAMINA,10),
+            new Challenge("chlStaStarJump", Player.Stat.STAMINA, 10),
             new Challenge("chlStaDance", Player.Stat.STAMINA),
-            new Challenge("chlStaChair", Player.Stat.STAMINA,20),
-            new Challenge("chlStaBurpee", Player.Stat.STAMINA,10),
-            new Challenge("chlStaHandWalk", Player.Stat.STAMINA,10),
+            new Challenge("chlStaChair", Player.Stat.STAMINA, 20),
+            new Challenge("chlStaBurpee", Player.Stat.STAMINA, 10),
+            new Challenge("chlStaHandWalk", Player.Stat.STAMINA, 10),
             new Challenge("chlStaFrog", Player.Stat.STAMINA),
             new Challenge("chlStaRace", Player.Stat.STAMINA),
             new Challenge("chlStaKneeclap", Player.Stat.STAMINA, 1),
-            new Challenge("chlStaGorilla", Player.Stat.STAMINA,5),
-            new Challenge("chlStaSwim", Player.Stat.STAMINA,5),
-            new Challenge("chlStaTwerk", Player.Stat.STAMINA,5),
-            new Challenge("chlBalGrapLeg", Player.Stat.BALANCE,1),
-            new Challenge("chlBalToesHeels", Player.Stat.BALANCE,15),
+            new Challenge("chlStaGorilla", Player.Stat.STAMINA, 5),
+            new Challenge("chlStaSwim", Player.Stat.STAMINA, 5),
+            new Challenge("chlStaTwerk", Player.Stat.STAMINA, 5),
+            new Challenge("chlBalGrapLeg", Player.Stat.BALANCE, 1),
+            new Challenge("chlBalToesHeels", Player.Stat.BALANCE, 15),
             new Challenge("chlBalShoulderstand", Player.Stat.BALANCE),
             new Challenge("chlBalBookHead", Player.Stat.BALANCE),
             new Challenge("chlBalHandLeg", Player.Stat.BALANCE),
@@ -528,8 +526,7 @@ public class YTSGame extends Game {
             if (!skipped) {
                 startNextDailyTimer();
                 achievementManager.increaseProgress("ach.Daily", 1);
-            }
-            else {
+            } else {
                 setNextDailyTime(0);
             }
         } else {
@@ -538,14 +535,13 @@ public class YTSGame extends Game {
             if (!skipped) {
                 startNextChallengeTimer();
                 achievementManager.increaseProgress("ach.Challenge", 1);
-            }
-            else {
+            } else {
                 setNextChallengeTime(0);
             }
         }
 
         if (!skipped) {
-            if(getPlayer().getByEnum(chl.getMainStat()) >= 99) {
+            if (getPlayer().getByEnum(chl.getMainStat()) >= 99) {
                 increaseStatAchievement();
             }
             chl.complete(getPlayer());
@@ -560,7 +556,12 @@ public class YTSGame extends Game {
 
     private void increaseStatAchievement() {
         achievementManager.increaseProgress("ach.Stat", 1);
-        if(achievementManager.getProgress("ach.Stat") == 2) {
+
+        checkNuckProgress();
+    }
+
+    private void checkNuckProgress() {
+        if (achievementManager.getProgress("ach.Stat") >= 2) {
             for (Character c : CHARACTERS) {
                 if (c.getId().equals("nuckchorris")) {
                     c.setVisibility(true);
@@ -1009,6 +1010,8 @@ public class YTSGame extends Game {
         loadStats();
         achievementManager.loadProgress(prefs);
         refreshChallenges();
+
+        checkNuckProgress();
 
         uiViewport = new ScreenViewport();
 
