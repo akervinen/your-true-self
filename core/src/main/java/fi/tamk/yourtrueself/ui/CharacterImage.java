@@ -1,9 +1,10 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Scaling;
+
+import static fi.tamk.yourtrueself.YTSGame.dp;
 
 /**
  * Character portrait.
@@ -29,7 +30,7 @@ public final class CharacterImage extends Image {
      */
     @Override
     public float getPrefWidth() {
-        return Gdx.graphics.getPpiX() * 1;
+        return dp(160);
     }
 
     /**
@@ -39,7 +40,7 @@ public final class CharacterImage extends Image {
      */
     @Override
     public float getMinHeight() {
-        return Gdx.graphics.getPpiY() * .5f;
+        return dp(40);
     }
 
     /**
@@ -49,6 +50,6 @@ public final class CharacterImage extends Image {
      */
     @Override
     public float getPrefHeight() {
-        return Gdx.graphics.getPpiY() * 2;
+        return dp(200);
     }
 }

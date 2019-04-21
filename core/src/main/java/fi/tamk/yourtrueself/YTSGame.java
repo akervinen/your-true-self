@@ -474,10 +474,16 @@ public class YTSGame extends Game {
      */
     public void setPlayerCharacter(Character chr) {
         player.setCurrentCharacter(chr);
-        setCurrentChallenge((Challenge) null);
-        setNextChallengeTime(0);
+
+        // Only re-pick challenge if it's not on cooldown already
+        if (getCurrentChallenge() != null) {
+            setCurrentChallenge((Challenge) null);
+            setNextChallengeTime(0);
+        }
+
         prefs.putString(DefaultPreferences.PREF_CHARACTER, chr.getId());
         prefs.flush();
+
         Sound soundEffect = soundMap.get(chr.getId());
         if (soundEffect != null) {
             soundEffect.play(getSoundVolume());

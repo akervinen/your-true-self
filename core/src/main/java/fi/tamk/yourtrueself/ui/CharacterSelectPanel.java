@@ -1,6 +1,5 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -9,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
+
+import static fi.tamk.yourtrueself.YTSGame.dp;
 
 /**
  * Character information panel for the selection screen. Contains character name,
@@ -29,9 +30,9 @@ public final class CharacterSelectPanel extends Table {
 
         I18NBundle bundle = skin.get("i18n-bundle", I18NBundle.class);
 
-        this.background(skin.getDrawable("panel-primary"));
+        background(skin.getDrawable("panel-primary"));
 
-        this.defaults().grow();
+        defaults().fill().expandX().space(dp(5));
 
         Label name = new Label(bundle.get("char." + characterId), skin, "minititle-bg");
         name.setAlignment(Align.center);
@@ -41,13 +42,13 @@ public final class CharacterSelectPanel extends Table {
         desc.setWrap(true);
         chooseBtn = new TextButton(bundle.get("choose"), skin, "good");
 
-        this.add(name).top().height(Value.percentHeight(.05f, this));
-        this.row();
-        this.add(disp).height(Value.percentHeight(.5f, this));
-        this.row();
-        this.add(desc).height(Value.percentHeight(.3f, this));
-        this.row();
-        this.add(chooseBtn).height(Value.percentHeight(.1f, this));
+        add(name).top().height(Value.percentHeight(.05f, this));
+        row();
+        add(disp).height(Value.percentHeight(.4f, this));
+        row();
+        add(desc).height(Value.percentHeight(.4f, this));
+        row();
+        add(chooseBtn).height(Value.percentHeight(.1f, this));
     }
 
     /**
@@ -57,7 +58,7 @@ public final class CharacterSelectPanel extends Table {
      */
     @Override
     public float getPrefWidth() {
-        return Gdx.graphics.getPpiX() * 2;
+        return dp(320);
     }
 
     /**
@@ -67,7 +68,7 @@ public final class CharacterSelectPanel extends Table {
      */
     @Override
     public float getPrefHeight() {
-        return Gdx.graphics.getPpiY() * 4;
+        return dp(480);
     }
 
     /**

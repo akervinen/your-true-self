@@ -55,11 +55,16 @@ public final class CharacterSelectScreen implements Screen {
 
         Label help = new Label(game.getBundle().get("selectHelp"), uiSkin);
         help.setWrap(true);
+        help.setAlignment(Align.center, Align.left);
 
-        main.add(help).height(Value.percentHeight(.1f, main)).row();
+        main.add(help)
+                .height(Value.percentHeight(.1f, main))
+                .width(dp(320))
+                .row();
 
         characterList = new HorizontalGroup();
         characterList.space(dp(10));
+        characterList.grow();
 
         addCharacters();
 
