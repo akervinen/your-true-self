@@ -10,11 +10,11 @@ public final class Player {
      * Internal names of stats. Used for translation purposes.
      */
     public static final String[] STAT_NAMES = {
-            "strength",
-            "flexibility",
-            "agility",
-            "stamina",
-            "balance"
+            "stat.strength",
+            "stat.flexibility",
+            "stat.agility",
+            "stat.stamina",
+            "stat.balance"
     };
 
     /**

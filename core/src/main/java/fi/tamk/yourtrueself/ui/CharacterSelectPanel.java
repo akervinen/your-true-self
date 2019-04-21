@@ -33,11 +33,11 @@ public final class CharacterSelectPanel extends Table {
 
         this.defaults().grow();
 
-        Label name = new Label(bundle.get(characterId), skin, "minititle-bg");
+        Label name = new Label(bundle.get("char." + characterId), skin, "minititle-bg");
         name.setAlignment(Align.center);
         CharacterImage disp = new CharacterImage(characterId, skin);
 
-        Label desc = new Label(bundle.get(characterId + "Story"), skin);
+        Label desc = new Label(bundle.get("story." + characterId), skin);
         desc.setWrap(true);
         chooseBtn = new TextButton(bundle.get("choose"), skin, "good");
 
