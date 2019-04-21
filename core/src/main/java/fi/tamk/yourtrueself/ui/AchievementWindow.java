@@ -2,7 +2,6 @@ package fi.tamk.yourtrueself.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,7 +27,9 @@ public class AchievementWindow extends YTSWindow {
 
         achievementList.grow().space(dp(10));
 
-        ScrollPane scroller = new ScrollPane(achievementList);
+        ScrollPane scroller = new ScrollPane(achievementList, skin);
+        scroller.setScrollingDisabled(true, false);
+        scroller.setFadeScrollBars(false);
 
         add(scroller).grow().padTop(dp(5));
 
@@ -70,7 +71,7 @@ class AchievementPanel extends Table {
 
     private Label titleLabel;
     private Label descLabel;
-    private AchievementBar bar;
+    private LabeledBar bar;
 
     public AchievementPanel(Achievement achievement, Skin skin) {
         super(skin);
@@ -83,9 +84,9 @@ class AchievementPanel extends Table {
 
         defaults().grow().uniform().left();
 
-        titleLabel = new Label("", skin);
+        titleLabel = new Label("", skin, "minititle");
         descLabel = new Label("", skin);
-        bar = new AchievementBar(achievement, skin);
+        bar = new LabeledBar(0, achievement.getMax(), 1, false, skin);
 
         add(titleLabel).left().row();
         add(descLabel).left().row();
@@ -101,11 +102,5 @@ class AchievementPanel extends Table {
         descLabel.setText(bundle.format(achievement.getDescProp(), achievement.getMax()));
         bar.setRange(0, achievement.getMax());
         bar.setValue(achievement.getCurrent());
-    }
-}
-
-class AchievementBar extends ProgressBar {
-    public AchievementBar(Achievement achievement, Skin skin) {
-        super(0, achievement.getMax(), 1, false, skin);
     }
 }

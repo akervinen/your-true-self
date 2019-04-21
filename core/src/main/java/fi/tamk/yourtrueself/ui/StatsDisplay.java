@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -19,7 +18,7 @@ import static fi.tamk.yourtrueself.YTSGame.dp;
 /**
  * Progress bar for a stat. Modifies normal ProgressBar by setting different width.
  */
-final class StatBar extends ProgressBar {
+final class StatBar extends LabeledBar {
     private final Player player;
     private final Player.Stat stat;
 
@@ -135,10 +134,10 @@ public final class StatsDisplay extends Table {
         Label lbl = new Label("+" + new DecimalFormat("#.#").format(amount), getSkin());
         lbl.getColor().a = 0;
 
-        float x = bars[statIdx].getX(Align.center);
+        float x = bars[statIdx].getX(Align.right);
         float y = bars[statIdx].getY(Align.center);
 
-        lbl.setPosition(x, y, Align.center);
+        lbl.setPosition(x + dp(10), y, Align.left);
 
         SequenceAction seq = new SequenceAction();
         seq.addAction(Actions.fadeIn(.5f));

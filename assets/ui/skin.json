@@ -59,6 +59,10 @@
       font: title,
       fontColor: black
     },
+    minititle: {
+      font: default-medium,
+      fontColor: black
+    },
     with-bg: {
       font: default,
       fontColor: white,
