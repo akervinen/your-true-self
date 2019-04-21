@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,6 +27,8 @@ public final class CharacterSelectScreen implements Screen {
     private final YTSGame game;
 
     private final Stage stage;
+
+    private final HorizontalGroup characterList;
 
     /**
      * Create and initialize the character selection screen.
@@ -54,25 +57,13 @@ public final class CharacterSelectScreen implements Screen {
         help.setWrap(true);
 
         main.add(help).height(Value.percentHeight(.1f, main)).row();
+//
+        characterList = new HorizontalGroup();
+        characterList.space(dp(10));
 
-        Table characters = new Table();
-        characters.defaults().pad(dp(10));
+        addCharacters();
 
-        for (final Character chr : YTSGame.CHARACTERS) {
-            if(chr.getVisibility()) {
-                CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), uiSkin);
-                characters.add(det);
-                det.addButtonListener(new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent event, Actor actor) {
-                        game.setPlayerCharacter(chr);
-                        game.goToMainScreen();
-                    }
-                });
-            }
-        }
-
-        ScrollPane scroller = new ScrollPane(characters, uiSkin, "no-bg");
+        ScrollPane scroller = new ScrollPane(characterList, uiSkin, "no-bg");
         scroller.setOverscroll(false, false);
         scroller.setScrollingDisabled(false, true);
         scroller.setFadeScrollBars(false);
@@ -82,12 +73,31 @@ public final class CharacterSelectScreen implements Screen {
         stage.addActor(main);
     }
 
+    private void addCharacters() {
+        for (final Character chr : YTSGame.CHARACTERS) {
+            if(chr.getVisibility()) {
+                CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), game.getSkin());
+                characterList.addActor(det);
+                det.addButtonListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        game.setPlayerCharacter(chr);
+                        game.goToMainScreen();
+                    }
+                });
+            }
+        }
+    }
+
     /**
      * Called when game switches to this screen.
      */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+
+        characterList.clearChildren();
+        addCharacters();
     }
 
     /**

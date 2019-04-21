@@ -30,29 +30,59 @@ import fi.tamk.yourtrueself.screens.MainScreen;
  */
 class YTSChallenges {
     /**
+     * List of challenges for Couch Potato.
+     */
+    static final Challenge[] POTATO_CHALLENGES = {
+            new Challenge("chlNonFridge", Player.Stat.STAMINA),
+            new Challenge("chlNonVacuum", Player.Stat.STAMINA),
+            new Challenge("chlNonChair", Player.Stat.AGILITY),
+            new Challenge("chlNonCrunch", Player.Stat.STRENGTH),
+            new Challenge("chlNonPushup", Player.Stat.STRENGTH),
+            new Challenge("chlNonSquat", Player.Stat.STRENGTH),
+            new Challenge("chlNonLowerLegs", Player.Stat.STRENGTH),
+            new Challenge("chlNonHands", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonNeck", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonFlap", Player.Stat.STRENGTH),
+            new Challenge("chlNonNextFloor", Player.Stat.STRENGTH),
+            new Challenge("chlNonRemote", Player.Stat.STAMINA),
+            new Challenge("chlNonShoulders", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonWrists", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonShake", Player.Stat.AGILITY),
+            new Challenge("chlNonLaugh", Player.Stat.BALANCE),
+            new Challenge("chlNonSway", Player.Stat.BALANCE),
+            new Challenge("chlNonListen", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonStand", Player.Stat.STAMINA),
+            new Challenge("chlNonFruit", Player.Stat.STAMINA),
+    };
+
+    /**
      * List of challenges in the game.
      */
     static final Challenge[] CHALLENGES = {
-            new Challenge("chlNonFridge", Player.Stat.NONE),
-            new Challenge("chlNonVacuum", Player.Stat.NONE),
-            new Challenge("chlNonChair", Player.Stat.NONE),
-            new Challenge("chlNonCrunch", Player.Stat.NONE),
-            new Challenge("chlNonPushup", Player.Stat.NONE),
-            new Challenge("chlNonSquat", Player.Stat.NONE),
-            new Challenge("chlNonLowerLegs", Player.Stat.NONE),
-            new Challenge("chlNonHands", Player.Stat.NONE),
-            new Challenge("chlNonNeck", Player.Stat.NONE),
-            new Challenge("chlNonFlap", Player.Stat.NONE),
-            new Challenge("chlNonNextFloor", Player.Stat.NONE),
-            new Challenge("chlNonRemote", Player.Stat.NONE),
-            new Challenge("chlNonShoulders", Player.Stat.NONE),
-            new Challenge("chlNonWrists", Player.Stat.NONE),
-            new Challenge("chlNonShake", Player.Stat.NONE),
-            new Challenge("chlNonLaugh", Player.Stat.NONE),
-            new Challenge("chlNonSway", Player.Stat.NONE),
-            new Challenge("chlNonListen", Player.Stat.NONE),
-            new Challenge("chlNonStand", Player.Stat.NONE),
-            new Challenge("chlNonFruit", Player.Stat.NONE),
+            // Potato challenges
+            // REMEMBER TO CHANGE THESE IF YOU CHANGE THE ONES ABOVE
+            new Challenge("chlNonFridge", Player.Stat.STAMINA),
+            new Challenge("chlNonVacuum", Player.Stat.STAMINA),
+            new Challenge("chlNonChair", Player.Stat.AGILITY),
+            new Challenge("chlNonCrunch", Player.Stat.STRENGTH),
+            new Challenge("chlNonPushup", Player.Stat.STRENGTH),
+            new Challenge("chlNonSquat", Player.Stat.STRENGTH),
+            new Challenge("chlNonLowerLegs", Player.Stat.STRENGTH),
+            new Challenge("chlNonHands", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonNeck", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonFlap", Player.Stat.STRENGTH),
+            new Challenge("chlNonNextFloor", Player.Stat.STRENGTH),
+            new Challenge("chlNonRemote", Player.Stat.STAMINA),
+            new Challenge("chlNonShoulders", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonWrists", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonShake", Player.Stat.AGILITY),
+            new Challenge("chlNonLaugh", Player.Stat.BALANCE),
+            new Challenge("chlNonSway", Player.Stat.BALANCE),
+            new Challenge("chlNonListen", Player.Stat.FLEXIBILITY),
+            new Challenge("chlNonStand", Player.Stat.STAMINA),
+            new Challenge("chlNonFruit", Player.Stat.STAMINA),
+
+            // Normal challenges
             new Challenge("chlStrPushups", Player.Stat.STRENGTH),
             new Challenge("chlStrSquats", Player.Stat.STRENGTH),
             new Challenge("chlStrBiceps", Player.Stat.STRENGTH),
@@ -153,27 +183,32 @@ class YTSChallenges {
             new Challenge("chlBalMoonwalk", Player.Stat.BALANCE),
             new Challenge("chlBalCrab", Player.Stat.BALANCE),
             new Challenge("chlBalJuggling", Player.Stat.BALANCE),
-            new Challenge("chlSecHandwalk", Player.Stat.NONE),
-            new Challenge("chlSecPullup", Player.Stat.NONE),
-            new Challenge("chlSecLiftOverhead", Player.Stat.NONE),
-            new Challenge("chlSecLizard", Player.Stat.NONE),
-            new Challenge("chlSecSomersault", Player.Stat.NONE),
-            new Challenge("chlSecDragon", Player.Stat.NONE),
-            new Challenge("chlSecPeacock", Player.Stat.NONE),
-            new Challenge("chlSecLocust", Player.Stat.NONE),
-            new Challenge("chlSecIronCross", Player.Stat.NONE),
-            new Challenge("chlSecCrunch", Player.Stat.NONE),
-            new Challenge("chlSecFlag", Player.Stat.NONE),
-            new Challenge("chlSecClap", Player.Stat.NONE),
-            new Challenge("chlSecPushup", Player.Stat.NONE),
-            new Challenge("chlSecSquat", Player.Stat.NONE),
-            new Challenge("chlSecRun", Player.Stat.NONE),
-            new Challenge("chlSecHeadstand", Player.Stat.NONE),
-            new Challenge("chlSecLunge", Player.Stat.NONE),
-            new Challenge("chlSecClimb", Player.Stat.NONE),
-            new Challenge("chlSecJuggling", Player.Stat.NONE),
-            new Challenge("chlSecExerciseBall", Player.Stat.NONE)
+    };
 
+    /**
+     * List of challenges for Nuck Chorris.
+     */
+    static final Challenge[] NUCK_CHALLENGES = {
+            new Challenge("chlSecHandwalk", Player.Stat.BALANCE),
+            new Challenge("chlSecPullup", Player.Stat.STRENGTH),
+            new Challenge("chlSecLiftOverhead", Player.Stat.STRENGTH),
+            new Challenge("chlSecLizard", Player.Stat.AGILITY),
+            new Challenge("chlSecSomersault", Player.Stat.AGILITY),
+            new Challenge("chlSecDragon", Player.Stat.STRENGTH),
+            new Challenge("chlSecPeacock", Player.Stat.STRENGTH),
+            new Challenge("chlSecLocust", Player.Stat.FLEXIBILITY),
+            new Challenge("chlSecIronCross", Player.Stat.STRENGTH),
+            new Challenge("chlSecCrunch", Player.Stat.STRENGTH),
+            new Challenge("chlSecFlag", Player.Stat.STRENGTH),
+            new Challenge("chlSecClap", Player.Stat.AGILITY),
+            new Challenge("chlSecPushup", Player.Stat.STRENGTH),
+            new Challenge("chlSecSquat", Player.Stat.STRENGTH),
+            new Challenge("chlSecRun", Player.Stat.STAMINA),
+            new Challenge("chlSecHeadstand", Player.Stat.BALANCE),
+            new Challenge("chlSecLunge", Player.Stat.STAMINA),
+            new Challenge("chlSecClimb", Player.Stat.AGILITY),
+            new Challenge("chlSecJuggling", Player.Stat.AGILITY),
+            new Challenge("chlSecExerciseBall", Player.Stat.BALANCE)
     };
 
     /**
@@ -212,12 +247,12 @@ public class YTSGame extends Game {
      */
     public static final Character[] CHARACTERS = {
             new Character("couchpotato", Player.Stat.NONE, true),
+            new Character("nuckchorris", Player.Stat.NONE, false),
             new Character("stronkman", Player.Stat.STRENGTH, true),
             new Character("enlightened", Player.Stat.FLEXIBILITY, true),
             new Character("thespider", Player.Stat.AGILITY, true),
             new Character("marathon", Player.Stat.STAMINA, true),
-            new Character("graceful", Player.Stat.BALANCE, true),
-            new Character("nuckchorris", Player.Stat.NONE, false)
+            new Character("graceful", Player.Stat.BALANCE, true)
     };
 
     /**
@@ -541,10 +576,14 @@ public class YTSGame extends Game {
         }
 
         if (!skipped) {
-            if (getPlayer().getByEnum(chl.getMainStat()) >= 99) {
+            boolean wasMax = getPlayer().getByEnum(chl.getMainStat()) >= 100;
+
+            chl.complete(getPlayer());
+
+            if (!wasMax && getPlayer().getByEnum(chl.getMainStat()) >= 100) {
                 increaseStatAchievement();
             }
-            chl.complete(getPlayer());
+
             saveStats();
             soundMap.get("completedChallenge").play(getSoundVolume());
 
@@ -680,15 +719,20 @@ public class YTSGame extends Game {
             return null;
         }
 
+        Challenge[] chlList = YTSChallenges.CHALLENGES;
+
         // Couchpotato (stat = NONE) only picks its own challenges.
-        if (chr.getMainStat() == Player.Stat.NONE) {
+        if (chr.getId().equals("couchpotato")) {
             pickOffStat = false;
+            chlList = YTSChallenges.POTATO_CHALLENGES;
+        } else if (chr.getId().equals("nuckchorris") && !pickOffStat) {
+            chlList = YTSChallenges.NUCK_CHALLENGES;
         }
 
         // If only one main stat challenge exists, force-enable off-stat challenges to avoid
         // an infinite loop.
         int mainStatChls = 0;
-        for (Challenge chl : YTSChallenges.CHALLENGES) {
+        for (Challenge chl : chlList) {
             if (chl.mainStat == chr.getMainStat()) {
                 mainStatChls += 1;
             }
@@ -699,13 +743,13 @@ public class YTSGame extends Game {
 
         // Avoid getting the exact same challenge as last
         do {
-            idx = MathUtils.random(0, YTSChallenges.CHALLENGES.length - 1);
-            isOffStat = YTSChallenges.CHALLENGES[idx].mainStat != chr.getMainStat();
+            idx = MathUtils.random(0, chlList.length - 1);
+            isOffStat = chlList[idx].mainStat != chr.getMainStat();
         } while ((isOffStat && !pickOffStat) ||
                 (previousChallenge != null &&
-                        YTSChallenges.CHALLENGES[idx].getId().equals(previousChallenge.getId())));
+                        chlList[idx].getId().equals(previousChallenge.getId())));
 
-        return YTSChallenges.CHALLENGES[idx];
+        return chlList[idx];
     }
 
     /**
