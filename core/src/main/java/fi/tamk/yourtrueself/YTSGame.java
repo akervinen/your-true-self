@@ -297,7 +297,7 @@ public class YTSGame extends Game {
     /**
      * Player's information and stats.
      */
-    private final Player player = new Player();
+    private final Player player = new Player(achievementManager);
 
     /**
      * Last completed challenge, used to avoid generating the same challenge twice in a row.
@@ -489,7 +489,7 @@ public class YTSGame extends Game {
      *
      * @param chr ID of the character to change to
      */
-    public void setPlayerCharacter(String chr) {
+    private void setPlayerCharacter(String chr) {
         for (Character c : CHARACTERS) {
             if (chr.equals(c.getId())) {
                 setPlayerCharacter(c);
@@ -576,27 +576,17 @@ public class YTSGame extends Game {
         }
 
         if (!skipped) {
-            boolean wasMax = getPlayer().getByEnum(chl.getMainStat()) >= 100;
-
             chl.complete(getPlayer());
-
-            if (!wasMax && getPlayer().getByEnum(chl.getMainStat()) >= 100) {
-                increaseStatAchievement();
-            }
 
             saveStats();
             soundMap.get("completedChallenge").play(getSoundVolume());
+
+            checkNuckProgress();
 
             if (challengeCompletedListener != null) {
                 challengeCompletedListener.challengeCompleted(chl);
             }
         }
-    }
-
-    private void increaseStatAchievement() {
-        achievementManager.increaseProgress("ach.Stat", 1);
-
-        checkNuckProgress();
     }
 
     private void checkNuckProgress() {

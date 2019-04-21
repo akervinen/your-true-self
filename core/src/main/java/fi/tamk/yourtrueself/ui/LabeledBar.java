@@ -1,6 +1,5 @@
 package fi.tamk.yourtrueself.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -42,8 +41,6 @@ public class LabeledBar extends Stack {
     private void updateLabel() {
         DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.FLOOR);
-
-        Gdx.app.log("YTS", "" + progressBar.getValue());
 
         progressLabel.setText(df.format(progressBar.getValue()) + "/" + df.format(progressBar.getMaxValue()));
     }

@@ -34,6 +34,11 @@ public final class Player {
     private Character currentCharacter = null;
 
     /**
+     * Game's achievement manager.
+     */
+    private AchievementManager achievementManager;
+
+    /**
      * Player's strength stat.
      */
     private float strength;
@@ -61,7 +66,8 @@ public final class Player {
     /**
      * Create a new player with all default values (no character and all stats 0).
      */
-    Player() {
+    Player(AchievementManager achievementManager) {
+        this.achievementManager = achievementManager;
     }
 
     /**
@@ -71,6 +77,10 @@ public final class Player {
      * @param value value to increase stat by
      */
     void train(Stat stat, float value) {
+        if (getByEnum(stat) < 100 && (getByEnum(stat) + value) >= 100) {
+            achievementManager.increaseProgress("ach.Stat", 1);
+        }
+
         setByEnum(stat, getByEnum(stat) + value);
     }
 

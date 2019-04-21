@@ -57,7 +57,7 @@ public final class CharacterSelectScreen implements Screen {
         help.setWrap(true);
 
         main.add(help).height(Value.percentHeight(.1f, main)).row();
-//
+
         characterList = new HorizontalGroup();
         characterList.space(dp(10));
 
