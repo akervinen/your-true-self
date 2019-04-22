@@ -1135,6 +1135,12 @@ public class YTSGame extends Game {
         }
     }
 
+    /**
+     * Called when application is resized, and once on launch.
+     *
+     * @param width  new width of the window
+     * @param height new height of the window
+     */
     @Override
     public void resize(int width, int height) {
         getUiViewport().update(width, height, true);

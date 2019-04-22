@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
- * Custom Skin loader that creates a YTSSkin.
+ * Custom Skin loader that creates a {@link YTSSkin}.
  */
 public class YTSSkinLoader extends SkinLoader {
     /**

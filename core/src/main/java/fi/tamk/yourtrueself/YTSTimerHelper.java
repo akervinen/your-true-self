@@ -5,7 +5,7 @@ package fi.tamk.yourtrueself;
  */
 public interface YTSTimerHelper {
     /**
-     * Start timer that triggers at specified real-time in milliseconds from System.currentTimeMillis.
+     * Start timer that triggers at specified real-time in milliseconds from {@link System#currentTimeMillis()}.
      *
      * @param time time to trigger
      */

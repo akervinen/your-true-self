@@ -50,7 +50,7 @@ public class Achievement {
     }
 
     /**
-     * Get maximum progress of the achievement. If current >= max, achievement is considered done.
+     * Get maximum progress of the achievement. If current &gt;= max, achievement is considered done.
      *
      * @return maximum progress
      */
@@ -59,7 +59,7 @@ public class Achievement {
     }
 
     /**
-     * Get current progress of the achievement. If current >= max, achievement is considered done.
+     * Get current progress of the achievement. If current &gt;= max, achievement is considered done.
      *
      * @return maximum progress
      */
@@ -68,7 +68,7 @@ public class Achievement {
     }
 
     /**
-     * Whether achievement is completed (current >= max).
+     * Whether achievement is completed (current &gt;= max).
      *
      * @return true if achievement is completed
      */
@@ -77,7 +77,7 @@ public class Achievement {
     }
 
     /**
-     * Set current progress of the achievement. If current >= max, achievement is considered done.
+     * Set current progress of the achievement. If current &gt;= max, achievement is considered done.
      *
      * @param current new progress value, will be capped to maximum progress
      */

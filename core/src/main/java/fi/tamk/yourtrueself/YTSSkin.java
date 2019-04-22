@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.SerializationException;
 
 /**
  * Custom Skin class that adds support for .ttf fonts.
- * Uses FreeTypeFontGenerator to generate bitmap fonts.
+ * Uses {@link FreeTypeFontGenerator} to generate bitmap fonts.
  */
 public class YTSSkin extends Skin {
     /**
