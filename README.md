@@ -1,8 +1,8 @@
 # Your True Self
 
-A [LibGDX](http://libgdx.badlogicgames.com/) project generated with [gdx-setup](https://github.com/czyzby/gdx-setup).
+[Now available on Google Play!](https://play.google.com/store/apps/details?id=fi.tamk.yourtrueself)
 
-Project template includes simple launchers and a `Game` extension that sets the first screen.
+A [LibGDX](http://libgdx.badlogicgames.com/) project generated with [gdx-setup](https://github.com/czyzby/gdx-setup).
 
 ## Documentation
 
