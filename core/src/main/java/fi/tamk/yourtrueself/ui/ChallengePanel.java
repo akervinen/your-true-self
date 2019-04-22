@@ -49,7 +49,6 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
-//        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -69,7 +68,6 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to skip challenge
         TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "bad");
-//        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
         skipButton.addListener(new ChangeListener() {
@@ -86,7 +84,6 @@ public final class ChallengePanel extends YTSWindow {
                 addAction(new SequenceAction(Actions.fadeOut(.25f), completeAction));
             }
         });
-
     }
 
     /**
@@ -120,7 +117,6 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to complete challenge
         TextButton doneButton = new TextButton(game.getBundle().get("done"), skin, "good");
-//        doneButton.pad(dp(15));
         this.add(doneButton).growY();
 
         doneButton.addListener(new ChangeListener() {
@@ -140,7 +136,6 @@ public final class ChallengePanel extends YTSWindow {
 
         // Button to skip challenge
         TextButton skipButton = new TextButton(game.getBundle().get("skip"), skin, "bad");
-//        skipButton.pad(dp(15));
         this.add(skipButton).growY();
 
         skipButton.addListener(new ChangeListener() {

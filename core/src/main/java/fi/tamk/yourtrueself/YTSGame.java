@@ -261,7 +261,8 @@ public class YTSGame extends Game {
     public static final Achievement[] ACHIEVEMENTS = {
             new TieredAchievement("ach.Challenge", 100, new int[]{1, 5, 15, 25, 50, 100}),
             new TieredAchievement("ach.Daily", 10, new int[]{1, 3, 6, 10}),
-            new TieredAchievement("ach.Stat", 5, new int[]{1, 2, 3, 4, 5})
+            new TieredAchievement("ach.Stat", 5, new int[]{1, 2, 3, 4, 5}),
+            new Achievement("ach.NoSkip", 10)
     };
 
     /**
@@ -623,6 +624,15 @@ public class YTSGame extends Game {
             }
         }
 
+        Achievement noSkip = achievementManager.getAchievement("ach.NoSkip");
+        if (!noSkip.isCompleted()) {
+            if (skipped) {
+                noSkip.setCurrent(0);
+            } else {
+                achievementManager.increaseProgress("ach.NoSkip", 1);
+            }
+        }
+
         if (!skipped) {
             chl.complete(getPlayer());
 
@@ -945,8 +955,8 @@ public class YTSGame extends Game {
 
         if (currentDaily == null) {
             if (System.currentTimeMillis() >= nextDailyTime) {
-                setCurrentDaily(getNextDaily());
                 setNextDailyTime(0);
+                setCurrentDaily(getNextDaily());
                 soundMap.get("notification").play(getSoundVolume());
                 changed = true;
             }

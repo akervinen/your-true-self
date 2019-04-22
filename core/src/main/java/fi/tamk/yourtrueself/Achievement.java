@@ -68,6 +68,15 @@ public class Achievement {
     }
 
     /**
+     * Whether achievement is completed (current >= max).
+     *
+     * @return true if achievement is completed
+     */
+    public boolean isCompleted() {
+        return current >= max;
+    }
+
+    /**
      * Set current progress of the achievement. If current >= max, achievement is considered done.
      *
      * @param current new progress value, will be capped to maximum progress

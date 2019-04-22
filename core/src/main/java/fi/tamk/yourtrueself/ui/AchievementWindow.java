@@ -106,6 +106,7 @@ class AchievementPanel extends Table {
 
         titleLabel = new Label("", skin, "minititle");
         descLabel = new Label("", skin);
+        descLabel.setWrap(true);
         bar = new LabeledBar(0, achievement.getMax(), 1, false, skin);
 
         add(titleLabel).left().row();
