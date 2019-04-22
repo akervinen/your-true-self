@@ -23,9 +23,9 @@ public class DesktopLauncher {
         configuration.title = "Your True Self";
         configuration.width = 360;
         configuration.height = 640;
-        for (int size : new int[]{128, 64, 32, 16}) {
+        /**for (int size : new int[]{128, 64, 32, 16}) {
             configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
-        }
+        }**/
         return configuration;
     }
 }
