@@ -23,7 +23,7 @@ configure(subprojects - project(':android')) {
 }
 
 subprojects {
-    version = '0.2.1'
+    version = '0.3.0'
     ext.appName = 'your-true-self'
     repositories {
         mavenLocal()
