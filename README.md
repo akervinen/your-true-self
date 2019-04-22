@@ -4,6 +4,10 @@ A [LibGDX](http://libgdx.badlogicgames.com/) project generated with [gdx-setup](
 
 Project template includes simple launchers and a `Game` extension that sets the first screen.
 
+## Documentation
+
+Documentation is available on [the project's GitHub Pages](https://akervinen.github.io/your-true-self/index.html).
+
 ## The important bits
 
 - `gradlew desktop:run`: runs the game
@@ -34,4 +38,6 @@ For example, `core:clean` removes `build` folder only from the `core` project.
 
 ## Attributions
 
-- Orange Peel skin: [Orange Peel UI Skin](https://github.com/raeleus/Ray3K-Skins/tree/master/Orange_Peel_UI_Skin) by [Raymond "Raeleus" Buckley](https://ray3k.wordpress.com/) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Roboto-Regular.ttf: Copyright 2011 Google Inc. All Rights Reserved.
+- Roboto-Medium.ttf: Copyright 2011 Google Inc. All Rights Reserved.
+- Roboto-Bold.ttf: Copyright 2011 Google Inc. All Rights Reserved.
