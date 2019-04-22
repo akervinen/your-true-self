@@ -274,14 +274,44 @@ public class YTSGame extends Game {
      */
     private static final String SKIN_PATH = "ui/skin.json";
 
+    /**
+     * Asset manager. Reused for the whole game.
+     */
     private final AssetManager assetManager = new AssetManager();
+
+    /**
+     * Internationalization bundle.
+     */
     private I18NBundle bundle;
+
+    /**
+     * Viewport object for the whole game. Gets passed to Screens and used everywhere.
+     */
     private Viewport uiViewport;
+
+    /**
+     * Skin for the whole game, used everywhere. Character assets and I18NBundle are also added in.
+     */
     private Skin uiSkin;
+
+    /**
+     * Main screen of the game.
+     */
     private MainScreen mainScreen;
+
+    /**
+     * Character selection screen.
+     */
     private CharacterSelectScreen selectScreen;
+
+    /**
+     * Preferences object. Used to store settings and player data.
+     */
     private Preferences prefs;
 
+    /**
+     * Helper class for platform-specific background timer functions.
+     */
     private YTSTimerHelper alarmHelper;
 
     /**
@@ -333,8 +363,20 @@ public class YTSGame extends Game {
      * Callback used after a challenge is completed.
      */
     private ChallengeCompletedListener challengeCompletedListener;
+
+    /**
+     * Background music.
+     */
     private Music mainTheme;
+
+    /**
+     * List of sound effects and their names.
+     */
     private Map<String, Sound> soundMap = new HashMap<String, Sound>();
+
+    /**
+     * Volume of sound effects.
+     */
     private float soundVolume = DefaultPreferences.PREF_SOUND_DEFAULT;
 
     /**
@@ -595,6 +637,9 @@ public class YTSGame extends Game {
         }
     }
 
+    /**
+     * Check and unlock the secret character if player has the required achievement.
+     */
     private void checkNuckProgress() {
         if (achievementManager.getProgress("ach.Stat") >= 2) {
             for (Character c : CHARACTERS) {
@@ -989,6 +1034,10 @@ public class YTSGame extends Game {
         return px * Gdx.graphics.getDensity();
     }
 
+    /**
+     * Fills String-Sound map with sounds and their IDs. Also sets internal sound volume from
+     * preferences.
+     */
     private void createSounds() {
         soundMap.put("couchpotato", assetManager.get("sounds/SelectedCouchpotato.ogg", Sound.class));
         soundMap.put("enlightened", assetManager.get("sounds/SelectedEnlightened.ogg", Sound.class));
@@ -1006,6 +1055,11 @@ public class YTSGame extends Game {
         setSoundVolume(prefs.getFloat(DefaultPreferences.PREF_SOUND, DefaultPreferences.PREF_SOUND_DEFAULT));
     }
 
+    /**
+     * Play a sound by its internal ID at player's chosen volume.
+     *
+     * @param soundName internal ID of the sound to play
+     */
     public void playSound(String soundName) {
         Sound soundEffect = soundMap.get(soundName);
         if (soundEffect != null) {
@@ -1016,7 +1070,8 @@ public class YTSGame extends Game {
     }
 
     /**
-     * Initialize game.
+     * Initialize game: load preferences, languages, assets, player data, then create screens
+     * and switch to either main screen or character selection.
      */
     @Override
     public void create() {
@@ -1077,6 +1132,12 @@ public class YTSGame extends Game {
         super.resize(width, height);
     }
 
+    /**
+     * Called when going out of focus or switching out of the app on Android.
+     * Saves player data and achievement progress.
+     *
+     * @see Game#pause()
+     */
     @Override
     public void pause() {
         super.pause();
@@ -1088,6 +1149,8 @@ public class YTSGame extends Game {
     /**
      * Called when coming back to focus or switching back to the app on Android.
      * Refreshes game challenges.
+     *
+     * @see Game#resume()
      */
     @Override
     public void resume() {
@@ -1098,6 +1161,8 @@ public class YTSGame extends Game {
 
     /**
      * Dispose game assets.
+     *
+     * @see Game#dispose()
      */
     @Override
     public void dispose() {

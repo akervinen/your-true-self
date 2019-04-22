@@ -3,8 +3,7 @@ package fi.tamk.yourtrueself.ui;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import fi.tamk.yourtrueself.YTSGame;
+import com.badlogic.gdx.utils.I18NBundle;
 
 /**
  * Simple scrollable text window with game credits.
@@ -14,16 +13,15 @@ public class CreditsDisplay extends YTSWindow {
     /**
      * Create the credits window with given skin.
      *
-     * @param game game instance, used to get i18n bundle
      * @param skin skin to use
      */
-    public CreditsDisplay(YTSGame game, Skin skin) {
-        super(game.getBundle().get("credits"), true, skin, "default");
+    public CreditsDisplay(Skin skin) {
+        super(skin.get("i18n-bundle", I18NBundle.class).get("credits"), true, skin, "default");
 
         this.defaults().grow();
         this.setModal(true);
 
-        Label creditsText = new Label(game.getBundle().get("creditsText"), skin);
+        Label creditsText = new Label(skin.get("i18n-bundle", I18NBundle.class).get("creditsText"), skin);
         creditsText.setWrap(true);
 
         ScrollPane scroller = new ScrollPane(creditsText, skin, "no-bg");

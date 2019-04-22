@@ -78,9 +78,12 @@ public final class CharacterSelectScreen implements Screen {
         stage.addActor(main);
     }
 
+    /**
+     * Add all visible characters to {@link #characterList}.
+     */
     private void addCharacters() {
         for (final Character chr : YTSGame.CHARACTERS) {
-            if(chr.getVisibility()) {
+            if (chr.getVisibility()) {
                 CharacterSelectPanel det = new CharacterSelectPanel(chr.getId(), game.getSkin());
                 characterList.addActor(det);
                 det.addButtonListener(new ChangeListener() {
@@ -95,7 +98,10 @@ public final class CharacterSelectScreen implements Screen {
     }
 
     /**
-     * Called when game switches to this screen.
+     * Called when game switches to this screen. Refreshes character list in case player has
+     * unlocked a new character and sets input processor to its own stage.
+     *
+     * @see Screen#show()
      */
     @Override
     public void show() {
@@ -106,7 +112,9 @@ public final class CharacterSelectScreen implements Screen {
     }
 
     /**
-     * Called when the game switches away from this screen.
+     * Called when the game switches away from this screen. Resets input processor.
+     *
+     * @see Screen#hide()
      */
     @Override
     public void hide() {
@@ -114,9 +122,10 @@ public final class CharacterSelectScreen implements Screen {
     }
 
     /**
-     * Render screen.
+     * Clears screen with background color, acts and draws its stage.
      *
-     * @param delta time passed since last render call in seconds
+     * @param delta {@inheritDoc}
+     * @see Screen#render(float)
      */
     @Override
     public void render(float delta) {
@@ -128,24 +137,21 @@ public final class CharacterSelectScreen implements Screen {
     }
 
     /**
-     * Called when game window is resized.
-     *
-     * @param width  new width
-     * @param height new height
+     * {@inheritDoc}
      */
     @Override
     public void resize(int width, int height) {
     }
 
     /**
-     * Called when game is paused (out of focus, or put to background on Android)
+     * {@inheritDoc}
      */
     @Override
     public void pause() {
     }
 
     /**
-     * Called when game is resumed from pause.
+     * {@inheritDoc}
      */
     @Override
     public void resume() {
@@ -153,6 +159,8 @@ public final class CharacterSelectScreen implements Screen {
 
     /**
      * Dispose the screen's resources.
+     *
+     * @see Screen#dispose()
      */
     @Override
     public void dispose() {

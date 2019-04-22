@@ -110,7 +110,7 @@ public class PrefsDisplay extends YTSWindow {
 
         this.setModal(true);
 
-        credits = new CreditsDisplay(game, skin);
+        credits = new CreditsDisplay(skin);
 
         defaults().grow().minWidth(Value.percentWidth(.45f, this));
 

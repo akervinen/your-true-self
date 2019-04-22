@@ -11,11 +11,19 @@ import com.badlogic.gdx.utils.I18NBundle;
 import fi.tamk.yourtrueself.Achievement;
 import fi.tamk.yourtrueself.YTSGame;
 
+/**
+ * Modal window that lists all achievements in a scrollable panel.
+ */
 public class AchievementWindow extends YTSWindow {
     private VerticalGroup achievementList;
 
-    public AchievementWindow(YTSGame ytsGame, Skin skin) {
-        super(ytsGame.getBundle().get("achievements"), true, skin, "default");
+    /**
+     * Create a new achievement window.
+     *
+     * @param skin skin to use
+     */
+    public AchievementWindow(Skin skin) {
+        super(skin.get("i18n-bundle", I18NBundle.class).get("achievements"), true, skin, "default");
 
         setModal(true);
 
@@ -36,6 +44,9 @@ public class AchievementWindow extends YTSWindow {
         pack();
     }
 
+    /**
+     * Update all achievement to their current states.
+     */
     public void update() {
         for (Actor act : achievementList.getChildren()) {
             if (act instanceof AchievementPanel) {
@@ -66,6 +77,9 @@ public class AchievementWindow extends YTSWindow {
     }
 }
 
+/**
+ * Display panel for a single achievement.
+ */
 class AchievementPanel extends Table {
     private Achievement achievement;
 
@@ -73,6 +87,12 @@ class AchievementPanel extends Table {
     private Label descLabel;
     private LabeledBar bar;
 
+    /**
+     * Create a new achievement panel for the given achievement.
+     *
+     * @param achievement achievement to display
+     * @param skin        skin to use
+     */
     public AchievementPanel(Achievement achievement, Skin skin) {
         super(skin);
 
@@ -95,6 +115,9 @@ class AchievementPanel extends Table {
         update();
     }
 
+    /**
+     * Update panel to match the achievement's current state.
+     */
     public void update() {
         I18NBundle bundle = getSkin().get("i18n-bundle", I18NBundle.class);
 

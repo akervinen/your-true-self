@@ -22,9 +22,9 @@ public class DailyChallenge extends Challenge {
     /**
      * Create a new daily challenge with given ID and stat. ID must exist in I18N bundle.
      *
-     * @param id ID of the challenge
-     * @param mainStat which stat the challenge increases
-     * @param modifier stat's numeric modifier
+     * @param id                  ID of the challenge
+     * @param mainStat            which stat the challenge increases
+     * @param modifier            stat's numeric modifier
      * @param canBeCompletedEarly whether the challenge can be completed any time of the day
      */
     public DailyChallenge(String id, Player.Stat mainStat, int modifier, boolean canBeCompletedEarly) {

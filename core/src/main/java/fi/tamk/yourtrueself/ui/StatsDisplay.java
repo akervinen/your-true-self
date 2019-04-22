@@ -16,7 +16,8 @@ import fi.tamk.yourtrueself.Player;
 import static fi.tamk.yourtrueself.YTSGame.dp;
 
 /**
- * Progress bar for a stat. Modifies normal ProgressBar by setting different width.
+ * Progress bar for a stat.
+ * Modifies normal LabeledBar by setting a different width and storing what player and stat it's tracking.
  */
 final class StatBar extends LabeledBar {
     private final Player player;
@@ -78,7 +79,6 @@ public final class StatsDisplay extends Table {
 
     /**
      * Create a stats panel with a bar for each stat.
-     * d
      *
      * @param player     player object
      * @param background whether to have a background

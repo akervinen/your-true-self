@@ -7,7 +7,17 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 import fi.tamk.yourtrueself.Achievement;
 
+/**
+ * Achievement popup window. Congratulates player and shows the name of the completed
+ * achievement.
+ */
 public class AchievementPopup extends YTSWindow {
+    /**
+     * Create a new achievement popup for the given achievement.
+     *
+     * @param achievement achievement that was completed
+     * @param skin        skin to use
+     */
     public AchievementPopup(Achievement achievement, Skin skin) {
         super("", false, skin, "default");
 

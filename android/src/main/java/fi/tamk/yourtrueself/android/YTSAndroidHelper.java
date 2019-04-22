@@ -16,6 +16,11 @@ import fi.tamk.yourtrueself.YTSTimerHelper;
 public final class YTSAndroidHelper implements YTSTimerHelper {
     private AndroidApplication app;
 
+    /**
+     * Create an instance of timer helper class for Android.
+     *
+     * @param app instance of AndroidApplication provided by libGDX's AndroidLauncher
+     */
     YTSAndroidHelper(AndroidApplication app) {
         this.app = app;
     }

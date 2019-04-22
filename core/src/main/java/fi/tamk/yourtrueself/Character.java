@@ -23,6 +23,7 @@ public class Character {
      *
      * @param id       internal ID of the character
      * @param mainStat main stat of the character
+     * @param visible  whether character should be visible in character list
      */
     Character(String id, Player.Stat mainStat, boolean visible) {
         this.id = id;
@@ -48,10 +49,20 @@ public class Character {
         return id;
     }
 
+    /**
+     * Get visibility status of the character.
+     *
+     * @return whether character is visible
+     */
     public boolean getVisibility() {
         return visible;
     }
 
+    /**
+     * Set visibility status of the character.
+     *
+     * @param visible whether character should be visible
+     */
     public void setVisibility(boolean visible) {
         this.visible = visible;
     }

@@ -35,7 +35,7 @@ import static fi.tamk.yourtrueself.YTSGame.dp;
 /**
  * Main screen of the game. Player spends almost all of their time here.
  */
-public class MainScreen implements Screen {
+public class MainScreen implements Screen, AchievementListener {
     private final YTSGame game;
     private final Stage stage;
     private Skin uiSkin;
@@ -79,7 +79,7 @@ public class MainScreen implements Screen {
         prefsDisplay = new PrefsDisplay(game.getPrefs(), uiSkin, game);
         currentChallengeTimer = new ChallengeTimerPanel(false, game, uiSkin);
         currentDailyTimer = new ChallengeTimerPanel(true, game, uiSkin);
-        achievementWindow = new AchievementWindow(game, uiSkin);
+        achievementWindow = new AchievementWindow(uiSkin);
 
         TextButton prefsBtn = new TextButton(game.getBundle().get("prefs"), uiSkin, "misc");
         prefsBtn.addListener(new ChangeListener() {
@@ -147,12 +147,7 @@ public class MainScreen implements Screen {
             }
         });
 
-        game.getAchievementManager().setListener(new AchievementListener() {
-            @Override
-            public void achievementDone(Achievement achievement) {
-                achievementCompleted(achievement);
-            }
-        });
+        game.getAchievementManager().setListener(this);
 
         statsDisplay = new StatsDisplay(game.getPlayer(), true, uiSkin);
 
@@ -178,7 +173,7 @@ public class MainScreen implements Screen {
     }
 
     /**
-     * Open preferences window.
+     * Open achievement window.
      */
     private void achievements() {
         achievementWindow.setPosition(stage.getWidth() / 2, stage.getHeight() / 2, Align.center);
@@ -186,7 +181,14 @@ public class MainScreen implements Screen {
         stage.addActor(achievementWindow);
     }
 
-    private void achievementCompleted(Achievement achievement) {
+    /**
+     * Create an achievement popup when an achievement is completed.
+     *
+     * @param achievement achievement that was completed
+     * @see AchievementListener#achievementDone(Achievement)
+     */
+    @Override
+    public void achievementDone(Achievement achievement) {
         AchievementPopup popup = new AchievementPopup(achievement, uiSkin);
 
         popup.getColor().a = 0;
@@ -238,7 +240,7 @@ public class MainScreen implements Screen {
     }
 
     /**
-     * Render screen.
+     * Render screen, check for challenge updates and refresh challenge list if necessary.
      *
      * @param delta time passed since last render call in seconds
      */

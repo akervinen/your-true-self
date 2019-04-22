@@ -65,6 +65,8 @@ public final class Player {
 
     /**
      * Create a new player with all default values (no character and all stats 0).
+     *
+     * @param achievementManager achievement manager object for easier access from player's methods
      */
     Player(AchievementManager achievementManager) {
         this.achievementManager = achievementManager;
@@ -157,6 +159,30 @@ public final class Player {
      * Enum representing all the stats and "none" for no stat.
      */
     public enum Stat {
-        NONE, STRENGTH, FLEXIBILITY, AGILITY, STAMINA, BALANCE
+        /**
+         * No specific stat. Used by daily challenges, as they increase all of the player's stats.
+         * Also the main stat of Potato and Nuck, since they're not tied to any specific stats.
+         */
+        NONE,
+        /**
+         * Strength stat.
+         */
+        STRENGTH,
+        /**
+         * Flexibility stat.
+         */
+        FLEXIBILITY,
+        /**
+         * Agility stat.
+         */
+        AGILITY,
+        /**
+         * Stamina stat.
+         */
+        STAMINA,
+        /**
+         * Balance stat.
+         */
+        BALANCE
     }
 }

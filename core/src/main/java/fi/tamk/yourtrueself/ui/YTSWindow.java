@@ -15,7 +15,8 @@ import com.badlogic.gdx.utils.I18NBundle;
 import fi.tamk.yourtrueself.YTSGame;
 
 /**
- * Custom Window class that has a Back button in the title bar.
+ * Custom Window class that has a Back button in the title bar and if modal, closes by tapping
+ * outside the window.
  */
 public class YTSWindow extends Window {
     private TextButton backBtn;

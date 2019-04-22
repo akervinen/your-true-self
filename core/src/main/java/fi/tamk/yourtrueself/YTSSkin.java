@@ -29,10 +29,12 @@ public class YTSSkin extends Skin {
     /**
      * Overrides BitmapFont loader with a custom one that adds support for .ttf fonts.
      * <p>
-     * Copied from libgdx implementation and added .ttf support.
+     * Copied from libgdx implementation and added .ttf support with a "dpSize" parameter for
+     * display independent pixel size.
      *
      * @param skinFile skin file handle to load
      * @return json file to load
+     * @see Skin#getJsonLoader(FileHandle)
      */
     @Override
     protected Json getJsonLoader(final FileHandle skinFile) {

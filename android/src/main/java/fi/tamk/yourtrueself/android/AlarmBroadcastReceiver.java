@@ -25,9 +25,21 @@ import fi.tamk.yourtrueself.YTSGame;
  * Class to receive Android's Alarm. Creates a notification with game's language.
  */
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
+    /**
+     * Called when Alarm triggers, reads preferences for chosen language and creates a notification
+     * if they are enabled.
+     *
+     * @param context {@inheritDoc}
+     * @param intent  {@inheritDoc}
+     * @see BroadcastReceiver#onReceive(Context, Intent)
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, AndroidLauncher.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                context,
+                0,
+                new Intent(context, AndroidLauncher.class),
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Load preferences manually, since Gdx.app isn't set
         Preferences pref = new AndroidPreferences(context.getSharedPreferences(DefaultPreferences.PREF_NAME, Context.MODE_PRIVATE));
