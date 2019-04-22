@@ -37,6 +37,10 @@ android {
         targetSdkVersion 27
         setProperty("archivesBaseName", "Your True Self v$version")
     }
+    buildTypes {
+        internal {
+        }
+    }
 }
 
 configurations { natives }
